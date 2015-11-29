@@ -62,6 +62,15 @@ class ZeeguuAPITests: XCTestCase {
 		l.wait()
 		l.unlock()
 		
+		//		print("Testing set native language:")
+		//		l.lock()
+		//		ZeeguuAPI.sharedAPI().setNativeLanguage("de") { (success) -> Void in
+		//			print("success: ", success)
+		//			l.signal()
+		//		}
+		//		l.wait()
+		//		l.unlock()
+		
 		print("Testing learned and native language:")
 		l.lock()
 		ZeeguuAPI.sharedAPI().learnedAndNativeLanguage { (dict) -> Void in
