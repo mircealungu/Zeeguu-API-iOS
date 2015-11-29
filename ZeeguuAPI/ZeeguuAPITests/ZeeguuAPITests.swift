@@ -42,6 +42,14 @@ class ZeeguuAPITests: XCTestCase {
 		l.wait()
 		l.unlock()
 		
+		l.lock()
+		ZeeguuAPI.sharedAPI().setLearnedLanguage("de") { (success) -> Void in
+			print("success: ", success)
+			l.signal()
+		}
+		l.wait()
+		l.unlock()
+		
     }
     
     func testPerformanceExample() {

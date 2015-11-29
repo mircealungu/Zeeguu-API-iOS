@@ -85,4 +85,19 @@ public class ZeeguuAPI {
 			}
 		}
 	}
+	
+	/// Sets the language code of the learned langugage of the logged in user
+	public func setLearnedLanguage(newLanguageCode: String, completion: (success: Bool) -> Void) {
+		if (!self.checkIfLoggedIn()) {
+			return completion(success: false)
+		}
+		let request = self.zeeguuAPIRequestWithEndPoint(ZeeguuAPIEndpoint.LearnedLanguage, pathComponents: [newLanguageCode], method: HTTPMethod.POST, parameters: nil)
+		self.sendAsynchronousRequest(request) { (response, error) -> Void in
+			if (response != nil && response! == "OK") {
+				completion(success: true)
+			} else {
+				completion(success: false)
+			}
+		}
+	}
 }
