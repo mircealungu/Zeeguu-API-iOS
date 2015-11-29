@@ -80,13 +80,22 @@ class ZeeguuAPITests: XCTestCase {
 		l.wait()
 		l.unlock()
 		
+		print("Testing available languages:")
+		l.lock()
+		ZeeguuAPI.sharedAPI().availableLanguages { (array) -> Void in
+			print("array: ", array)
+			l.signal()
+		}
+		l.wait()
+		l.unlock()
+		
     }
     
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measureBlock {
-            // Put the code you want to measure the time of here.
-        }
-    }
-    
+//    func testPerformanceExample() {
+//        // This is an example of a performance test case.
+//        self.measureBlock {
+//            // Put the code you want to measure the time of here.
+//        }
+//    }
+	
 }
