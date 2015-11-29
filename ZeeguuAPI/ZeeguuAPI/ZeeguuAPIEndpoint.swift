@@ -8,7 +8,7 @@
 
 import UIKit
 
-enum ZeeguuAPIEndpoints: String {
+enum ZeeguuAPIEndpoint: String {
 	case AddNewTranslationToBookmark = "add_new_translation_to_bookmark"
 	case AddUser = "add_user"
 	case AvailableLanguages = "available_languages"
