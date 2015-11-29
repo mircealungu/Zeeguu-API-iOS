@@ -138,6 +138,16 @@ class ZeeguuAPITests: XCTestCase {
 //		l.wait()
 //		l.unlock()
 		
+//		print("Testing deleting bookmark:")
+//		l.lock()
+//		
+//		ZeeguuAPI.sharedAPI().deleteBookmarkWithID("2457") { (success) -> Void in
+//			print("success: ", success)
+//			l.signal()
+//		}
+//		l.wait()
+//		l.unlock()
+
     }
 	
 //    func testPerformanceExample() {

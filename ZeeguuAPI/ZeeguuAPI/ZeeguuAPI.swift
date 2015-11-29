@@ -255,12 +255,9 @@ public class ZeeguuAPI {
 							completion(translation: nil)
 						}
 					}
-				} else {
-					completion(translation: nil)
 				}
-			} else {
-				completion(translation: nil)
 			}
+			completion(translation: nil)
 		}
 	}
 	
@@ -271,7 +268,7 @@ public class ZeeguuAPI {
 	/// - parameter context: The context in which the word appeared.
 	/// - parameter url: The url of the article in which the word was found.
 	/// - parameter title: The title of the article in which the word was found.
-	/// - parameter completion: A block that will receive a string containing the translation of `word`.
+	/// - parameter completion: A block that will receive a string containing the id of the newly made bookmark.
 	public func bookmarkWord(word: String, translation: String, context: String, url: String, title: String?, completion: (bookmarkID: String?) -> Void) {
 		if (!self.checkIfLoggedIn()) {
 			return completion(bookmarkID: nil)
@@ -292,11 +289,27 @@ public class ZeeguuAPI {
 							completion(bookmarkID: nil)
 						}
 					}
-				} else {
-					completion(bookmarkID: nil)
 				}
+			}
+			completion(bookmarkID: nil)
+		}
+	}
+	
+	/// Deletes the bookmark with the given ID.
+	///
+	/// - parameter bookmarkID: The ID of the bookmark to delete.
+	/// - parameter completion: A block that will receive a boolean indicating if the bookmark could be deleted or not.
+	public func deleteBookmarkWithID(bookmarkID: String, completion: (success: Bool) -> Void) {
+		if (!self.checkIfLoggedIn()) {
+			return completion(success: false)
+		}
+		
+		let request = self.zeeguuAPIRequestWithEndPoint(ZeeguuAPIEndpoint.DeleteBookmark, pathComponents: [bookmarkID], method: HTTPMethod.POST, parameters: nil)
+		self.sendAsynchronousRequest(request) { (response, error) -> Void in
+			if (response != nil && response == "OK") {
+				completion(success: true)
 			} else {
-				completion(bookmarkID: nil)
+				completion(success: false)
 			}
 		}
 	}
