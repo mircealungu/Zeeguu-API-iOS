@@ -98,6 +98,24 @@ class ZeeguuAPITests: XCTestCase {
 		l.wait()
 		l.unlock()
 		
+		print("Testing bookmarks by day without context:")
+		l.lock()
+		ZeeguuAPI.sharedAPI().bookmarksByDayWithContext(false) { (dict) -> Void in
+			print("dict: ", dict)
+			l.signal()
+		}
+		l.wait()
+		l.unlock()
+		
+		print("Testing bookmarks by day with context:")
+		l.lock()
+		ZeeguuAPI.sharedAPI().bookmarksByDayWithContext(true) { (dict) -> Void in
+			print("dict: ", dict)
+			l.signal()
+		}
+		l.wait()
+		l.unlock()
+		
     }
     
 //    func testPerformanceExample() {

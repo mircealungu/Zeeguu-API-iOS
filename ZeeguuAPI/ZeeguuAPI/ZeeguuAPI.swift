@@ -208,4 +208,28 @@ public class ZeeguuAPI {
 			}
 		}
 	}
+	
+	/// Returns the bookmarks of the user, organized by date.
+	///
+	/// - parameter withContext: If `withContext` is `true`, the text where a bookmark was found is also returned. If `false`, only the bookmark (without context) is returned.
+	/// - parameter completion: A block that will receive a `JSON` object, which contains the list of bookmarks.
+	public func bookmarksByDayWithContext(withContext: Bool, completion: (dict: JSON?) -> Void) {
+		if (!self.checkIfLoggedIn()) {
+			return completion(dict: nil)
+		}
+		var pathComponents: Array<String>
+		if (withContext) {
+			pathComponents = ["with_context"]
+		} else {
+			pathComponents = ["without_context"]
+		}
+		let request = self.zeeguuAPIRequestWithEndPoint(ZeeguuAPIEndpoint.BookmarksByDay, pathComponents: pathComponents, method: HTTPMethod.GET, parameters: nil)
+		self.sendAsynchronousRequest(request) { (response, error) -> Void in
+			if (response != nil) {
+				completion(dict: JSON.parse(response!))
+			} else {
+				completion(dict: nil)
+			}
+		}
+	}
 }
