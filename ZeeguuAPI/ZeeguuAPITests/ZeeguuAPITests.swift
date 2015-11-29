@@ -116,6 +116,16 @@ class ZeeguuAPITests: XCTestCase {
 		l.wait()
 		l.unlock()
 		
+		print("Testing translating word:")
+		l.lock()
+		ZeeguuAPI.sharedAPI().translateWord("http://www.spiegel.de/politik/ausland/eu-tuerkei-gipfel-streit-um-fluechtlingskontingent-a-1065093.html", word: "Gipfeltreffen", context: "Unmittelbar vor dem Gipfeltreffen der Europäischen Union mit der Türkei spricht Parlamentspräsident Martin Schulz (SPD) Klartext - eine Vereinbarung von Flüchtlingskontingenten mit der Türkei sei kaum aussichtsreich.") { (translation) -> Void in
+			
+			print("translation: ", translation)
+			l.signal()
+		}
+		l.wait()
+		l.unlock()
+		
     }
     
 //    func testPerformanceExample() {

@@ -232,4 +232,35 @@ public class ZeeguuAPI {
 			}
 		}
 	}
+	
+	/// Returns the translation of the given word from the user's learned language to the user's native language.
+	///
+	/// - parameter url: The url of the article in which the word was translated.
+	/// - parameter word: The word to translate.
+	/// - parameter context: The context in which the word appeared.
+	/// - parameter completion: A block that will receive a string containing the translation of `word`.
+	public func translateWord(url: String, word: String, context: String, completion: (translation: String?) -> Void) {
+		if (!self.checkIfLoggedIn()) {
+			return completion(translation: nil)
+		}
+		
+		self.learnedAndNativeLanguage { (dict) -> Void in
+			if (dict != nil) {
+				if let learned = dict!["learned"].string, native = dict!["native"].string {
+					let request = self.zeeguuAPIRequestWithEndPoint(ZeeguuAPIEndpoint.Translate, pathComponents: [learned, native], method: HTTPMethod.POST, parameters: ["context": context, "word": word, "url": url])
+					self.sendAsynchronousRequest(request) { (response, error) -> Void in
+						if (response != nil) {
+							completion(translation: response!)
+						} else {
+							completion(translation: nil)
+						}
+					}
+				} else {
+					completion(translation: nil)
+				}
+			} else {
+				completion(translation: nil)
+			}
+		}
+	}
 }
