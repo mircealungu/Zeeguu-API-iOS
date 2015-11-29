@@ -26,6 +26,7 @@ class ZeeguuAPITests: XCTestCase {
         // Use XCTAssert and related functions to verify your tests produce the correct results.
 		let l = NSCondition()
 		l.lock()
+		print("Testing login:")
 		ZeeguuAPI.sharedAPI().loginWithEmail("j.oosterhof.4@student.rug.nl", password: "JLq-E6q-MzL-8pp") { (success) -> Void in
 			print("success: ", success)
 			print("sessionID: ", ZeeguuAPI.sharedAPI().currentSessionID)
@@ -34,6 +35,7 @@ class ZeeguuAPITests: XCTestCase {
 		l.wait()
 		l.unlock()
 		
+		print("Testing learned language:")
 		l.lock()
 		ZeeguuAPI.sharedAPI().learnedLanguage { (langCode) -> Void in
 			print("langCode: ", langCode)
@@ -42,9 +44,19 @@ class ZeeguuAPITests: XCTestCase {
 		l.wait()
 		l.unlock()
 		
+//		print("Testing set learned language:")
+//		l.lock()
+//		ZeeguuAPI.sharedAPI().setLearnedLanguage("de") { (success) -> Void in
+//			print("success: ", success)
+//			l.signal()
+//		}
+//		l.wait()
+		//		l.unlock()
+		
+		print("Testing native language:")
 		l.lock()
-		ZeeguuAPI.sharedAPI().setLearnedLanguage("de") { (success) -> Void in
-			print("success: ", success)
+		ZeeguuAPI.sharedAPI().nativeLanguage { (langCode) -> Void in
+			print("langCode: ", langCode)
 			l.signal()
 		}
 		l.wait()
