@@ -74,4 +74,12 @@ extension ZeeguuAPI {
 		}
 		task.resume()
 	}
+	
+	func checkIfLoggedIn() -> Bool {
+		if (!self.isLoggedIn) {
+			NSLog("There is no user logged in currently!")
+			return false
+		}
+		return true
+	}
 }

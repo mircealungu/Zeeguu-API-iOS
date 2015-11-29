@@ -26,9 +26,17 @@ class ZeeguuAPITests: XCTestCase {
         // Use XCTAssert and related functions to verify your tests produce the correct results.
 		let l = NSCondition()
 		l.lock()
-		ZeeguuAPI.sharedAPI().sessionWithEmail("j.oosterhof.4@student.rug.nl", password: "JLq-E6q-MzL-8pp") { (success) -> Void in
+		ZeeguuAPI.sharedAPI().loginWithEmail("j.oosterhof.4@student.rug.nl", password: "JLq-E6q-MzL-8pp") { (success) -> Void in
 			print("success: ", success)
 			print("sessionID: ", ZeeguuAPI.sharedAPI().currentSessionID)
+			l.signal()
+		}
+		l.wait()
+		l.unlock()
+		
+		l.lock()
+		ZeeguuAPI.sharedAPI().learnedLanguage { (langCode) -> Void in
+			print("langCode: ", langCode)
 			l.signal()
 		}
 		l.wait()

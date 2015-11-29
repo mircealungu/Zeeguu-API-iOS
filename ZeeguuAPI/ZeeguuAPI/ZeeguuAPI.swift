@@ -70,4 +70,19 @@ public class ZeeguuAPI {
 			}
 		}
 	}
+	
+	/// Returns the language code of the learned langugage of the logged in user
+	public func learnedLanguage(completion: (langCode: String?) -> Void) {
+		if (!self.checkIfLoggedIn()) {
+			return completion(langCode: nil)
+		}
+		let request = self.zeeguuAPIRequestWithEndPoint(ZeeguuAPIEndpoint.LearnedLanguage, pathComponents: nil, method: HTTPMethod.GET, parameters: nil)
+		self.sendAsynchronousRequest(request) { (response, error) -> Void in
+			if (response != nil) {
+				completion(langCode: response!)
+			} else {
+				completion(langCode: nil)
+			}
+		}
+	}
 }
