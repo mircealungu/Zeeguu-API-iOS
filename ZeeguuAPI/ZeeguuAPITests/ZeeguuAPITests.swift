@@ -147,6 +147,15 @@ class ZeeguuAPITests: XCTestCase {
 //		}
 //		l.wait()
 //		l.unlock()
+		
+		print("Testing get exercise log for bookmark:")
+		l.lock()
+		ZeeguuAPI.sharedAPI().exerciseLogWithBookmarkID("2431") { (dict) -> Void in
+			print("dict: ", dict)
+			l.signal()
+		}
+		l.wait()
+		l.unlock()
 
     }
 	

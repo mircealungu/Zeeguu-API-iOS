@@ -313,4 +313,22 @@ public class ZeeguuAPI {
 			}
 		}
 	}
+	
+	/// Returns the exercise log of the user for a given bookmark.
+	///
+	/// - parameter bookmarkID: The ID of the bookmark for which to get the exercise log.
+	/// - parameter completion: A block that will receive a `JSON` object, which contains the exercise log.
+	public func exerciseLogWithBookmarkID(bookmarkID: String, completion: (dict: JSON?) -> Void) {
+		if (!self.checkIfLoggedIn()) {
+			return completion(dict: nil)
+		}
+		let request = self.zeeguuAPIRequestWithEndPoint(ZeeguuAPIEndpoint.GetExerciseLogForBookmark, pathComponents: [bookmarkID], method: HTTPMethod.GET, parameters: nil)
+		self.sendAsynchronousRequest(request) { (response, error) -> Void in
+			if (response != nil) {
+				completion(dict: JSON.parse(response!))
+			} else {
+				completion(dict: nil)
+			}
+		}
+	}
 }
