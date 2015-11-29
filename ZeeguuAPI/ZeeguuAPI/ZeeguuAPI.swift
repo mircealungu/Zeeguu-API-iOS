@@ -235,11 +235,11 @@ public class ZeeguuAPI {
 	
 	/// Returns the translation of the given word from the user's learned language to the user's native language.
 	///
-	/// - parameter url: The url of the article in which the word was translated.
 	/// - parameter word: The word to translate.
 	/// - parameter context: The context in which the word appeared.
+	/// - parameter url: The url of the article in which the word was translated.
 	/// - parameter completion: A block that will receive a string containing the translation of `word`.
-	public func translateWord(url: String, word: String, context: String, completion: (translation: String?) -> Void) {
+	public func translateWord(word: String, context: String, url: String, completion: (translation: String?) -> Void) {
 		if (!self.checkIfLoggedIn()) {
 			return completion(translation: nil)
 		}
@@ -260,6 +260,43 @@ public class ZeeguuAPI {
 				}
 			} else {
 				completion(translation: nil)
+			}
+		}
+	}
+	
+	/// Adds the translation of the given word to the user's bookmarks and returns its ID.
+	///
+	/// - parameter word: The word to bookmark.
+	/// - parameter translation: The translation of `word`.
+	/// - parameter context: The context in which the word appeared.
+	/// - parameter url: The url of the article in which the word was found.
+	/// - parameter title: The title of the article in which the word was found.
+	/// - parameter completion: A block that will receive a string containing the translation of `word`.
+	public func bookmarkWord(word: String, translation: String, context: String, url: String, title: String?, completion: (bookmarkID: String?) -> Void) {
+		if (!self.checkIfLoggedIn()) {
+			return completion(bookmarkID: nil)
+		}
+		
+		self.learnedAndNativeLanguage { (dict) -> Void in
+			if (dict != nil) {
+				if let learned = dict!["learned"].string, native = dict!["native"].string {
+					var params = ["context": context, "url": url]
+					if (title != nil) {
+						params["title"] = title
+					}
+					let request = self.zeeguuAPIRequestWithEndPoint(ZeeguuAPIEndpoint.BookmarkWithContext, pathComponents: [learned, word, native, translation], method: HTTPMethod.POST, parameters: params)
+					self.sendAsynchronousRequest(request) { (response, error) -> Void in
+						if (response != nil) {
+							completion(bookmarkID: response!)
+						} else {
+							completion(bookmarkID: nil)
+						}
+					}
+				} else {
+					completion(bookmarkID: nil)
+				}
+			} else {
+				completion(bookmarkID: nil)
 			}
 		}
 	}
