@@ -89,6 +89,15 @@ class ZeeguuAPITests: XCTestCase {
 		l.wait()
 		l.unlock()
 		
+		print("Testing user words:")
+		l.lock()
+		ZeeguuAPI.sharedAPI().studyingWords { (array) -> Void in
+			print("array: ", array)
+			l.signal()
+		}
+		l.wait()
+		l.unlock()
+		
     }
     
 //    func testPerformanceExample() {

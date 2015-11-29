@@ -21,7 +21,7 @@ public class ZeeguuAPI {
 	
 	/// Check if a user is logged in.
 	///
-	/// - returns: `true` if a user is logged in, `false` otherwise
+	/// - returns: `true` if a user is logged in, `false` otherwise.
 	public var isLoggedIn: Bool {
 		get {
 			return currentSessionID != 0
@@ -30,7 +30,7 @@ public class ZeeguuAPI {
 	
 	/// Get the `ZeeguuAPI` instance. This method is the only way to get an instance of the ZeeguuAPI class.
 	///
-	/// - returns: The shared `ZeeguuAPI` instance
+	/// - returns: The shared `ZeeguuAPI` instance.
 	public static func sharedAPI() -> ZeeguuAPI {
 		return instance;
 	}
@@ -43,13 +43,13 @@ public class ZeeguuAPI {
 		}
 	}
 	
-	/// Registers a user
+	/// Registers a user.
 	///
 	/// After the user is registered and logged in, you can use the ZeeguuAPI object to make requests on behalf of the user.
 	///
-	/// - parameter username: The username of the user to register
-	/// - parameter email: The email address of the user
-	/// - parameter password: The password of the user
+	/// - parameter username: The username of the user to register.
+	/// - parameter email: The email address of the user.
+	/// - parameter password: The password of the user.
 	/// - parameter completion: A block that receives a success parameter, which is true if the user was logged in successfully.
 	public func registerUserWithUsername(username: String, email: String, password: String, completion: (success: Bool) -> Void) {
 		let request = self.zeeguuAPIRequestWithEndPoint(ZeeguuAPIEndpoint.AddUser, pathComponents: [email], method: HTTPMethod.POST, parameters: ["username":username, "password":password])
@@ -66,12 +66,12 @@ public class ZeeguuAPI {
 		}
 	}
 	
-	/// Logs a user in
+	/// Logs a user in.
 	///
 	/// After the user is logged in, you can use the ZeeguuAPI object to make requests on behalf of the user.
 	/// 
-	/// - parameter email: The email address of the user to log in
-	/// - parameter password: The password of the user
+	/// - parameter email: The email address of the user to log in.
+	/// - parameter password: The password of the user.
 	/// - parameter completion: A block that receives a success parameter, which is true if the user was logged in successfully.
 	public func loginWithEmail(email: String, password: String, completion: (success: Bool) -> Void) {
 		let request = self.zeeguuAPIRequestWithEndPoint(ZeeguuAPIEndpoint.Session, pathComponents: [email], method: HTTPMethod.POST, parameters: ["password":password])
@@ -88,7 +88,7 @@ public class ZeeguuAPI {
 		}
 	}
 	
-	/// Returns the language code of the learned langugage of the logged in user
+	/// Returns the language code of the learned langugage of the logged in user.
 	///
 	/// - parameter completion: A block that will receive a language code of the learned language or nil if the request couldn't be completed.
 	public func learnedLanguage(completion: (langCode: String?) -> Void) {
@@ -105,9 +105,9 @@ public class ZeeguuAPI {
 		}
 	}
 	
-	/// Sets the language code of the learned langugage of the logged in user
+	/// Sets the language code of the learned langugage of the logged in user.
 	///
-	/// - parameter newLanguageCode: The language code of the language that will be the new learned language
+	/// - parameter newLanguageCode: The language code of the language that will be the new learned language.
 	/// - parameter completion: A block that will receive a boolean indication if the request succeeded.
 	public func setLearnedLanguage(newLanguageCode: String, completion: (success: Bool) -> Void) {
 		if (!self.checkIfLoggedIn()) {
@@ -123,7 +123,7 @@ public class ZeeguuAPI {
 		}
 	}
 	
-	/// Returns the language code of the native langugage of the logged in user
+	/// Returns the language code of the native langugage of the logged in user.
 	///
 	/// - parameter completion: A block that will receive a language code of the native language or nil if the request couldn't be completed.
 	public func nativeLanguage(completion: (langCode: String?) -> Void) {
@@ -140,9 +140,9 @@ public class ZeeguuAPI {
 		}
 	}
 	
-	/// Sets the language code of the native langugage of the logged in user
+	/// Sets the language code of the native langugage of the logged in user.
 	///
-	/// - parameter newLanguageCode: The language code of the language that will be the new native language
+	/// - parameter newLanguageCode: The language code of the language that will be the new native language.
 	/// - parameter completion: A block that will receive a boolean indication if the request succeeded.
 	public func setNativeLanguage(newLanguageCode: String, completion: (success: Bool) -> Void) {
 		if (!self.checkIfLoggedIn()) {
@@ -158,7 +158,7 @@ public class ZeeguuAPI {
 		}
 	}
 	
-	/// Returns the language code of the learned and native langugage of the logged in user
+	/// Returns the language code of the learned and native langugage of the logged in user.
 	///
 	/// - parameter completion: A block that will receive a `JSON` object, which contains the dictornary with language codes of the learned and native language.
 	public func learnedAndNativeLanguage(completion: (dict: JSON?) -> Void) {
@@ -175,7 +175,7 @@ public class ZeeguuAPI {
 		}
 	}
 	
-	/// Returns the language codes of all available languages that the Zeeguu API supports
+	/// Returns the language codes of all available languages that the Zeeguu API supports.
 	///
 	/// - parameter completion: A block that will receive a `JSON` object, which contains the array with the language codes.
 	public func availableLanguages(completion: (array: JSON?) -> Void) {
@@ -183,6 +183,23 @@ public class ZeeguuAPI {
 			return completion(array: nil)
 		}
 		let request = self.zeeguuAPIRequestWithEndPoint(ZeeguuAPIEndpoint.AvailableLanguages, pathComponents: nil, method: HTTPMethod.GET, parameters: nil)
+		self.sendAsynchronousRequest(request) { (response, error) -> Void in
+			if (response != nil) {
+				completion(array: JSON.parse(response!))
+			} else {
+				completion(array: nil)
+			}
+		}
+	}
+	
+	/// Returns the words that the user is currently studying.
+	///
+	/// - parameter completion: A block that will receive a `JSON` object, which contains the list of words.
+	public func studyingWords(completion: (array: JSON?) -> Void) {
+		if (!self.checkIfLoggedIn()) {
+			return completion(array: nil)
+		}
+		let request = self.zeeguuAPIRequestWithEndPoint(ZeeguuAPIEndpoint.UserWords, pathComponents: nil, method: HTTPMethod.GET, parameters: nil)
 		self.sendAsynchronousRequest(request) { (response, error) -> Void in
 			if (response != nil) {
 				completion(array: JSON.parse(response!))
