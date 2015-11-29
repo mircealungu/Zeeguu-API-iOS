@@ -115,4 +115,19 @@ public class ZeeguuAPI {
 			}
 		}
 	}
+	
+	/// Returns the language code of the learned and native langugage of the logged in user
+	public func learnedAndNativeLanguage(completion: (dict: JSON) -> Void) {
+		if (!self.checkIfLoggedIn()) {
+			return completion(dict: nil)
+		}
+		let request = self.zeeguuAPIRequestWithEndPoint(ZeeguuAPIEndpoint.LearnedAndNativeLanguage, pathComponents: nil, method: HTTPMethod.GET, parameters: nil)
+		self.sendAsynchronousRequest(request) { (response, error) -> Void in
+			if (response != nil) {
+				completion(dict: JSON.parse(response!))
+			} else {
+				completion(dict: nil)
+			}
+		}
+	}
 }

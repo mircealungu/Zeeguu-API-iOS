@@ -62,6 +62,15 @@ class ZeeguuAPITests: XCTestCase {
 		l.wait()
 		l.unlock()
 		
+		print("Testing learned and native language:")
+		l.lock()
+		ZeeguuAPI.sharedAPI().learnedAndNativeLanguage { (dict) -> Void in
+			print("dict: ", dict)
+			l.signal()
+		}
+		l.wait()
+		l.unlock()
+		
     }
     
     func testPerformanceExample() {
