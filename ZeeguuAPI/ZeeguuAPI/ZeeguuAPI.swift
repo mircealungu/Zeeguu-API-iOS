@@ -319,4 +319,19 @@ public class ZeeguuAPI {
 			}
 		}
 	}
+	
+	/// Adds a translation to the bookmark with the given ID.
+	///
+	/// - parameter bookmarkID: The ID of the bookmark.
+	/// - parameter translation: The translation to add to the bookmark.
+	/// - parameter completion: A block that will receive a boolean indicating if the translation could be added or not.
+	public func addNewTranslationToBookmarkWithID(bookmarkID: String, translation: String, completion: (success: Bool) -> Void) {
+		if (!self.checkIfLoggedIn()) {
+			return completion(success: false)
+		}
+		let request = self.requestWithEndPoint(.AddNewTranslationToBookmark, pathComponents: [translation, bookmarkID], method: .POST, parameters: nil)
+		self.sendAsynchronousRequest(request) { (response, error) -> Void in
+			self.checkBooleanResponse(response, error: error, completion: completion);
+		}
+	}
 }
