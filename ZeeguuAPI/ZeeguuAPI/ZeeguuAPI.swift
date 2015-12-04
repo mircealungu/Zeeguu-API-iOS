@@ -159,11 +159,7 @@ public class ZeeguuAPI {
 		}
 		let request = self.requestWithEndPoint(.LearnedAndNativeLanguage, pathComponents: nil, method: .GET, parameters: nil)
 		self.sendAsynchronousRequest(request) { (response, error) -> Void in
-			if (response != nil) {
-				completion(dict: JSON.parse(response!))
-			} else {
-				completion(dict: nil)
-			}
+			self.checkJSONResponse(response, error: error, completion: completion)
 		}
 	}
 	
@@ -176,11 +172,7 @@ public class ZeeguuAPI {
 		}
 		let request = self.requestWithEndPoint(.AvailableLanguages, pathComponents: nil, method: .GET, parameters: nil)
 		self.sendAsynchronousRequest(request) { (response, error) -> Void in
-			if (response != nil) {
-				completion(array: JSON.parse(response!))
-			} else {
-				completion(array: nil)
-			}
+			self.checkJSONResponse(response, error: error, completion: completion)
 		}
 	}
 	
@@ -193,11 +185,7 @@ public class ZeeguuAPI {
 		}
 		let request = self.requestWithEndPoint(.UserWords, pathComponents: nil, method: .GET, parameters: nil)
 		self.sendAsynchronousRequest(request) { (response, error) -> Void in
-			if (response != nil) {
-				completion(array: JSON.parse(response!))
-			} else {
-				completion(array: nil)
-			}
+			self.checkJSONResponse(response, error: error, completion: completion)
 		}
 	}
 	
@@ -217,11 +205,7 @@ public class ZeeguuAPI {
 		}
 		let request = self.requestWithEndPoint(.BookmarksByDay, pathComponents: pathComponents, method: .GET, parameters: nil)
 		self.sendAsynchronousRequest(request) { (response, error) -> Void in
-			if (response != nil) {
-				completion(dict: JSON.parse(response!))
-			} else {
-				completion(dict: nil)
-			}
+			self.checkJSONResponse(response, error: error, completion: completion)
 		}
 	}
 	
@@ -295,7 +279,6 @@ public class ZeeguuAPI {
 		if (!self.checkIfLoggedIn()) {
 			return completion(success: false)
 		}
-		
 		let request = self.requestWithEndPoint(.DeleteBookmark, pathComponents: [bookmarkID], method: .POST, parameters: nil)
 		self.sendAsynchronousRequest(request) { (response, error) -> Void in
 			self.checkBooleanResponse(response, error: error, completion: completion);
@@ -312,11 +295,7 @@ public class ZeeguuAPI {
 		}
 		let request = self.requestWithEndPoint(.GetExerciseLogForBookmark, pathComponents: [bookmarkID], method: .GET, parameters: nil)
 		self.sendAsynchronousRequest(request) { (response, error) -> Void in
-			if (response != nil) {
-				completion(dict: JSON.parse(response!))
-			} else {
-				completion(dict: nil)
-			}
+			self.checkJSONResponse(response, error: error, completion: completion)
 		}
 	}
 	
@@ -360,11 +339,7 @@ public class ZeeguuAPI {
 		}
 		let request = self.requestWithEndPoint(.GetTranslationsForBookmark, pathComponents: [bookmarkID], method: .GET, parameters: nil)
 		self.sendAsynchronousRequest(request) { (response, error) -> Void in
-			if (response != nil) {
-				completion(dict: JSON.parse(response!))
-			} else {
-				completion(dict: nil)
-			}
+			self.checkJSONResponse(response, error: error, completion: completion)
 		}
 	}
 }

@@ -97,4 +97,12 @@ extension ZeeguuAPI {
 			completion(success: false)
 		}
 	}
+	
+	func checkJSONResponse(response: String?, error: NSError?, completion: (dict: JSON?) -> Void) {
+		if (response != nil) {
+			completion(dict: JSON.parse(response!))
+		} else {
+			completion(dict: nil)
+		}
+	}
 }
