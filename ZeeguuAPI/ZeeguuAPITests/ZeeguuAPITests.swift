@@ -181,8 +181,18 @@ class ZeeguuAPITests: XCTestCase {
 	}
 	
 	func testAddTranslationToBookmark() {
-		print("Testing get exercise log for bookmark:")
+		print("Testing add translation to bookmark:")
 		ZeeguuAPI.sharedAPI().addNewTranslationToBookmarkWithID("2431", translation: "fight") { (success) -> Void in
+			assert(success)
+			print("success: ", success)
+			self.testLock.signal()
+		}
+		testLock.wait()
+	}
+	
+	func testDeleteTranslationFromBookmark() {
+		print("Testing delete translation from bookmark:")
+		ZeeguuAPI.sharedAPI().deleteTranslationFromBookmarkWithID("2431", translation: "fight") { (success) -> Void in
 			assert(success)
 			print("success: ", success)
 			self.testLock.signal()
