@@ -355,6 +355,16 @@ class ZeeguuAPITests: XCTestCase {
 		testLock.wait()
 	}
 	
+	func testGetPage() {
+		print("Testing get page:")
+		ZeeguuAPI.sharedAPI().getPageWithURL("http://www.t-online.de/nachrichten/deutschland/id_76314572/frank-juergen-weise-geraet-wegen-langer-asylverfahren-in-die-kritik.html") { (page) -> Void in
+			XCTAssertNotNil(page)
+			print("page: ", page)
+			self.testLock.signal()
+		}
+		testLock.wait()
+	}
+	
 	func DISABLED_testExample() {
 		// This is an example of a functional test case.
 		// Use XCTAssert and related functions to verify your tests produce the correct results.
