@@ -250,6 +250,17 @@ class ZeeguuAPITests: XCTestCase {
 		testLock.wait()
 	}
 	
+	func testGetLowerBoundPercentageOfBasicVocabulary() {
+		print("Testing get lower bound percentage of basic vocabulary:")
+		ZeeguuAPI.sharedAPI().getLowerBoundPercentageOfBasicVocabularyWithCompletion() { (percentage) -> Void in
+			XCTAssertNotNil(percentage)
+			print("percentage: ", percentage)
+			self.testLock.signal()
+			
+		}
+		testLock.wait()
+	}
+	
 	func DISABLED_testExample() {
 		// This is an example of a functional test case.
 		// Use XCTAssert and related functions to verify your tests produce the correct results.

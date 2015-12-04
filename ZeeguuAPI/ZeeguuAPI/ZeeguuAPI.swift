@@ -382,4 +382,17 @@ public class ZeeguuAPI {
 			self.checkJSONResponse(response, error: error, completion: completion)
 		}
 	}
+	
+	/// Retrieves the lower bound percentage of basic vocabulary.
+	///
+	/// - parameter completion: A block that will receive a string with the percentage.
+	public func getLowerBoundPercentageOfBasicVocabularyWithCompletion(completion: (percentage: String?) -> Void) {
+		if (!self.checkIfLoggedIn()) {
+			return completion(percentage: nil)
+		}
+		let request = self.requestWithEndPoint(.GetLowerBoundPercentageOfBasicVocabulary, pathComponents: nil, method: .GET, parameters: nil)
+		self.sendAsynchronousRequest(request) { (response, error) -> Void in
+			self.checkStringResponse(response, error: error, completion: completion)
+		}
+	}
 }
