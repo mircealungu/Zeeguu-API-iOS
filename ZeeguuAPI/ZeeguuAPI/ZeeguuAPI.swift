@@ -354,4 +354,18 @@ public class ZeeguuAPI {
 			self.checkJSONResponse(response, error: error, completion: completion)
 		}
 	}
+	
+	/// Retrieves all known words for the current user.
+	///
+	/// - parameter langCode: The language code for which to retrieve the words.
+	/// - parameter completion: A block that will receive a dictionary with the words.
+	public func getKnownWordsWithLangCode(langCode: String, completion: (dict: JSON?) -> Void) {
+		if (!self.checkIfLoggedIn()) {
+			return completion(dict: nil)
+		}
+		let request = self.requestWithEndPoint(.GetKnownWords, pathComponents: [langCode], method: .GET, parameters: nil)
+		self.sendAsynchronousRequest(request) { (response, error) -> Void in
+			self.checkJSONResponse(response, error: error, completion: completion)
+		}
+	}
 }
