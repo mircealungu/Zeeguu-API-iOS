@@ -349,4 +349,22 @@ public class ZeeguuAPI {
 			self.checkBooleanResponse(response, error: error, completion: completion);
 		}
 	}
+	
+	/// Retrieves all translations for the bookmark with the given ID.
+	///
+	/// - parameter bookmarkID: The ID of the bookmark.
+	/// - parameter completion: A block that will receive a boolean indicating if the translation could be deleted or not.
+	public func getTranslationsForBookmarkWithID(bookmarkID: String, completion: (dict: JSON?) -> Void) {
+		if (!self.checkIfLoggedIn()) {
+			return completion(dict: nil)
+		}
+		let request = self.requestWithEndPoint(.GetTranslationsForBookmark, pathComponents: [bookmarkID], method: .GET, parameters: nil)
+		self.sendAsynchronousRequest(request) { (response, error) -> Void in
+			if (response != nil) {
+				completion(dict: JSON.parse(response!))
+			} else {
+				completion(dict: nil)
+			}
+		}
+	}
 }

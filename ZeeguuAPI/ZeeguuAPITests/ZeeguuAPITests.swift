@@ -200,6 +200,16 @@ class ZeeguuAPITests: XCTestCase {
 		testLock.wait()
 	}
 	
+	func testGetAllTranslationsForBookmark() {
+		print("Testing get all translations for bookmark:")
+		ZeeguuAPI.sharedAPI().getTranslationsForBookmarkWithID("2431") { (dict) -> Void in
+			assert(dict != nil)
+			print("dict: ", dict)
+			self.testLock.signal()
+		}
+		testLock.wait()
+	}
+	
 	func DISABLED_testExample() {
 		// This is an example of a functional test case.
 		// Use XCTAssert and related functions to verify your tests produce the correct results.
