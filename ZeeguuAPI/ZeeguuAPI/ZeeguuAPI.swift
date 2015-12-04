@@ -500,4 +500,42 @@ public class ZeeguuAPI {
 			self.checkJSONResponse(response, error: error, completion: completion)
 		}
 	}
+	
+	/// Retrieves the learnabilities for the texts supplied.
+	///
+	/// - parameter texts: The texts to calculate the learnabilities for.
+	/// - parameter langCode: The language code the language in which the texts are written.
+	/// - parameter completion: A block that will receive an arra with the difficulties.
+	public func getLearnabilityForTexts(texts: Array<String>, langCode: String, completion: (dict: JSON?) -> Void) {
+		if (!self.checkIfLoggedIn()) {
+			return completion(dict: nil)
+		}
+		var newTexts: [Dictionary<String, String>] = []
+		var counter = 0
+		for text in texts {
+			newTexts.append(["content": text, "id": String(counter++)])
+		}
+		
+		let jsonDict = ["texts": newTexts]
+		
+		let request = self.requestWithEndPoint(.GetLearnabilityForText, pathComponents: [langCode], method: .POST, parameters: nil, jsonBody: JSON(jsonDict))
+		self.sendAsynchronousRequest(request) { (response, error) -> Void in
+			self.checkJSONResponse(response, error: error, completion: completion)
+		}
+	}
+	
+	func getContentFromURLs(urls: Array<String>, maxTimeout: Int = 0, completion: (dict: JSON?) -> Void) {
+		var newURLs: [Dictionary<String, String>] = []
+		var counter = 0
+		for url in urls {
+			newURLs.append(["url": url, "id": String(counter++)])
+		}
+		
+		let jsonDict = ["urlhs": newURLs, "timeout": String(maxTimeout)]
+		
+		let request = self.requestWithEndPoint(.GetContentFromURL, pathComponents: nil, method: .POST, parameters: nil, jsonBody: JSON(jsonDict))
+		self.sendAsynchronousRequest(request) { (response, error) -> Void in
+			self.checkJSONResponse(response, error: error, completion: completion)
+		}
+	}
 }

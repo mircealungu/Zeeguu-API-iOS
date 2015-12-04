@@ -335,6 +335,26 @@ class ZeeguuAPITests: XCTestCase {
 		testLock.wait()
 	}
 	
+	func testGetLearnabilityForTexts() {
+		print("Testing get learnability for texts:")
+		ZeeguuAPI.sharedAPI().getLearnabilityForTexts(["Ein Wagen ist ein von Rädern getragenes mehrspuriges Fahrzeug. Es gibt eine Überlappung mit dem Begriff Karre(n). Eine Kutsche ist ein gefedertes Fuhrwerk, also ein gefederter, von Zugtieren gezogener, gedeckter Wagen. Die Verbindung der Radachsen bzw. des Fahrgestells mit den feststehenden Teilen des Wagens, der Ladefläche oder dem Wagenkasten, kann unterschiedlich gestaltet sein. Sind Räder und Achsen starr verbunden spricht man vom Radsatz. Bei dieser Konstruktion kann die Achse auch als Welle bezeichnet werden. Dreht sich die Achse nicht mit, so wird der innere, ihr aufsitzende Ring des Rades als Nabe bezeichnet. Lässt sich die Achse, oder Teile davon, um einen vertikalen Drehpunkt bewegen, was Kurvenfahrten erleichtert, so spricht man von einer Lenkung. In der Frühzeit des Wagenbaus wurde das Abgleiten der Räder von den Achsen durch Achsnägel verhindert, die durch die Achse geschlagen wurden. Bei den gelenkten Wagen war die Einheit aus Deichsel und Vorderachse (Drehschemel) durch einen metallenen sogenannten Reibnagel drehbar mit dem übrigen Wagen verbunden. Von Zugtieren gezogene Wagen werden Fuhrwerk genannt. Das älteste Zugtier für Radfahrzeuge war das Rind (Kuh oder Ochse), zum stärksten und schnellsten wurde später das Pferd, das wendigste ist das Maultier. Als Zugtiere sind z.B. auch Esel und Kamel einsetzbar. Von Menschen bewegte einfache Wagen werden als Handwagen bzw. Hand- oder Schubkarren bezeichnet. Fuhrwerke, Handwagen und Anhänger werden mittels einer oder zwei Deichseln gelenkt. Für Zugtiere gab bzw. gibt es ein Geschirr. Bei Motorantrieb unterscheidet man motorisierte Wagen, die auch Platz für den Transport von Fahrgästen und Material bieten, Kraftwagen = Automobile (Autos) im Straßenverkehr, Triebwagen im Schienenverkehr, von Zugmaschinen, auf bzw. in denen im Wesentlichen nur Maschine, Fahrzeugführer und Brennstoff Platz haben, also Traktoren und im Schienenverkehr Lokomotiven. Pedalgetriebene Fahrzeuge werden auch dann nicht als Wagen bezeichnet, wenn sie mehrspurig sind. Weichen sie sehr stark vom Erscheinungsbild eines Fahrrades ab, so werden sie mit dem englischen Kürzel HPV benannt (human powered vehicle). Postwagen wurden schon in der „Postkutschenzeit“ großzügig auch dann als Postkutschen bezeichnet, wenn die Federung fehlte."], langCode: "de") { (dict) -> Void in
+			XCTAssertNotNil(dict)
+			print("dict: ", dict)
+			self.testLock.signal()
+		}
+		testLock.wait()
+	}
+	
+	func testGetContentFromURLs() {
+		print("Testing get content from urls:")
+		ZeeguuAPI.sharedAPI().getContentFromURLs(["http://www.t-online.de/nachrichten/deutschland/id_76314572/frank-juergen-weise-geraet-wegen-langer-asylverfahren-in-die-kritik.html"]) { (dict) -> Void in
+			XCTAssertNotNil(dict)
+			print("dict: ", dict)
+			self.testLock.signal()
+		}
+		testLock.wait()
+	}
+	
 	func DISABLED_testExample() {
 		// This is an example of a functional test case.
 		// Use XCTAssert and related functions to verify your tests produce the correct results.
