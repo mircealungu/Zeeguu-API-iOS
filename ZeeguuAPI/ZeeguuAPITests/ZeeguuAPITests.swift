@@ -240,6 +240,16 @@ class ZeeguuAPITests: XCTestCase {
 		testLock.wait()
 	}
 	
+	func testGetProbablyKnownWords() {
+		print("Testing get probably known words:")
+		ZeeguuAPI.sharedAPI().getProbablyKnownWordsWithLangCode("de") { (dict) -> Void in
+			assert(dict != nil)
+			print("dict: ", dict)
+			self.testLock.signal()
+		}
+		testLock.wait()
+	}
+	
 	func DISABLED_testExample() {
 		// This is an example of a functional test case.
 		// Use XCTAssert and related functions to verify your tests produce the correct results.
