@@ -36,7 +36,7 @@ class ZeeguuAPITests: XCTestCase {
 //		testLock.wait()
 	}
 	
-	func testALogin() {
+	func testAAALogin() {
 		print("Testing login:")
 		ZeeguuAPI.sharedAPI().loginWithEmail("j.oosterhof.4@student.rug.nl", password: "JLq-E6q-MzL-8pp") { (success) -> Void in
 			assert(success)
