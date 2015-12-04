@@ -26,14 +26,14 @@ class ZeeguuAPITests: XCTestCase {
 	}
 	
 	func DISABLED_testRegister() {
-//		print("Testing register:")
-//		ZeeguuAPI.sharedAPI().registerUserWithUsername("JorritO", email: "j.oosterhof.4@student.rug.nl", password: "JLq-E6q-MzL-8pp") { (success) -> Void in
-//			assert(success)
-//			print("success: ", success)
-//			print("sessionID: ", ZeeguuAPI.sharedAPI().currentSessionID)
-//			self.testLock.signal()
-//		}
-//		testLock.wait()
+		print("Testing register:")
+		ZeeguuAPI.sharedAPI().registerUserWithUsername("JorritO", email: "j.oosterhof.4@student.rug.nl", password: "JLq-E6q-MzL-8pp") { (success) -> Void in
+			assert(success)
+			print("success: ", success)
+			print("sessionID: ", ZeeguuAPI.sharedAPI().currentSessionID)
+			self.testLock.signal()
+		}
+		testLock.wait()
 	}
 	
 	func testAAALogin() {
@@ -58,13 +58,13 @@ class ZeeguuAPITests: XCTestCase {
 	}
 	
 	func DISABLED_testSetLearnedLanguage() {
-		//		print("Testing set learned language:")
-		//		ZeeguuAPI.sharedAPI().setLearnedLanguage("de") { (success) -> Void in
-		//		assert(success)
-		//			print("success: ", success)
-		//			self.testLock.signal()
-		//		}
-		//		testLock.wait()
+		print("Testing set learned language:")
+		ZeeguuAPI.sharedAPI().setLearnedLanguage("de") { (success) -> Void in
+			assert(success)
+			print("success: ", success)
+			self.testLock.signal()
+		}
+		testLock.wait()
 	}
 	
 	func testGetNativeLanguage() {
@@ -78,13 +78,13 @@ class ZeeguuAPITests: XCTestCase {
 	}
 	
 	func DISABLED_testSetNativeLanguage() {
-		//		print("Testing set native language:")
-		//		ZeeguuAPI.sharedAPI().setNativeLanguage("de") { (success) -> Void in
-		//		assert(success)
-		//			print("success: ", success)
-		//			self.testLock.signal()
-		//		}
-		//		testLock.wait()
+		print("Testing set native language:")
+		ZeeguuAPI.sharedAPI().setNativeLanguage("de") { (success) -> Void in
+			assert(success)
+			print("success: ", success)
+			self.testLock.signal()
+		}
+		testLock.wait()
 	}
 	
 	func testGetLearnedAndNativeLanguage() {
@@ -138,36 +138,36 @@ class ZeeguuAPITests: XCTestCase {
 	}
 	
 	func DISABLED_testTranslateWord() {
-		//		print("Testing translating word:")
-		//		ZeeguuAPI.sharedAPI().translateWord("Gipfeltreffen", context: "Unmittelbar vor dem Gipfeltreffen der Europäischen Union mit der Türkei spricht Parlamentspräsident Martin Schulz (SPD) Klartext - eine Vereinbarung von Flüchtlingskontingenten mit der Türkei sei kaum aussichtsreich.", url: "http://www.spiegel.de/politik/ausland/eu-tuerkei-gipfel-streit-um-fluechtlingskontingent-a-1065093.html") { (translation) -> Void in
-		//
-		//			assert(translation != nil)
-		//			print("translation: ", translation)
-		//			self.testLock.signal()
-		//		}
-		//		testLock.wait()
+		print("Testing translating word:")
+		ZeeguuAPI.sharedAPI().translateWord("Gipfeltreffen", context: "Unmittelbar vor dem Gipfeltreffen der Europäischen Union mit der Türkei spricht Parlamentspräsident Martin Schulz (SPD) Klartext - eine Vereinbarung von Flüchtlingskontingenten mit der Türkei sei kaum aussichtsreich.", url: "http://www.spiegel.de/politik/ausland/eu-tuerkei-gipfel-streit-um-fluechtlingskontingent-a-1065093.html") { (translation) -> Void in
+			
+			assert(translation != nil)
+			print("translation: ", translation)
+			self.testLock.signal()
+		}
+		testLock.wait()
 	}
 	
 	func DISABLED_testBookmarkWord() {
-		//		print("Testing bookmarking word:")
-		//		ZeeguuAPI.sharedAPI().bookmarkWord("Gipfeltreffen", translation: "summit", context: "Unmittelbar vor dem Gipfeltreffen der Europäischen Union mit der Türkei spricht Parlamentspräsident Martin Schulz (SPD) Klartext - eine Vereinbarung von Flüchtlingskontingenten mit der Türkei sei kaum aussichtsreich.", url: "http://www.spiegel.de/politik/ausland/eu-tuerkei-gipfel-streit-um-fluechtlingskontingent-a-1065093.html", title: "EU-Türkei-Gipfel: Streit um Flüchtlingskontingent") { (bookmarkID) -> Void in
-		//
-		//			assert(bookmarkID != nil)
-		//			print("bookmarkID: ", bookmarkID)
-		//			self.testLock.signal()
-		//		}
-		//		testLock.wait()
-
+		print("Testing bookmarking word:")
+		ZeeguuAPI.sharedAPI().bookmarkWord("Gipfeltreffen", translation: "summit", context: "Unmittelbar vor dem Gipfeltreffen der Europäischen Union mit der Türkei spricht Parlamentspräsident Martin Schulz (SPD) Klartext - eine Vereinbarung von Flüchtlingskontingenten mit der Türkei sei kaum aussichtsreich.", url: "http://www.spiegel.de/politik/ausland/eu-tuerkei-gipfel-streit-um-fluechtlingskontingent-a-1065093.html", title: "EU-Türkei-Gipfel: Streit um Flüchtlingskontingent") { (bookmarkID) -> Void in
+			
+			assert(bookmarkID != nil)
+			print("bookmarkID: ", bookmarkID)
+			self.testLock.signal()
+		}
+		testLock.wait()
+		
 	}
 	
 	func DISABLED_testDeleteBookmark() {
-		//		print("Testing deleting bookmark:")
-		//		ZeeguuAPI.sharedAPI().deleteBookmarkWithID("2457") { (success) -> Void in
-		//			assert(success)
-		//			print("success: ", success)
-		//			self.testLock.signal()
-		//		}
-		//		testLock.wait()
+		print("Testing deleting bookmark:")
+		ZeeguuAPI.sharedAPI().deleteBookmarkWithID("2457") { (success) -> Void in
+			assert(success)
+			print("success: ", success)
+			self.testLock.signal()
+		}
+		testLock.wait()
 	}
 	
 	func testGetExerciseLogWithBookmarkID() {
@@ -210,7 +210,7 @@ class ZeeguuAPITests: XCTestCase {
 		testLock.wait()
 	}
 	
-	func testGetNotEncounteredWords() {
+	func DISABLED_testGetNotEncounteredWords() {
 		print("Testing get not encountered words:")
 		ZeeguuAPI.sharedAPI().getNotEncounteredWordsWithLangCode("de") { (dict) -> Void in
 			assert(dict != nil)
