@@ -91,7 +91,7 @@ public class ZeeguuAPI {
 	/// Returns the language code of the learned langugage of the logged in user.
 	///
 	/// - parameter completion: A block that will receive a language code of the learned language or nil if the request couldn't be completed.
-	public func learnedLanguage(completion: (langCode: String?) -> Void) {
+	public func getLearnedLanguage(completion: (langCode: String?) -> Void) {
 		if (!self.checkIfLoggedIn()) {
 			return completion(langCode: nil)
 		}
@@ -126,7 +126,7 @@ public class ZeeguuAPI {
 	/// Returns the language code of the native langugage of the logged in user.
 	///
 	/// - parameter completion: A block that will receive a language code of the native language or nil if the request couldn't be completed.
-	public func nativeLanguage(completion: (langCode: String?) -> Void) {
+	public func getNativeLanguage(completion: (langCode: String?) -> Void) {
 		if (!self.checkIfLoggedIn()) {
 			return completion(langCode: nil)
 		}
@@ -161,7 +161,7 @@ public class ZeeguuAPI {
 	/// Returns the language code of the learned and native langugage of the logged in user.
 	///
 	/// - parameter completion: A block that will receive a `JSON` object, which contains the dictornary with language codes of the learned and native language.
-	public func learnedAndNativeLanguage(completion: (dict: JSON?) -> Void) {
+	public func getLearnedAndNativeLanguage(completion: (dict: JSON?) -> Void) {
 		if (!self.checkIfLoggedIn()) {
 			return completion(dict: nil)
 		}
@@ -178,7 +178,7 @@ public class ZeeguuAPI {
 	/// Returns the language codes of all available languages that the Zeeguu API supports.
 	///
 	/// - parameter completion: A block that will receive a `JSON` object, which contains the array with the language codes.
-	public func availableLanguages(completion: (array: JSON?) -> Void) {
+	public func getAvailableLanguages(completion: (array: JSON?) -> Void) {
 		if (!self.checkIfLoggedIn()) {
 			return completion(array: nil)
 		}
@@ -195,7 +195,7 @@ public class ZeeguuAPI {
 	/// Returns the words that the user is currently studying.
 	///
 	/// - parameter completion: A block that will receive a `JSON` object, which contains the list of words.
-	public func studyingWords(completion: (array: JSON?) -> Void) {
+	public func getStudyingWords(completion: (array: JSON?) -> Void) {
 		if (!self.checkIfLoggedIn()) {
 			return completion(array: nil)
 		}
@@ -213,7 +213,7 @@ public class ZeeguuAPI {
 	///
 	/// - parameter withContext: If `withContext` is `true`, the text where a bookmark was found is also returned. If `false`, only the bookmark (without context) is returned.
 	/// - parameter completion: A block that will receive a `JSON` object, which contains the list of bookmarks.
-	public func bookmarksByDayWithContext(withContext: Bool, completion: (dict: JSON?) -> Void) {
+	public func getBookmarksByDayWithContext(withContext: Bool, completion: (dict: JSON?) -> Void) {
 		if (!self.checkIfLoggedIn()) {
 			return completion(dict: nil)
 		}
@@ -318,7 +318,7 @@ public class ZeeguuAPI {
 	///
 	/// - parameter bookmarkID: The ID of the bookmark for which to get the exercise log.
 	/// - parameter completion: A block that will receive a `JSON` object, which contains the exercise log.
-	public func exerciseLogWithBookmarkID(bookmarkID: String, completion: (dict: JSON?) -> Void) {
+	public func getExerciseLogWithBookmarkID(bookmarkID: String, completion: (dict: JSON?) -> Void) {
 		if (!self.checkIfLoggedIn()) {
 			return completion(dict: nil)
 		}
