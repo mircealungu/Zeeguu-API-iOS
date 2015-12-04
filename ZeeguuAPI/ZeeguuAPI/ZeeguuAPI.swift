@@ -447,4 +447,43 @@ public class ZeeguuAPI {
 			self.checkStringResponse(response, error: error, completion: completion)
 		}
 	}
+	
+	/// Retrieves all learned bookmarks for the current user.
+	///
+	/// - parameter langCode: The language code for which to retrieve the bookmarks.
+	/// - parameter completion: A block that will receive a dictionary with the bookmarks.
+	public func getLearnedBookmarksWithLangCode(langCode: String, completion: (dict: JSON?) -> Void) {
+		if (!self.checkIfLoggedIn()) {
+			return completion(dict: nil)
+		}
+		let request = self.requestWithEndPoint(.GetLearnedBookmarks, pathComponents: [langCode], method: .GET, parameters: nil)
+		self.sendAsynchronousRequest(request) { (response, error) -> Void in
+			self.checkJSONResponse(response, error: error, completion: completion)
+		}
+	}
+	
+	/// Retrieves the difficulties for the texts supplied.
+	///
+	/// - parameter texts: The texts to calculate the difficulties for.
+	/// - parameter langCode: The language code the language in which the texts are written.
+	/// - parameter personalized: Calculate difficulty score specific for the current user.
+	/// - parameter rankBoundary: Upper boundary for word frequency rank (1-10000)
+	/// - parameter completion: A block that will receive an arra with the difficulties.
+	public func getDifficultyForTexts(texts: Array<String>, langCode: String, personalized: Bool = true, rankBoundary: Float = 10000, completion: (dict: JSON?) -> Void) {
+		if (!self.checkIfLoggedIn()) {
+			return completion(dict: nil)
+		}
+		var newTexts: [Dictionary<String, String>] = []
+		var counter = 0
+		for text in texts {
+			newTexts.append(["content": text, "id": String(counter++)])
+		}
+		
+		let jsonDict = ["texts": newTexts, "personalized": personalized, "rank_boundary": String(rankBoundary)]
+		
+		let request = self.requestWithEndPoint(.GetDifficultyForText, pathComponents: [langCode], method: .POST, parameters: nil, jsonBody: JSON(jsonDict))
+		self.sendAsynchronousRequest(request) { (response, error) -> Void in
+			self.checkJSONResponse(response, error: error, completion: completion)
+		}
+	}
 }

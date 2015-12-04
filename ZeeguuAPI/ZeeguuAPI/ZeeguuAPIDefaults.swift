@@ -12,7 +12,7 @@ extension ZeeguuAPI {
 	static let apiHost: String = "https://zeeguu.unibe.ch"
 	static let sessionIDKey: String = "ZeeguuSessionID"
 	
-	func requestWithEndPoint(endPoint: ZeeguuAPIEndpoint, pathComponents: Array<String>?, method: HTTPMethod, parameters: Dictionary<String, String>?) -> NSURLRequest {
+	func requestWithEndPoint(endPoint: ZeeguuAPIEndpoint, pathComponents: Array<String>?, method: HTTPMethod, parameters: Dictionary<String, String>?, jsonBody: JSON? = nil) -> NSURLRequest {
 		var path: NSString = NSString(string: ZeeguuAPI.apiHost).stringByAppendingPathComponent(endPoint.rawValue)
 		
 		// Add pathcomponent to the host if there are any (for example, adding <email> to host/add_user: host/add_user/<email>)
@@ -35,8 +35,8 @@ extension ZeeguuAPI {
 			params = self.httpQueryStringForDictionary(parameters!)
 		}
 		
-		// Add parameters to url if method is GET
-		if (method == HTTPMethod.GET && params.characters.count > 0) {
+		// Add parameters to url if method is GET or jsonBody is not nil
+		if ((method == HTTPMethod.GET || jsonBody != nil) && params.characters.count > 0) {
 			path = path.stringByAppendingString(delimiter + params)
 		}
 		
@@ -48,6 +48,11 @@ extension ZeeguuAPI {
 		if (method == HTTPMethod.POST) {
 			request.HTTPMethod = method.rawValue
 			request.HTTPBody = params.dataUsingEncoding(NSUTF8StringEncoding)
+		}
+		
+		// If jsonBody != nil, overwrite http body with json data
+		if let jsonString = jsonBody {
+			request.HTTPBody = jsonString.stringValue.dataUsingEncoding(NSUTF8StringEncoding)
 		}
 		
 		return request
