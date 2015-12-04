@@ -10,160 +10,187 @@ import XCTest
 @testable import ZeeguuAPI
 
 class ZeeguuAPITests: XCTestCase {
-    
-    override func setUp() {
-        super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-    
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
-    }
-    
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-		let l = NSCondition()
-		l.lock()
+	
+	private let testLock: NSCondition = NSCondition()
+	
+	override func setUp() {
+		super.setUp()
+		// Put setup code here. This method is called before the invocation of each test method in the class.
+		
+		testLock.lock()
+	}
+	
+	override func tearDown() {
+		testLock.unlock()
+		// Put teardown code here. This method is called after the invocation of each test method in the class.
+		super.tearDown()
+	}
+	
+	func DISABLED_testRegister() {
+//		print("Testing register:")
+//		ZeeguuAPI.sharedAPI().registerUserWithUsername("JorritO", email: "j.oosterhof.4@student.rug.nl", password: "JLq-E6q-MzL-8pp") { (success) -> Void in
+//			assert(success)
+//			print("success: ", success)
+//			print("sessionID: ", ZeeguuAPI.sharedAPI().currentSessionID)
+//			self.testLock.signal()
+//		}
+//		testLock.wait()
+	}
+	
+	func testALogin() {
 		print("Testing login:")
 		ZeeguuAPI.sharedAPI().loginWithEmail("j.oosterhof.4@student.rug.nl", password: "JLq-E6q-MzL-8pp") { (success) -> Void in
+			assert(success)
 			print("success: ", success)
 			print("sessionID: ", ZeeguuAPI.sharedAPI().currentSessionID)
-			l.signal()
+			self.testLock.signal()
 		}
-		l.wait()
-		l.unlock()
-		
-		print("Testing learned language:")
-		l.lock()
-		ZeeguuAPI.sharedAPI().learnedLanguage { (langCode) -> Void in
-			print("langCode: ", langCode)
-			l.signal()
-		}
-		l.wait()
-		l.unlock()
-		
-//		print("Testing set learned language:")
-//		l.lock()
-//		ZeeguuAPI.sharedAPI().setLearnedLanguage("de") { (success) -> Void in
-//			print("success: ", success)
-//			l.signal()
-//		}
-//		l.wait()
-		//		l.unlock()
-		
-		print("Testing native language:")
-		l.lock()
-		ZeeguuAPI.sharedAPI().nativeLanguage { (langCode) -> Void in
-			print("langCode: ", langCode)
-			l.signal()
-		}
-		l.wait()
-		l.unlock()
-		
-		//		print("Testing set native language:")
-		//		l.lock()
-		//		ZeeguuAPI.sharedAPI().setNativeLanguage("de") { (success) -> Void in
-		//			print("success: ", success)
-		//			l.signal()
-		//		}
-		//		l.wait()
-		//		l.unlock()
-		
-		print("Testing learned and native language:")
-		l.lock()
-		ZeeguuAPI.sharedAPI().learnedAndNativeLanguage { (dict) -> Void in
-			print("dict: ", dict)
-			l.signal()
-		}
-		l.wait()
-		l.unlock()
-		
-		print("Testing available languages:")
-		l.lock()
-		ZeeguuAPI.sharedAPI().availableLanguages { (array) -> Void in
-			print("array: ", array)
-			l.signal()
-		}
-		l.wait()
-		l.unlock()
-		
-		print("Testing user words:")
-		l.lock()
-		ZeeguuAPI.sharedAPI().studyingWords { (array) -> Void in
-			print("array: ", array)
-			l.signal()
-		}
-		l.wait()
-		l.unlock()
-		
-		print("Testing bookmarks by day without context:")
-		l.lock()
-		ZeeguuAPI.sharedAPI().bookmarksByDayWithContext(false) { (dict) -> Void in
-			print("dict: ", dict)
-			l.signal()
-		}
-		l.wait()
-		l.unlock()
-		
-		print("Testing bookmarks by day with context:")
-		l.lock()
-		ZeeguuAPI.sharedAPI().bookmarksByDayWithContext(true) { (dict) -> Void in
-			print("dict: ", dict)
-			l.signal()
-		}
-		l.wait()
-		l.unlock()
-		
-//		print("Testing translating word:")
-//		l.lock()
-//		ZeeguuAPI.sharedAPI().translateWord("Gipfeltreffen", context: "Unmittelbar vor dem Gipfeltreffen der Europäischen Union mit der Türkei spricht Parlamentspräsident Martin Schulz (SPD) Klartext - eine Vereinbarung von Flüchtlingskontingenten mit der Türkei sei kaum aussichtsreich.", url: "http://www.spiegel.de/politik/ausland/eu-tuerkei-gipfel-streit-um-fluechtlingskontingent-a-1065093.html") { (translation) -> Void in
-//			
-//			print("translation: ", translation)
-//			l.signal()
-//		}
-//		l.wait()
-//		l.unlock()
-		
-		
-//		print("Testing bookmarking word:")
-//		l.lock()
-//		
-//		ZeeguuAPI.sharedAPI().bookmarkWord("Gipfeltreffen", translation: "summit", context: "Unmittelbar vor dem Gipfeltreffen der Europäischen Union mit der Türkei spricht Parlamentspräsident Martin Schulz (SPD) Klartext - eine Vereinbarung von Flüchtlingskontingenten mit der Türkei sei kaum aussichtsreich.", url: "http://www.spiegel.de/politik/ausland/eu-tuerkei-gipfel-streit-um-fluechtlingskontingent-a-1065093.html", title: "EU-Türkei-Gipfel: Streit um Flüchtlingskontingent") { (bookmarkID) -> Void in
-//			
-//			print("bookmarkID: ", bookmarkID)
-//			l.signal()
-//		}
-//		l.wait()
-//		l.unlock()
-		
-//		print("Testing deleting bookmark:")
-//		l.lock()
-//		
-//		ZeeguuAPI.sharedAPI().deleteBookmarkWithID("2457") { (success) -> Void in
-//			print("success: ", success)
-//			l.signal()
-//		}
-//		l.wait()
-//		l.unlock()
-		
-		print("Testing get exercise log for bookmark:")
-		l.lock()
-		ZeeguuAPI.sharedAPI().exerciseLogWithBookmarkID("2431") { (dict) -> Void in
-			print("dict: ", dict)
-			l.signal()
-		}
-		l.wait()
-		l.unlock()
-
-    }
+		testLock.wait()
+	}
 	
-//    func testPerformanceExample() {
-//        // This is an example of a performance test case.
-//        self.measureBlock {
-//            // Put the code you want to measure the time of here.
-//        }
-//    }
+	func testGetLearnedLanguage() {
+		print("Testing learned language:")
+		ZeeguuAPI.sharedAPI().getLearnedLanguage { (langCode) -> Void in
+			assert(langCode != nil)
+			print("langCode: ", langCode)
+			self.testLock.signal()
+		}
+		testLock.wait()
+	}
+	
+	func DISABLED_testSetLearnedLanguage() {
+		//		print("Testing set learned language:")
+		//		ZeeguuAPI.sharedAPI().setLearnedLanguage("de") { (success) -> Void in
+		//		assert(success)
+		//			print("success: ", success)
+		//			self.testLock.signal()
+		//		}
+		//		testLock.wait()
+	}
+	
+	func testGetNativeLanguage() {
+		print("Testing native language:")
+		ZeeguuAPI.sharedAPI().getNativeLanguage { (langCode) -> Void in
+			assert(langCode != nil)
+			print("langCode: ", langCode)
+			self.testLock.signal()
+		}
+		testLock.wait()
+	}
+	
+	func DISABLED_testSetNativeLanguage() {
+		//		print("Testing set native language:")
+		//		ZeeguuAPI.sharedAPI().setNativeLanguage("de") { (success) -> Void in
+		//		assert(success)
+		//			print("success: ", success)
+		//			self.testLock.signal()
+		//		}
+		//		testLock.wait()
+	}
+	
+	func testGetLearnedAndNativeLanguage() {
+		print("Testing learned and native language:")
+		ZeeguuAPI.sharedAPI().getLearnedAndNativeLanguage { (dict) -> Void in
+			assert(dict != nil)
+			print("dict: ", dict)
+			self.testLock.signal()
+		}
+		testLock.wait()
+	}
+	
+	func testGetAvailableLanguages() {
+		print("Testing available languages:")
+		ZeeguuAPI.sharedAPI().getAvailableLanguages { (array) -> Void in
+			assert(array != nil)
+			print("array: ", array)
+			self.testLock.signal()
+		}
+		testLock.wait()
+	}
+	
+	func testGetStudyingWords() {
+		print("Testing user words:")
+		ZeeguuAPI.sharedAPI().getStudyingWords { (array) -> Void in
+			assert(array != nil)
+			print("array: ", array)
+			self.testLock.signal()
+		}
+		testLock.wait()
+	}
+	
+	func testGetBookmarksByDayWithoutContext() {
+		print("Testing bookmarks by day without context:")
+		ZeeguuAPI.sharedAPI().getBookmarksByDayWithContext(false) { (dict) -> Void in
+			assert(dict != nil)
+			print("dict: ", dict)
+			self.testLock.signal()
+		}
+		testLock.wait()
+	}
+	
+	func testGetBookmarksByDayWithContext() {
+		print("Testing bookmarks by day with context:")
+		ZeeguuAPI.sharedAPI().getBookmarksByDayWithContext(true) { (dict) -> Void in
+			assert(dict != nil)
+			print("dict: ", dict)
+			self.testLock.signal()
+		}
+		testLock.wait()
+	}
+	
+	func DISABLED_testTranslateWord() {
+		//		print("Testing translating word:")
+		//		ZeeguuAPI.sharedAPI().translateWord("Gipfeltreffen", context: "Unmittelbar vor dem Gipfeltreffen der Europäischen Union mit der Türkei spricht Parlamentspräsident Martin Schulz (SPD) Klartext - eine Vereinbarung von Flüchtlingskontingenten mit der Türkei sei kaum aussichtsreich.", url: "http://www.spiegel.de/politik/ausland/eu-tuerkei-gipfel-streit-um-fluechtlingskontingent-a-1065093.html") { (translation) -> Void in
+		//
+		//			assert(translation != nil)
+		//			print("translation: ", translation)
+		//			self.testLock.signal()
+		//		}
+		//		testLock.wait()
+	}
+	
+	func DISABLED_testBookmarkWord() {
+		//		print("Testing bookmarking word:")
+		//		ZeeguuAPI.sharedAPI().bookmarkWord("Gipfeltreffen", translation: "summit", context: "Unmittelbar vor dem Gipfeltreffen der Europäischen Union mit der Türkei spricht Parlamentspräsident Martin Schulz (SPD) Klartext - eine Vereinbarung von Flüchtlingskontingenten mit der Türkei sei kaum aussichtsreich.", url: "http://www.spiegel.de/politik/ausland/eu-tuerkei-gipfel-streit-um-fluechtlingskontingent-a-1065093.html", title: "EU-Türkei-Gipfel: Streit um Flüchtlingskontingent") { (bookmarkID) -> Void in
+		//
+		//			assert(bookmarkID != nil)
+		//			print("bookmarkID: ", bookmarkID)
+		//			self.testLock.signal()
+		//		}
+		//		testLock.wait()
+
+	}
+	
+	func DISABLED_testDeleteBookmark() {
+		//		print("Testing deleting bookmark:")
+		//		ZeeguuAPI.sharedAPI().deleteBookmarkWithID("2457") { (success) -> Void in
+		//			assert(success)
+		//			print("success: ", success)
+		//			self.testLock.signal()
+		//		}
+		//		testLock.wait()
+	}
+	
+	func testGetExerciseLogWithBookmarkID() {
+		print("Testing get exercise log for bookmark:")
+		ZeeguuAPI.sharedAPI().getExerciseLogWithBookmarkID("2431") { (dict) -> Void in
+			assert(dict != nil)
+			print("dict: ", dict)
+			self.testLock.signal()
+		}
+		testLock.wait()
+	}
+	
+	func DISABLED_testExample() {
+		// This is an example of a functional test case.
+		// Use XCTAssert and related functions to verify your tests produce the correct results.
+	}
+	
+	//    func testPerformanceExample() {
+	//        // This is an example of a performance test case.
+	//        self.measureBlock {
+	//            // Put the code you want to measure the time of here.
+	//        }
+	//    }
 	
 }
