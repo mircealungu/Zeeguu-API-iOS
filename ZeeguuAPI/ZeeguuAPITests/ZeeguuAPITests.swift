@@ -28,7 +28,7 @@ class ZeeguuAPITests: XCTestCase {
 	func DISABLED_testRegister() {
 		print("Testing register:")
 		ZeeguuAPI.sharedAPI().registerUserWithUsername("JorritO", email: "j.oosterhof.4@student.rug.nl", password: "JLq-E6q-MzL-8pp") { (success) -> Void in
-			assert(success)
+			XCTAssertTrue(success)
 			print("success: ", success)
 			print("sessionID: ", ZeeguuAPI.sharedAPI().currentSessionID)
 			self.testLock.signal()
@@ -39,7 +39,7 @@ class ZeeguuAPITests: XCTestCase {
 	func testAAALogin() {
 		print("Testing login:")
 		ZeeguuAPI.sharedAPI().loginWithEmail("j.oosterhof.4@student.rug.nl", password: "JLq-E6q-MzL-8pp") { (success) -> Void in
-			assert(success)
+			XCTAssertTrue(success)
 			print("success: ", success)
 			print("sessionID: ", ZeeguuAPI.sharedAPI().currentSessionID)
 			self.testLock.signal()
@@ -50,7 +50,7 @@ class ZeeguuAPITests: XCTestCase {
 	func testGetLearnedLanguage() {
 		print("Testing learned language:")
 		ZeeguuAPI.sharedAPI().getLearnedLanguage { (langCode) -> Void in
-			assert(langCode != nil)
+			XCTAssertNotNil(langCode)
 			print("langCode: ", langCode)
 			self.testLock.signal()
 		}
@@ -60,7 +60,7 @@ class ZeeguuAPITests: XCTestCase {
 	func DISABLED_testSetLearnedLanguage() {
 		print("Testing set learned language:")
 		ZeeguuAPI.sharedAPI().setLearnedLanguage("de") { (success) -> Void in
-			assert(success)
+			XCTAssertTrue(success)
 			print("success: ", success)
 			self.testLock.signal()
 		}
@@ -70,7 +70,7 @@ class ZeeguuAPITests: XCTestCase {
 	func testGetNativeLanguage() {
 		print("Testing native language:")
 		ZeeguuAPI.sharedAPI().getNativeLanguage { (langCode) -> Void in
-			assert(langCode != nil)
+			XCTAssertNotNil(langCode)
 			print("langCode: ", langCode)
 			self.testLock.signal()
 		}
@@ -80,7 +80,7 @@ class ZeeguuAPITests: XCTestCase {
 	func DISABLED_testSetNativeLanguage() {
 		print("Testing set native language:")
 		ZeeguuAPI.sharedAPI().setNativeLanguage("de") { (success) -> Void in
-			assert(success)
+			XCTAssertTrue(success)
 			print("success: ", success)
 			self.testLock.signal()
 		}
@@ -90,7 +90,7 @@ class ZeeguuAPITests: XCTestCase {
 	func testGetLearnedAndNativeLanguage() {
 		print("Testing learned and native language:")
 		ZeeguuAPI.sharedAPI().getLearnedAndNativeLanguage { (dict) -> Void in
-			assert(dict != nil)
+			XCTAssertNotNil(dict)
 			print("dict: ", dict)
 			self.testLock.signal()
 		}
@@ -100,7 +100,7 @@ class ZeeguuAPITests: XCTestCase {
 	func testGetAvailableLanguages() {
 		print("Testing available languages:")
 		ZeeguuAPI.sharedAPI().getAvailableLanguages { (array) -> Void in
-			assert(array != nil)
+			XCTAssertNotNil(array)
 			print("array: ", array)
 			self.testLock.signal()
 		}
@@ -110,7 +110,7 @@ class ZeeguuAPITests: XCTestCase {
 	func testGetStudyingWords() {
 		print("Testing user words:")
 		ZeeguuAPI.sharedAPI().getStudyingWords { (array) -> Void in
-			assert(array != nil)
+			XCTAssertNotNil(array)
 			print("array: ", array)
 			self.testLock.signal()
 		}
@@ -120,7 +120,7 @@ class ZeeguuAPITests: XCTestCase {
 	func testGetBookmarksByDayWithoutContext() {
 		print("Testing bookmarks by day without context:")
 		ZeeguuAPI.sharedAPI().getBookmarksByDayWithContext(false) { (dict) -> Void in
-			assert(dict != nil)
+			XCTAssertNotNil(dict)
 			print("dict: ", dict)
 			self.testLock.signal()
 		}
@@ -130,7 +130,7 @@ class ZeeguuAPITests: XCTestCase {
 	func testGetBookmarksByDayWithContext() {
 		print("Testing bookmarks by day with context:")
 		ZeeguuAPI.sharedAPI().getBookmarksByDayWithContext(true) { (dict) -> Void in
-			assert(dict != nil)
+			XCTAssertNotNil(dict)
 			print("dict: ", dict)
 			self.testLock.signal()
 		}
@@ -141,7 +141,7 @@ class ZeeguuAPITests: XCTestCase {
 		print("Testing translating word:")
 		ZeeguuAPI.sharedAPI().translateWord("Gipfeltreffen", context: "Unmittelbar vor dem Gipfeltreffen der Europäischen Union mit der Türkei spricht Parlamentspräsident Martin Schulz (SPD) Klartext - eine Vereinbarung von Flüchtlingskontingenten mit der Türkei sei kaum aussichtsreich.", url: "http://www.spiegel.de/politik/ausland/eu-tuerkei-gipfel-streit-um-fluechtlingskontingent-a-1065093.html") { (translation) -> Void in
 			
-			assert(translation != nil)
+			XCTAssertNotNil(translation)
 			print("translation: ", translation)
 			self.testLock.signal()
 		}
@@ -152,7 +152,7 @@ class ZeeguuAPITests: XCTestCase {
 		print("Testing bookmarking word:")
 		ZeeguuAPI.sharedAPI().bookmarkWord("Gipfeltreffen", translation: "summit", context: "Unmittelbar vor dem Gipfeltreffen der Europäischen Union mit der Türkei spricht Parlamentspräsident Martin Schulz (SPD) Klartext - eine Vereinbarung von Flüchtlingskontingenten mit der Türkei sei kaum aussichtsreich.", url: "http://www.spiegel.de/politik/ausland/eu-tuerkei-gipfel-streit-um-fluechtlingskontingent-a-1065093.html", title: "EU-Türkei-Gipfel: Streit um Flüchtlingskontingent") { (bookmarkID) -> Void in
 			
-			assert(bookmarkID != nil)
+			XCTAssertNotNil(bookmarkID)
 			print("bookmarkID: ", bookmarkID)
 			self.testLock.signal()
 		}
@@ -163,7 +163,7 @@ class ZeeguuAPITests: XCTestCase {
 	func DISABLED_testDeleteBookmark() {
 		print("Testing deleting bookmark:")
 		ZeeguuAPI.sharedAPI().deleteBookmarkWithID("2457") { (success) -> Void in
-			assert(success)
+			XCTAssertTrue(success)
 			print("success: ", success)
 			self.testLock.signal()
 		}
@@ -173,7 +173,7 @@ class ZeeguuAPITests: XCTestCase {
 	func testGetExerciseLogWithBookmarkID() {
 		print("Testing get exercise log for bookmark:")
 		ZeeguuAPI.sharedAPI().getExerciseLogWithBookmarkID("2431") { (dict) -> Void in
-			assert(dict != nil)
+			XCTAssertNotNil(dict)
 			print("dict: ", dict)
 			self.testLock.signal()
 		}
@@ -183,7 +183,7 @@ class ZeeguuAPITests: XCTestCase {
 	func testAddTranslationToBookmark() {
 		print("Testing add translation to bookmark:")
 		ZeeguuAPI.sharedAPI().addNewTranslationToBookmarkWithID("2431", translation: "fight") { (success) -> Void in
-			assert(success)
+			XCTAssertTrue(success)
 			print("success: ", success)
 			self.testLock.signal()
 		}
@@ -193,7 +193,7 @@ class ZeeguuAPITests: XCTestCase {
 	func testDeleteTranslationFromBookmark() {
 		print("Testing delete translation from bookmark:")
 		ZeeguuAPI.sharedAPI().deleteTranslationFromBookmarkWithID("2431", translation: "fight") { (success) -> Void in
-			assert(success)
+			XCTAssertTrue(success)
 			print("success: ", success)
 			self.testLock.signal()
 		}
@@ -203,7 +203,7 @@ class ZeeguuAPITests: XCTestCase {
 	func testGetAllTranslationsForBookmark() {
 		print("Testing get all translations for bookmark:")
 		ZeeguuAPI.sharedAPI().getTranslationsForBookmarkWithID("2431") { (dict) -> Void in
-			assert(dict != nil)
+			XCTAssertNotNil(dict)
 			print("dict: ", dict)
 			self.testLock.signal()
 		}
@@ -213,7 +213,7 @@ class ZeeguuAPITests: XCTestCase {
 	func DISABLED_testGetNotEncounteredWords() {
 		print("Testing get not encountered words:")
 		ZeeguuAPI.sharedAPI().getNotEncounteredWordsWithLangCode("de") { (dict) -> Void in
-			assert(dict != nil)
+			XCTAssertNotNil(dict)
 			print("dict: ", dict)
 			self.testLock.signal()
 		}
@@ -223,7 +223,7 @@ class ZeeguuAPITests: XCTestCase {
 	func testGetKnownBookmarks() {
 		print("Testing get known bookmarks:")
 		ZeeguuAPI.sharedAPI().getKnownBookmarksWithLangCode("de") { (dict) -> Void in
-			assert(dict != nil)
+			XCTAssertNotNil(dict)
 			print("dict: ", dict)
 			self.testLock.signal()
 		}
@@ -233,7 +233,7 @@ class ZeeguuAPITests: XCTestCase {
 	func testGetKnownWords() {
 		print("Testing get known words:")
 		ZeeguuAPI.sharedAPI().getKnownWordsWithLangCode("de") { (dict) -> Void in
-			assert(dict != nil)
+			XCTAssertNotNil(dict)
 			print("dict: ", dict)
 			self.testLock.signal()
 		}
@@ -243,7 +243,7 @@ class ZeeguuAPITests: XCTestCase {
 	func testGetProbablyKnownWords() {
 		print("Testing get probably known words:")
 		ZeeguuAPI.sharedAPI().getProbablyKnownWordsWithLangCode("de") { (dict) -> Void in
-			assert(dict != nil)
+			XCTAssertNotNil(dict)
 			print("dict: ", dict)
 			self.testLock.signal()
 		}
