@@ -88,7 +88,7 @@ public class ZeeguuAPI {
 		}
 	}
 	
-	/// Returns the language code of the learned langugage of the logged in user.
+	/// Retrieves the language code of the learned langugage of the logged in user.
 	///
 	/// - parameter completion: A block that will receive a language code of the learned language or nil if the request couldn't be completed.
 	public func getLearnedLanguage(completion: (langCode: String?) -> Void) {
@@ -115,15 +115,11 @@ public class ZeeguuAPI {
 		}
 		let request = self.requestWithEndPoint(.LearnedLanguage, pathComponents: [newLanguageCode], method: .POST, parameters: nil)
 		self.sendAsynchronousRequest(request) { (response, error) -> Void in
-			if (response != nil && response! == "OK") {
-				completion(success: true)
-			} else {
-				completion(success: false)
-			}
+			self.checkBooleanResponse(response, error: error, completion: completion);
 		}
 	}
 	
-	/// Returns the language code of the native langugage of the logged in user.
+	/// Retrieves the language code of the native langugage of the logged in user.
 	///
 	/// - parameter completion: A block that will receive a language code of the native language or nil if the request couldn't be completed.
 	public func getNativeLanguage(completion: (langCode: String?) -> Void) {
@@ -150,15 +146,11 @@ public class ZeeguuAPI {
 		}
 		let request = self.requestWithEndPoint(.NativeLanguage, pathComponents: [newLanguageCode], method: .POST, parameters: nil)
 		self.sendAsynchronousRequest(request) { (response, error) -> Void in
-			if (response != nil && response! == "OK") {
-				completion(success: true)
-			} else {
-				completion(success: false)
-			}
+			self.checkBooleanResponse(response, error: error, completion: completion);
 		}
 	}
 	
-	/// Returns the language code of the learned and native langugage of the logged in user.
+	/// Retrieves the language code of the learned and native langugage of the logged in user.
 	///
 	/// - parameter completion: A block that will receive a `JSON` object, which contains the dictornary with language codes of the learned and native language.
 	public func getLearnedAndNativeLanguage(completion: (dict: JSON?) -> Void) {
@@ -175,7 +167,7 @@ public class ZeeguuAPI {
 		}
 	}
 	
-	/// Returns the language codes of all available languages that the Zeeguu API supports.
+	/// Retrieves the language codes of all available languages that the Zeeguu API supports.
 	///
 	/// - parameter completion: A block that will receive a `JSON` object, which contains the array with the language codes.
 	public func getAvailableLanguages(completion: (array: JSON?) -> Void) {
@@ -192,7 +184,7 @@ public class ZeeguuAPI {
 		}
 	}
 	
-	/// Returns the words that the user is currently studying.
+	/// Retrieves the words that the user is currently studying.
 	///
 	/// - parameter completion: A block that will receive a `JSON` object, which contains the list of words.
 	public func getStudyingWords(completion: (array: JSON?) -> Void) {
@@ -209,7 +201,7 @@ public class ZeeguuAPI {
 		}
 	}
 	
-	/// Returns the bookmarks of the user, organized by date.
+	/// Retrieves the bookmarks of the user, organized by date.
 	///
 	/// - parameter withContext: If `withContext` is `true`, the text where a bookmark was found is also returned. If `false`, only the bookmark (without context) is returned.
 	/// - parameter completion: A block that will receive a `JSON` object, which contains the list of bookmarks.
@@ -233,7 +225,7 @@ public class ZeeguuAPI {
 		}
 	}
 	
-	/// Returns the translation of the given word from the user's learned language to the user's native language.
+	/// Retrieves the translation of the given word from the user's learned language to the user's native language.
 	///
 	/// - parameter word: The word to translate.
 	/// - parameter context: The context in which the word appeared.
@@ -261,7 +253,7 @@ public class ZeeguuAPI {
 		}
 	}
 	
-	/// Adds the translation of the given word to the user's bookmarks and returns its ID.
+	/// Adds the translation of the given word to the user's bookmarks and Retrieves its ID.
 	///
 	/// - parameter word: The word to bookmark.
 	/// - parameter translation: The translation of `word`.
@@ -306,15 +298,11 @@ public class ZeeguuAPI {
 		
 		let request = self.requestWithEndPoint(.DeleteBookmark, pathComponents: [bookmarkID], method: .POST, parameters: nil)
 		self.sendAsynchronousRequest(request) { (response, error) -> Void in
-			if (response != nil && response == "OK") {
-				completion(success: true)
-			} else {
-				completion(success: false)
-			}
+			self.checkBooleanResponse(response, error: error, completion: completion);
 		}
 	}
 	
-	/// Returns the exercise log of the user for a given bookmark.
+	/// Retrieves the exercise log of the user for a given bookmark.
 	///
 	/// - parameter bookmarkID: The ID of the bookmark for which to get the exercise log.
 	/// - parameter completion: A block that will receive a `JSON` object, which contains the exercise log.
