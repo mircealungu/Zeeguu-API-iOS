@@ -340,4 +340,18 @@ public class ZeeguuAPI {
 			self.checkJSONResponse(response, error: error, completion: completion)
 		}
 	}
+	
+	/// Retrieves all known bookmarks for the current user.
+	///
+	/// - parameter langCode: The language code for which to retrieve the bookmarks.
+	/// - parameter completion: A block that will receive a dictionary with the bookmarks.
+	public func getKnownBookmarksWithLangCode(langCode: String, completion: (dict: JSON?) -> Void) {
+		if (!self.checkIfLoggedIn()) {
+			return completion(dict: nil)
+		}
+		let request = self.requestWithEndPoint(.GetKnownBookmarks, pathComponents: [langCode], method: .GET, parameters: nil)
+		self.sendAsynchronousRequest(request) { (response, error) -> Void in
+			self.checkJSONResponse(response, error: error, completion: completion)
+		}
+	}
 }
