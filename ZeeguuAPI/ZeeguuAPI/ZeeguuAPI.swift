@@ -482,7 +482,7 @@ public class ZeeguuAPI {
 	/// - parameter langCode: The language code the language in which the texts are written.
 	/// - parameter personalized: Calculate difficulty score specific for the current user.
 	/// - parameter rankBoundary: Upper boundary for word frequency rank (1-10000)
-	/// - parameter completion: A block that will receive an arra with the difficulties.
+	/// - parameter completion: A block that will receive an array with the difficulties.
 	public func getDifficultyForTexts(texts: Array<String>, langCode: String, personalized: Bool = true, rankBoundary: Float = 10000, completion: (dict: JSON?) -> Void) {
 		if (!self.checkIfLoggedIn()) {
 			return completion(dict: nil)
@@ -505,7 +505,7 @@ public class ZeeguuAPI {
 	///
 	/// - parameter texts: The texts to calculate the learnabilities for.
 	/// - parameter langCode: The language code the language in which the texts are written.
-	/// - parameter completion: A block that will receive an arra with the difficulties.
+	/// - parameter completion: A block that will receive an array with the difficulties.
 	public func getLearnabilityForTexts(texts: Array<String>, langCode: String, completion: (dict: JSON?) -> Void) {
 		if (!self.checkIfLoggedIn()) {
 			return completion(dict: nil)
@@ -524,6 +524,11 @@ public class ZeeguuAPI {
 		}
 	}
 	
+	/// Retrieves the content and an image from the given urls.
+	///
+	/// - parameter urls: The urls to get the content from.
+	/// - parameter maxTimeout: Maximal time in seconds to wait for the results.
+	/// - parameter completion: A block that will receive an array with the contents of the urls.
 	func getContentFromURLs(urls: Array<String>, maxTimeout: Int = 0, completion: (dict: JSON?) -> Void) {
 		var newURLs: [Dictionary<String, String>] = []
 		var counter = 0
