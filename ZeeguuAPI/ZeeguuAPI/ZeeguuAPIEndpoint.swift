@@ -15,6 +15,7 @@ enum ZeeguuAPIEndpoint: String {
 	case BookmarksByDay = "bookmarks_by_day"
 	case BookmarkWithContext = "bookmark_with_context"
 	case DeleteBookmark = "delete_bookmark"
+	case DeleteTranslationFromBookmark = "delete_translation_from_bookmark"
 	case GetContentFromURL = "get_content_from_url"
 	case GetDifficultyForText = "get_difficulty_for_text"
 	case GetExerciseLogForBookmark = "get_exercise_log_for_bookmark"
