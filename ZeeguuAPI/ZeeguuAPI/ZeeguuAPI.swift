@@ -434,4 +434,17 @@ public class ZeeguuAPI {
 			self.checkStringResponse(response, error: error, completion: completion)
 		}
 	}
+	
+	/// Retrieves the percentage of pobably known bookmarked words.
+	///
+	/// - parameter completion: A block that will receive a string with the percentage.
+	public func getPercentageOfProbablyKnownBookmarkedWordsWithCompletion(completion: (percentage: String?) -> Void) {
+		if (!self.checkIfLoggedIn()) {
+			return completion(percentage: nil)
+		}
+		let request = self.requestWithEndPoint(.GetPercentageOfProbablyKnownBookmarkedWords, pathComponents: nil, method: .GET, parameters: nil)
+		self.sendAsynchronousRequest(request) { (response, error) -> Void in
+			self.checkStringResponse(response, error: error, completion: completion)
+		}
+	}
 }

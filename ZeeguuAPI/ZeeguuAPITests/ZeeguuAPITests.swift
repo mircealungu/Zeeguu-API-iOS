@@ -294,6 +294,17 @@ class ZeeguuAPITests: XCTestCase {
 		testLock.wait()
 	}
 	
+	func testGetPercentageOfProbablyKnownBookmarkedWords() {
+		print("Testing get percentage of probably known bookmarked words:")
+		ZeeguuAPI.sharedAPI().getPercentageOfProbablyKnownBookmarkedWordsWithCompletion() { (percentage) -> Void in
+			XCTAssertNotNil(percentage)
+			print("percentage: ", percentage)
+			self.testLock.signal()
+			
+		}
+		testLock.wait()
+	}
+	
 	func DISABLED_testExample() {
 		// This is an example of a functional test case.
 		// Use XCTAssert and related functions to verify your tests produce the correct results.
