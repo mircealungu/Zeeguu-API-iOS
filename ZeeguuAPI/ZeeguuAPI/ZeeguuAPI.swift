@@ -316,12 +316,26 @@ public class ZeeguuAPI {
 	/// Retrieves all translations for the bookmark with the given ID.
 	///
 	/// - parameter bookmarkID: The ID of the bookmark.
-	/// - parameter completion: A block that will receive a boolean indicating if the translation could be deleted or not.
+	/// - parameter completion: A block that will receive a dictionary with the translations.
 	public func getTranslationsForBookmarkWithID(bookmarkID: String, completion: (dict: JSON?) -> Void) {
 		if (!self.checkIfLoggedIn()) {
 			return completion(dict: nil)
 		}
 		let request = self.requestWithEndPoint(.GetTranslationsForBookmark, pathComponents: [bookmarkID], method: .GET, parameters: nil)
+		self.sendAsynchronousRequest(request) { (response, error) -> Void in
+			self.checkJSONResponse(response, error: error, completion: completion)
+		}
+	}
+	
+	/// Retrieves all words that have not been encountered yet by the current user.
+	///
+	/// - parameter langCode: The language code for which to retrieve the words.
+	/// - parameter completion: A block that will receive a dictionary with the words.
+	public func getNotEncounteredWordsWithLangCode(langCode: String, completion: (dict: JSON?) -> Void) {
+		if (!self.checkIfLoggedIn()) {
+			return completion(dict: nil)
+		}
+		let request = self.requestWithEndPoint(.GetNotEncounteredWords, pathComponents: [langCode], method: .GET, parameters: nil)
 		self.sendAsynchronousRequest(request) { (response, error) -> Void in
 			self.checkJSONResponse(response, error: error, completion: completion)
 		}
