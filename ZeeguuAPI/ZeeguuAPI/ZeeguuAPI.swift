@@ -8,7 +8,7 @@
 
 import UIKit
 
-/// This class is a gateway to the Zeeguu API. You can use the instance of this class to communicate with the Zeeguu API.
+/// This class is a gateway to the Zeeguu API. You can use the instance of this class obtained by `ZeeguuAPI.sharedAPI()` to communicate with the Zeeguu API.
 public class ZeeguuAPI {
 	private static let instance = ZeeguuAPI()
 	
