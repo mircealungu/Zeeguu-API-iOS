@@ -64,17 +64,18 @@ extension ZeeguuAPI {
 	
 	func sendAsynchronousRequest(request: NSURLRequest, completion: (response: String?, error: NSError?) -> Void) {
 		let session = NSURLSession.sharedSession()
+		NSLog("Sending request for url \"%@\": %@\n\n", request.URL!, request);
 		let task = session.dataTaskWithRequest(request) { (data, response, error) -> Void in
 			if (data != nil && response != nil && (response! as! NSHTTPURLResponse).statusCode == 200) {
 				let response = String(data: data!, encoding: NSUTF8StringEncoding)!
-				NSLog("Response from url \"%@\": %@", request.URL!, response);
+				NSLog("Response from url \"%@\": %@\n\n", request.URL!, response);
 				completion(response: response, error: nil)
 			} else {
 				if (response != nil) {
-					NSLog("Response object for url \"%@\": %@", request.URL!, response!);
+					NSLog("Response object for url \"%@\": %@\n\n", request.URL!, response!);
 				}
 				if (error != nil) {
-					NSLog("Error for url \"%@\": %@", request.URL!, error!);
+					NSLog("Error for url \"%@\": %@\n\n", request.URL!, error!);
 				}
 				completion(response: nil, error: error)
 			}

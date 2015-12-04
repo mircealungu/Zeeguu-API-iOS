@@ -408,4 +408,30 @@ public class ZeeguuAPI {
 			self.checkStringResponse(response, error: error, completion: completion)
 		}
 	}
+	
+	/// Retrieves the lower bound percentage of extended vocabulary.
+	///
+	/// - parameter completion: A block that will receive a string with the percentage.
+	public func getLowerBoundPercentageOfExtendedVocabularyWithCompletion(completion: (percentage: String?) -> Void) {
+		if (!self.checkIfLoggedIn()) {
+			return completion(percentage: nil)
+		}
+		let request = self.requestWithEndPoint(.GetLowerBoundPercentageOfExtendedVocabulary, pathComponents: nil, method: .GET, parameters: nil)
+		self.sendAsynchronousRequest(request) { (response, error) -> Void in
+			self.checkStringResponse(response, error: error, completion: completion)
+		}
+	}
+	
+	/// Retrieves the upper bound percentage of extended vocabulary.
+	///
+	/// - parameter completion: A block that will receive a string with the percentage.
+	public func getUpperBoundPercentageOfExtendedVocabularyWithCompletion(completion: (percentage: String?) -> Void) {
+		if (!self.checkIfLoggedIn()) {
+			return completion(percentage: nil)
+		}
+		let request = self.requestWithEndPoint(.GetUpperBoundPercentageOfExtendedVocabulary, pathComponents: nil, method: .GET, parameters: nil)
+		self.sendAsynchronousRequest(request) { (response, error) -> Void in
+			self.checkStringResponse(response, error: error, completion: completion)
+		}
+	}
 }

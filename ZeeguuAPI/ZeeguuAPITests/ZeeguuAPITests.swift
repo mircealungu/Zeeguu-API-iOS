@@ -262,8 +262,30 @@ class ZeeguuAPITests: XCTestCase {
 	}
 	
 	func testGetUpperBoundPercentageOfBasicVocabulary() {
-		print("Testing get lower bound percentage of basic vocabulary:")
+		print("Testing get upper bound percentage of basic vocabulary:")
 		ZeeguuAPI.sharedAPI().getUpperBoundPercentageOfBasicVocabularyWithCompletion() { (percentage) -> Void in
+			XCTAssertNotNil(percentage)
+			print("percentage: ", percentage)
+			self.testLock.signal()
+			
+		}
+		testLock.wait()
+	}
+	
+	func testGetLowerBoundPercentageOfExtendedVocabulary() {
+		print("Testing get lower bound percentage of extended vocabulary:")
+		ZeeguuAPI.sharedAPI().getLowerBoundPercentageOfExtendedVocabularyWithCompletion() { (percentage) -> Void in
+			XCTAssertNotNil(percentage)
+			print("percentage: ", percentage)
+			self.testLock.signal()
+			
+		}
+		testLock.wait()
+	}
+	
+	func testGetUpperBoundPercentageOfExtendedVocabulary() {
+		print("Testing get upper bound percentage of extended vocabulary:")
+		ZeeguuAPI.sharedAPI().getUpperBoundPercentageOfExtendedVocabularyWithCompletion() { (percentage) -> Void in
 			XCTAssertNotNil(percentage)
 			print("percentage: ", percentage)
 			self.testLock.signal()
