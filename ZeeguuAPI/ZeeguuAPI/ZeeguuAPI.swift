@@ -462,6 +462,20 @@ public class ZeeguuAPI {
 		}
 	}
 	
+	/// Retrieves all not looked up words for the current user.
+	///
+	/// - parameter langCode: The language code for which to retrieve the words.
+	/// - parameter completion: A block that will receive a dictionary with the words.
+	public func getNotLookedUpWordsWithLangCode(langCode: String, completion: (dict: JSON?) -> Void) {
+		if (!self.checkIfLoggedIn()) {
+			return completion(dict: nil)
+		}
+		let request = self.requestWithEndPoint(.GetNotLookedUpWords, pathComponents: [langCode], method: .GET, parameters: nil)
+		self.sendAsynchronousRequest(request) { (response, error) -> Void in
+			self.checkJSONResponse(response, error: error, completion: completion)
+		}
+	}
+	
 	/// Retrieves the difficulties for the texts supplied.
 	///
 	/// - parameter texts: The texts to calculate the difficulties for.
