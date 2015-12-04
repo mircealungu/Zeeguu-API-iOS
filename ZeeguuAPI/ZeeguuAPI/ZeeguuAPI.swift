@@ -97,11 +97,7 @@ public class ZeeguuAPI {
 		}
 		let request = self.requestWithEndPoint(.LearnedLanguage, pathComponents: nil, method: .GET, parameters: nil)
 		self.sendAsynchronousRequest(request) { (response, error) -> Void in
-			if (response != nil) {
-				completion(langCode: response!)
-			} else {
-				completion(langCode: nil)
-			}
+			self.checkStringResponse(response, error: error, completion: completion)
 		}
 	}
 	
@@ -128,11 +124,7 @@ public class ZeeguuAPI {
 		}
 		let request = self.requestWithEndPoint(.NativeLanguage, pathComponents: nil, method: .GET, parameters: nil)
 		self.sendAsynchronousRequest(request) { (response, error) -> Void in
-			if (response != nil) {
-				completion(langCode: response!)
-			} else {
-				completion(langCode: nil)
-			}
+			self.checkStringResponse(response, error: error, completion: completion)
 		}
 	}
 	
@@ -225,11 +217,7 @@ public class ZeeguuAPI {
 				if let learned = dict!["learned"].string, native = dict!["native"].string {
 					let request = self.requestWithEndPoint(.Translate, pathComponents: [learned, native], method: .POST, parameters: ["context": context, "word": word, "url": url])
 					self.sendAsynchronousRequest(request) { (response, error) -> Void in
-						if (response != nil) {
-							completion(translation: response!)
-						} else {
-							completion(translation: nil)
-						}
+						self.checkStringResponse(response, error: error, completion: completion)
 					}
 				}
 			}
@@ -259,11 +247,7 @@ public class ZeeguuAPI {
 					}
 					let request = self.requestWithEndPoint(.BookmarkWithContext, pathComponents: [learned, word, native, translation], method: .POST, parameters: params)
 					self.sendAsynchronousRequest(request) { (response, error) -> Void in
-						if (response != nil) {
-							completion(bookmarkID: response!)
-						} else {
-							completion(bookmarkID: nil)
-						}
+						self.checkStringResponse(response, error: error, completion: completion)
 					}
 				}
 			}

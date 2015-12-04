@@ -105,4 +105,12 @@ extension ZeeguuAPI {
 			completion(dict: nil)
 		}
 	}
+	
+	func checkStringResponse(response: String?, error: NSError?, completion: (string: String?) -> Void) {
+		if (response != nil) {
+			completion(string: response!)
+		} else {
+			completion(string: nil)
+		}
+	}
 }
