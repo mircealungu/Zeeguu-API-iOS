@@ -347,7 +347,7 @@ class ZeeguuAPITests: XCTestCase {
 	
 	func testGetContentFromURLs() {
 		print("Testing get content from urls:")
-		ZeeguuAPI.sharedAPI().getContentFromURLs(["http://www.t-online.de/nachrichten/deutschland/id_76314572/frank-juergen-weise-geraet-wegen-langer-asylverfahren-in-die-kritik.html"]) { (dict) -> Void in
+		ZeeguuAPI.sharedAPI().getContentFromURLs(["http://www.t-online.de/nachrichten/deutschland/id_76314572/frank-juergen-weise-geraet-wegen-langer-asylverfahren-in-die-kritik.html", "http://www.derbund.ch/wirtschaft/unternehmen-und-konjunktur/die-bankenriesen-in-den-bergkantonen/story/26984250", "http://www.computerbase.de/2015-11/bundestag-parlament-beschliesst-das-ende-vom-routerzwang-erneut/"]) { (dict) -> Void in
 			XCTAssertNotNil(dict)
 			print("dict: ", dict)
 			self.testLock.signal()

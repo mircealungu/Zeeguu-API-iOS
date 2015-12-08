@@ -529,14 +529,14 @@ public class ZeeguuAPI {
 	/// - parameter urls: The urls to get the content from.
 	/// - parameter maxTimeout: Maximal time in seconds to wait for the results.
 	/// - parameter completion: A block that will receive an array with the contents of the urls.
-	func getContentFromURLs(urls: Array<String>, maxTimeout: Int = 0, completion: (dict: JSON?) -> Void) {
+	func getContentFromURLs(urls: Array<String>, maxTimeout: Int = 10, completion: (dict: JSON?) -> Void) {
 		var newURLs: [Dictionary<String, String>] = []
 		var counter = 0
 		for url in urls {
 			newURLs.append(["url": url, "id": String(counter++)])
 		}
 		
-		let jsonDict = ["urlhs": newURLs, "timeout": String(maxTimeout)]
+		let jsonDict = ["urls": newURLs, "timeout": String(maxTimeout)]
 		
 		let request = self.requestWithEndPoint(.GetContentFromURL, pathComponents: nil, method: .POST, parameters: nil, jsonBody: JSON(jsonDict))
 		self.sendAsynchronousRequest(request) { (response, error) -> Void in

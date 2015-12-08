@@ -52,7 +52,22 @@ extension ZeeguuAPI {
 		
 		// If jsonBody != nil, overwrite http body with json data
 		if let jsonString = jsonBody {
-			request.HTTPBody = jsonString.stringValue.dataUsingEncoding(NSUTF8StringEncoding)
+			var requestData: NSData?
+			if let str = jsonString.rawString() {
+				requestData = str.dataUsingEncoding(NSUTF8StringEncoding)
+			} else {
+				requestData = "".dataUsingEncoding(NSUTF8StringEncoding)
+			}
+			
+			var requestDataLength: String
+			if let length = requestData?.length {
+				requestDataLength = (length as NSNumber).stringValue
+			} else {
+				requestDataLength = "0"
+			}
+			request.HTTPBody = requestData
+			request.setValue("application/json", forHTTPHeaderField: "Content-Type");
+			request.setValue(requestDataLength, forHTTPHeaderField: "Content-Length")
 		}
 		
 		return request
