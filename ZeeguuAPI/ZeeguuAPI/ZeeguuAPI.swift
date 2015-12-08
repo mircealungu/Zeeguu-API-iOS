@@ -493,7 +493,7 @@ public class ZeeguuAPI {
 			newTexts.append(["content": text, "id": String(counter++)])
 		}
 		
-		let jsonDict = ["texts": newTexts, "personalized": personalized, "rank_boundary": String(rankBoundary)]
+		let jsonDict = ["texts": newTexts, "personalized": String(personalized), "rank_boundary": String(rankBoundary)]
 		
 		let request = self.requestWithEndPoint(.GetDifficultyForText, pathComponents: [langCode], method: .POST, parameters: nil, jsonBody: JSON(jsonDict))
 		self.sendAsynchronousRequest(request) { (response, error) -> Void in
