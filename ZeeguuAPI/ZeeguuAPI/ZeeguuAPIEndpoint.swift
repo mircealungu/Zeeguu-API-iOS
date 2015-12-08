@@ -27,7 +27,6 @@ enum ZeeguuAPIEndpoint: String {
 	case GetLowerBoundPercentageOfExtendedVocabulary = "get_lower_bound_percentage_of_extended_vocabulary"
 	case GetNotEncounteredWords = "get_not_encountered_words"
 	case GetNotLookedUpWords = "get_not_looked_up_words"
-	case GetPage = "get_page"
 	case GetPercentageOfProbablyKnownBookmarkedWords = "get_percentage_of_probably_known_bookmarked_words"
 	case GetProbablyKnownWords = "get_probably_known_words"
 	case GetTranslationsForBookmark = "get_translations_for_bookmark"
