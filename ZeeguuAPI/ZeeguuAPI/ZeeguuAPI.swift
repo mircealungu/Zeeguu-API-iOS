@@ -543,18 +543,4 @@ public class ZeeguuAPI {
 			self.checkJSONResponse(response, error: error, completion: completion)
 		}
 	}
-	
-	/// Retrieves the page for the given url.
-	///
-	/// - parameter url: The url of the page to retrieve.
-	/// - parameter completion: A block that will receive the page as a string.
-	func getPageWithURL(url: String, completion: (dict: String?) -> Void) {
-		if (!self.checkIfLoggedIn()) {
-			return completion(dict: nil)
-		}
-		let request = self.requestWithEndPoint(.GetPage, pathComponents: [url], method: .GET, parameters: nil)
-		self.sendAsynchronousRequest(request) { (response, error) -> Void in
-			self.checkStringResponse(response, error: error, completion: completion)
-		}
-	}
 }
