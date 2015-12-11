@@ -8,6 +8,8 @@
 
 import UIKit
 
+var networkActivityCounter = 0;
+
 extension ZeeguuAPI {
 	static let apiHost: String = "https://zeeguu.unibe.ch"
 	static let sessionIDKey: String = "ZeeguuSessionID"
@@ -48,6 +50,10 @@ extension ZeeguuAPI {
 		if (method == HTTPMethod.POST) {
 			request.HTTPMethod = method.rawValue
 			request.HTTPBody = params.dataUsingEncoding(NSUTF8StringEncoding)
+			request.setValue("application/x-www-form-urlencoded; charset=utf-8", forHTTPHeaderField:"Content-Type");
+			if (self.enableDubugOutput) {
+				print("httpbody: \(NSString(data: request.HTTPBody!, encoding: NSUTF8StringEncoding)))")
+			}
 		}
 		
 		// If jsonBody != nil, overwrite http body with json data
@@ -84,23 +90,33 @@ extension ZeeguuAPI {
 	
 	func sendAsynchronousRequest(request: NSURLRequest, completion: (response: String?, error: NSError?) -> Void) {
 		let session = NSURLSession.sharedSession()
-		NSLog("Sending request for url \"%@\": %@\n\n", request.URL!, request);
+		if (self.enableDubugOutput) {
+			NSLog("Sending request for url \"%@\": %@\n\n", request.URL!, request);
+		}
 		let task = session.dataTaskWithRequest(request) { (data, response, error) -> Void in
 			if (data != nil && response != nil && (response! as! NSHTTPURLResponse).statusCode == 200) {
 				let response = String(data: data!, encoding: NSUTF8StringEncoding)!
-				NSLog("Response from url \"%@\": %@\n\n", request.URL!, response);
+				if (self.enableDubugOutput) {
+					NSLog("Response from url \"%@\": %@\n\n", request.URL!, response);
+				}
 				completion(response: response, error: nil)
 			} else {
 				if (response != nil) {
-					NSLog("Response object for url \"%@\": %@\n\n", request.URL!, response!);
+					if (self.enableDubugOutput) {
+						NSLog("Response object for url \"%@\": %@\n\n", request.URL!, response!);
+					}
 				}
 				if (error != nil) {
-					NSLog("Error for url \"%@\": %@\n\n", request.URL!, error!);
+					if (self.enableDubugOutput) {
+						NSLog("Error for url \"%@\": %@\n\n", request.URL!, error!);
+					}
 				}
 				completion(response: nil, error: error)
 			}
+			self.showNetworkIndicator(false)
 		}
 		task.resume()
+		self.showNetworkIndicator(true)
 	}
 	
 	func checkIfLoggedIn() -> Bool {
@@ -132,6 +148,21 @@ extension ZeeguuAPI {
 			completion(string: response!)
 		} else {
 			completion(string: nil)
+		}
+	}
+	
+	func showNetworkIndicator(show: Bool) {
+		if (show) {
+			++networkActivityCounter
+		} else {
+			if (--networkActivityCounter < 0) {
+				networkActivityCounter = 0
+			}
+		}
+		if (networkActivityCounter <= 0) {
+			UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+		} else {
+			UIApplication.sharedApplication().networkActivityIndicatorVisible = true
 		}
 	}
 }

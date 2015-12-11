@@ -140,7 +140,17 @@ class ZeeguuAPITests: XCTestCase {
 	func DISABLED_testTranslateWord() {
 		print("Testing translating word:")
 		ZeeguuAPI.sharedAPI().translateWord("Gipfeltreffen", context: "Unmittelbar vor dem Gipfeltreffen der Europäischen Union mit der Türkei spricht Parlamentspräsident Martin Schulz (SPD) Klartext - eine Vereinbarung von Flüchtlingskontingenten mit der Türkei sei kaum aussichtsreich.", url: "http://www.spiegel.de/politik/ausland/eu-tuerkei-gipfel-streit-um-fluechtlingskontingent-a-1065093.html") { (translation) -> Void in
-			
+
+			XCTAssertNotNil(translation)
+			print("translation: ", translation)
+			self.testLock.signal()
+		}
+		testLock.wait()
+	}
+	
+	func DISABLED_testTranslateUmlautWord() {
+		print("Testing translating word:")
+		ZeeguuAPI.sharedAPI().translateWord("über", context: "", url: "") { (translation) -> Void in
 			XCTAssertNotNil(translation)
 			print("translation: ", translation)
 			self.testLock.signal()
@@ -347,7 +357,7 @@ class ZeeguuAPITests: XCTestCase {
 	
 	func testGetContentFromURLs() {
 		print("Testing get content from urls:")
-		ZeeguuAPI.sharedAPI().getContentFromURLs(["http://www.t-online.de/nachrichten/deutschland/id_76314572/frank-juergen-weise-geraet-wegen-langer-asylverfahren-in-die-kritik.html", "http://www.derbund.ch/wirtschaft/unternehmen-und-konjunktur/die-bankenriesen-in-den-bergkantonen/story/26984250", "http://www.computerbase.de/2015-11/bundestag-parlament-beschliesst-das-ende-vom-routerzwang-erneut/"]) { (dict) -> Void in
+		ZeeguuAPI.sharedAPI().getContentFromURLs(["http://www.t-online.de/nachrichten/deutschland/id_76314572/frank-juergen-weise-geraet-wegen-langer-asylverfahren-in-die-kritik.html", "http://www.derbund.ch/wirtschaft/unternehmen-und-konjunktur/die-bankenriesen-in-den-bergkantonen/story/26984250", "http://www.computerbase.de/2015-11/bundestag-parlament-beschliesst-das-ende-vom-routerzwang-erneut/", "http://www.spiegel.de/panorama/justiz/beate-zschaepe-im-nsu-prozess-was-sie-ausgesagt-hat-a-1066805.html"]) { (dict) -> Void in
 			XCTAssertNotNil(dict)
 			print("dict: ", dict)
 			self.testLock.signal()

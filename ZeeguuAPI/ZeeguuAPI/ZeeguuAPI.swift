@@ -12,6 +12,8 @@ import UIKit
 public class ZeeguuAPI {
 	private static let instance = ZeeguuAPI()
 	
+	public var enableDubugOutput = false
+	
 	var currentSessionID: Int {
 		didSet {
 			let def = NSUserDefaults.standardUserDefaults()
@@ -219,9 +221,13 @@ public class ZeeguuAPI {
 					self.sendAsynchronousRequest(request) { (response, error) -> Void in
 						self.checkStringResponse(response, error: error, completion: completion)
 					}
+				} else  {
+					completion(translation: nil)
 				}
+			} else {
+				completion(translation: nil)
 			}
-			completion(translation: nil)
+			
 		}
 	}
 	
@@ -529,7 +535,7 @@ public class ZeeguuAPI {
 	/// - parameter urls: The urls to get the content from.
 	/// - parameter maxTimeout: Maximal time in seconds to wait for the results.
 	/// - parameter completion: A block that will receive an array with the contents of the urls.
-	func getContentFromURLs(urls: Array<String>, maxTimeout: Int = 10, completion: (dict: JSON?) -> Void) {
+	public func getContentFromURLs(urls: Array<String>, maxTimeout: Int = 10, completion: (dict: JSON?) -> Void) {
 		var newURLs: [Dictionary<String, String>] = []
 		var counter = 0
 		for url in urls {
@@ -550,7 +556,7 @@ public class ZeeguuAPI {
 	/// - parameter term: The term that was translated.
 	/// - parameter toLangCode: The language code of the language to which the term was translated. If this parameter is nil, the learned language of the current user is used.
 	/// - parameter completion: A block that will receive an boolean, indicating if the search was logged correctly.
-	func lookupFromLangCode(fromLangCode: String, term: String, toLangCode: String? = nil, completion: (success: Bool) -> Void) {
+	public func lookupFromLangCode(fromLangCode: String, term: String, toLangCode: String? = nil, completion: (success: Bool) -> Void) {
 		if (!self.checkIfLoggedIn()) {
 			return completion(success: false)
 		}

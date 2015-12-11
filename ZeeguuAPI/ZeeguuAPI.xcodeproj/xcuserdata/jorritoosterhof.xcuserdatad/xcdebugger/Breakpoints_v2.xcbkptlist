@@ -2,4 +2,198 @@
 <Bucket
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ZeeguuAPI/ZeeguuAPI.swift"
+            timestampString = "471349711.194873"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "220"
+            endingLineNumber = "220"
+            landmarkName = "translateWord(_:context:url:completion:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ZeeguuAPI/ZeeguuAPI.swift"
+            timestampString = "471349718.124489"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "221"
+            endingLineNumber = "221"
+            landmarkName = "translateWord(_:context:url:completion:)"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ZeeguuAPI.ZeeguuAPI.(translateWord (ZeeguuAPI.ZeeguuAPI) -&gt; (Swift.String, context : Swift.String, url : Swift.String, completion : (translation : Swift.Optional&lt;Swift.String&gt;) -&gt; ()) -&gt; ()).(closure #1)"
+                  moduleName = "ZeeguuAPI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jorritoosterhof/Documents/Studie/2015-2016/Period%202/Short%20Programming%20Project/Zeeguu-API-iOS/ZeeguuAPI/ZeeguuAPI/ZeeguuAPI.swift"
+                  timestampString = "471349836.330603"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "221"
+                  endingLineNumber = "221"
+                  offsetFromSymbolStart = "5848">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ZeeguuAPI.ZeeguuAPI.(translateWord (ZeeguuAPI.ZeeguuAPI) -&gt; (Swift.String, context : Swift.String, url : Swift.String, completion : (translation : Swift.Optional&lt;Swift.String&gt;) -&gt; ()) -&gt; ()).(closure #1).(closure #1)"
+                  moduleName = "ZeeguuAPI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jorritoosterhof/Documents/Studie/2015-2016/Period%202/Short%20Programming%20Project/Zeeguu-API-iOS/ZeeguuAPI/ZeeguuAPI/ZeeguuAPI.swift"
+                  timestampString = "471349836.330794"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "222"
+                  endingLineNumber = "222"
+                  offsetFromSymbolStart = "99">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ZeeguuAPI/ZeeguuAPI.swift"
+            timestampString = "471528252.912679"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "222"
+            endingLineNumber = "222"
+            landmarkName = "translateWord(_:context:url:completion:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ZeeguuAPI/ZeeguuAPIDefaults.swift"
+            timestampString = "471528670.152353"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "148"
+            endingLineNumber = "148"
+            landmarkName = "checkStringResponse(_:error:completion:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ZeeguuAPI/ZeeguuAPIDefaults.swift"
+            timestampString = "471528670.152353"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "150"
+            endingLineNumber = "150"
+            landmarkName = "checkStringResponse(_:error:completion:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ZeeguuAPITests/ZeeguuAPITests.swift"
+            timestampString = "471349751.309342"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "143"
+            endingLineNumber = "143"
+            landmarkName = "DISABLED_testTranslateWord()"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ZeeguuAPITests.ZeeguuAPITests.(testTranslateWord (ZeeguuAPITests.ZeeguuAPITests) -&gt; () -&gt; ()).(closure #1)"
+                  moduleName = "ZeeguuAPITests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jorritoosterhof/Documents/Studie/2015-2016/Period%202/Short%20Programming%20Project/Zeeguu-API-iOS/ZeeguuAPI/ZeeguuAPITests/ZeeguuAPITests.swift"
+                  timestampString = "471349836.329342"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "144"
+                  endingLineNumber = "144"
+                  offsetFromSymbolStart = "55">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ZeeguuAPITests.ZeeguuAPITests.(testTranslateWord (ZeeguuAPITests.ZeeguuAPITests) -&gt; () -&gt; ()).(closure #1).(implicit closure #1)"
+                  moduleName = "ZeeguuAPITests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jorritoosterhof/Documents/Studie/2015-2016/Period%202/Short%20Programming%20Project/Zeeguu-API-iOS/ZeeguuAPI/ZeeguuAPITests/ZeeguuAPITests.swift"
+                  timestampString = "471349836.329523"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "144"
+                  endingLineNumber = "144"
+                  offsetFromSymbolStart = "58">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ZeeguuAPITests/ZeeguuAPITests.swift"
+            timestampString = "471349752.17122"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "145"
+            endingLineNumber = "145"
+            landmarkName = "DISABLED_testTranslateWord()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ZeeguuAPI/ZeeguuAPIDefaults.swift"
+            timestampString = "471528670.152353"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "147"
+            endingLineNumber = "147"
+            landmarkName = "checkStringResponse(_:error:completion:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

@@ -24,7 +24,7 @@ extension NSURLRequest {
 		}
 		
 		if let body = HTTPBody {
-			result += "\nHTTPBody {\n " + ((NSString(data: body, encoding: NSASCIIStringEncoding) ?? "") as String) + "}"
+			result += "\nHTTPBody {\n " + ((NSString(data: body, encoding: NSASCIIStringEncoding) ?? "") as String) + "\n}"
 		}
 		
 		return result + "\n}"
