@@ -175,14 +175,21 @@ public class ZeeguuAPI {
 		}
 	}
 	
-	/// Retrieves the language codes of all available languages that the Zeeguu API supports.
+	/// Retrieves the language codes of all available languages that the Zeeguu API supports as a learning language.
 	///
 	/// - parameter completion: A block that will receive a `JSON` object, which contains the array with the language codes.
 	public func getAvailableLanguages(completion: (array: JSON?) -> Void) {
-		if (!self.checkIfLoggedIn()) {
-			return completion(array: nil)
-		}
 		let request = self.requestWithEndPoint(.AvailableLanguages, pathComponents: nil, method: .GET, parameters: nil)
+		self.sendAsynchronousRequest(request) { (response, error) -> Void in
+			self.checkJSONResponse(response, error: error, completion: completion)
+		}
+	}
+	
+	/// Retrieves the language codes of all available languages that the Zeeguu API supports as a native language.
+	///
+	/// - parameter completion: A block that will receive a `JSON` object, which contains the array with the language codes.
+	public func getAvailableNativeLanguages(completion: (array: JSON?) -> Void) {
+		let request = self.requestWithEndPoint(.AvailableNativeLanguages, pathComponents: nil, method: .GET, parameters: nil)
 		self.sendAsynchronousRequest(request) { (response, error) -> Void in
 			self.checkJSONResponse(response, error: error, completion: completion)
 		}

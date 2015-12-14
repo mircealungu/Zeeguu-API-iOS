@@ -125,6 +125,16 @@ class ZeeguuAPITests: XCTestCase {
 		testLock.wait()
 	}
 	
+	func testGetAvailableNativeLanguages() {
+		print("Testing available native languages:")
+		ZeeguuAPI.sharedAPI().getAvailableNativeLanguages { (array) -> Void in
+			XCTAssertNotNil(array)
+			print("array: ", array)
+			self.testLock.signal()
+		}
+		testLock.wait()
+	}
+	
 	func testGetStudyingWords() {
 		print("Testing user words:")
 		ZeeguuAPI.sharedAPI().getStudyingWords { (array) -> Void in

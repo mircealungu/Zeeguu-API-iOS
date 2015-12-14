@@ -10,12 +10,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ZeeguuAPI/ZeeguuAPI.swift"
-            timestampString = "471349711.194873"
+            timestampString = "471780407.581957"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "220"
-            endingLineNumber = "220"
-            landmarkName = "translateWord(_:context:url:completion:)"
+            startingLineNumber = "229"
+            endingLineNumber = "229"
+            landmarkName = "getBookmarksByDayWithContext(_:completion:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -26,12 +26,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ZeeguuAPI/ZeeguuAPI.swift"
-            timestampString = "471349718.124489"
+            timestampString = "471780407.581957"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "221"
-            endingLineNumber = "221"
-            landmarkName = "translateWord(_:context:url:completion:)"
+            startingLineNumber = "230"
+            endingLineNumber = "230"
+            landmarkName = "getBookmarksByDayWithContext(_:completion:)"
             landmarkType = "5">
             <Locations>
                <Location
@@ -74,12 +74,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ZeeguuAPI/ZeeguuAPI.swift"
-            timestampString = "471528252.912679"
+            timestampString = "471780407.581957"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "222"
-            endingLineNumber = "222"
-            landmarkName = "translateWord(_:context:url:completion:)"
+            startingLineNumber = "231"
+            endingLineNumber = "231"
+            landmarkName = "getBookmarksByDayWithContext(_:completion:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -122,12 +122,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ZeeguuAPITests/ZeeguuAPITests.swift"
-            timestampString = "471349751.309342"
+            timestampString = "471780407.581957"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "143"
-            endingLineNumber = "143"
-            landmarkName = "DISABLED_testTranslateWord()"
+            startingLineNumber = "153"
+            endingLineNumber = "153"
+            landmarkName = "testGetBookmarksByDayWithoutContext()"
             landmarkType = "5">
             <Locations>
                <Location
@@ -170,12 +170,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ZeeguuAPITests/ZeeguuAPITests.swift"
-            timestampString = "471349752.17122"
+            timestampString = "471780407.581957"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "145"
-            endingLineNumber = "145"
-            landmarkName = "DISABLED_testTranslateWord()"
+            startingLineNumber = "155"
+            endingLineNumber = "155"
+            landmarkName = "testGetBookmarksByDayWithoutContext()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

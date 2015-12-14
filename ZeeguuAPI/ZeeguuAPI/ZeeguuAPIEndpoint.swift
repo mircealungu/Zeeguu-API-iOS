@@ -30,6 +30,7 @@ enum ZeeguuAPIEndpoint: String {
 	case AddNewTranslationToBookmark = "add_new_translation_to_bookmark"
 	case AddUser = "add_user"
 	case AvailableLanguages = "available_languages"
+	case AvailableNativeLanguages = "available_native_languages"
 	case BookmarksByDay = "bookmarks_by_day"
 	case BookmarkWithContext = "bookmark_with_context"
 	case DeleteBookmark = "delete_bookmark"
