@@ -399,26 +399,6 @@ class ZeeguuAPITests: XCTestCase {
 		testLock.wait()
 	}
 	
-	func testLookup() {
-		print("Testing lookup, leaving toLangCode nil:")
-		ZeeguuAPI.sharedAPI().lookupFromLangCode("de", term: "Kampf") { (success) -> Void in
-			XCTAssertTrue(success)
-			print("success: ", success)
-			self.testLock.signal()
-		}
-		testLock.wait()
-	}
-	
-	func testLookupWithToLangCode() {
-		print("Testing lookup, leaving toLangCode nil:")
-		ZeeguuAPI.sharedAPI().lookupFromLangCode("de", term: "Kampf", toLangCode: "en") { (success) -> Void in
-			XCTAssertTrue(success)
-			print("success: ", success)
-			self.testLock.signal()
-		}
-		testLock.wait()
-	}
-	
 	func DISABLED_testExample() {
 		// This is an example of a functional test case.
 		// Use XCTAssert and related functions to verify your tests produce the correct results.

@@ -583,26 +583,4 @@ public class ZeeguuAPI {
 			self.checkJSONResponse(response, error: error, completion: completion)
 		}
 	}
-	
-	/// Logs a given search
-	///
-	/// - parameter fromLangCode: The language code of the language from which the term was translated.
-	/// - parameter term: The term that was translated.
-	/// - parameter toLangCode: The language code of the language to which the term was translated. If this parameter is nil, the learned language of the current user is used.
-	/// - parameter completion: A block that will receive an boolean, indicating if the search was logged correctly.
-	public func lookupFromLangCode(fromLangCode: String, term: String, toLangCode: String? = nil, completion: (success: Bool) -> Void) {
-		if (!self.checkIfLoggedIn()) {
-			return completion(success: false)
-		}
-		var pathComponents: Array<String>
-		if let toLang = toLangCode {
-			pathComponents = [fromLangCode, term, toLang]
-		} else {
-			pathComponents = [fromLangCode, term]
-		}
-		let request = self.requestWithEndPoint(.Lookup, pathComponents: pathComponents, method: .POST, parameters: nil)
-		self.sendAsynchronousRequest(request) { (response, error) -> Void in
-			self.checkBooleanResponse(response, error: error, completion: completion)
-		}
-	}
 }
