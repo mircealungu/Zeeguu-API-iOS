@@ -89,7 +89,7 @@ public class ZeeguuAPI {
 	/// Logs a user in.
 	///
 	/// After the user is logged in, you can use the ZeeguuAPI object to make requests on behalf of the user.
-	/// 
+	///
 	/// - parameter email: The email address of the user to log in.
 	/// - parameter password: The password of the user.
 	/// - parameter completion: A block that receives a success parameter, which is true if the user was logged in successfully.
@@ -106,6 +106,15 @@ public class ZeeguuAPI {
 				completion(success: false)
 			}
 		}
+	}
+	
+	
+	
+	/// Logs the current user out.
+	///
+	/// After the user is logged in, you can use the ZeeguuAPI object to make requests on behalf of the user.
+	public func logout() {
+		self.currentSessionID = 0
 	}
 	
 	/// Retrieves the language code of the learned langugage of the logged in user.

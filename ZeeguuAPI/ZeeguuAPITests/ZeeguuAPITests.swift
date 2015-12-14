@@ -65,6 +65,12 @@ class ZeeguuAPITests: XCTestCase {
 		testLock.wait()
 	}
 	
+	func testZZZLogout() {
+		print("Testing logout:")
+		ZeeguuAPI.sharedAPI().logout()
+		XCTAssertFalse(ZeeguuAPI.sharedAPI().isLoggedIn)
+	}
+	
 	func testGetLearnedLanguage() {
 		print("Testing learned language:")
 		ZeeguuAPI.sharedAPI().getLearnedLanguage { (langCode) -> Void in
