@@ -30,7 +30,7 @@ import UIKit
 public class ZeeguuAPI {
 	private static let instance = ZeeguuAPI()
 	
-	public var enableDubugOutput = false
+	public var enableDebugOutput = false
 	
 	var currentSessionID: Int {
 		didSet {

@@ -69,7 +69,7 @@ extension ZeeguuAPI {
 			request.HTTPMethod = method.rawValue
 			request.HTTPBody = params.dataUsingEncoding(NSUTF8StringEncoding)
 			request.setValue("application/x-www-form-urlencoded; charset=utf-8", forHTTPHeaderField:"Content-Type");
-			if (self.enableDubugOutput) {
+			if (self.enableDebugOutput) {
 				print("httpbody: \(NSString(data: request.HTTPBody!, encoding: NSUTF8StringEncoding)))")
 			}
 		}
@@ -108,26 +108,18 @@ extension ZeeguuAPI {
 	
 	func sendAsynchronousRequest(request: NSURLRequest, completion: (response: String?, error: NSError?) -> Void) {
 		let session = NSURLSession.sharedSession()
-		if (self.enableDubugOutput) {
-			NSLog("Sending request for url \"%@\": %@\n\n", request.URL!, request);
-		}
+		debugPrint("Sending request for url \"\(request.URL)\": \(request)\n\n");
 		let task = session.dataTaskWithRequest(request) { (data, response, error) -> Void in
 			if (data != nil && response != nil && (response! as! NSHTTPURLResponse).statusCode == 200) {
 				let response = String(data: data!, encoding: NSUTF8StringEncoding)!
-				if (self.enableDubugOutput) {
-					NSLog("Response from url \"%@\": %@\n\n", request.URL!, response);
-				}
+				self.debugPrint("Response from url \"\(request.URL)\": \(response)\n\n");
 				completion(response: response, error: nil)
 			} else {
 				if (response != nil) {
-					if (self.enableDubugOutput) {
-						NSLog("Response object for url \"%@\": %@\n\n", request.URL!, response!);
-					}
+					self.debugPrint("Response object for url \"\(request.URL)\": \(response)\n\n");
 				}
 				if (error != nil) {
-					if (self.enableDubugOutput) {
-						NSLog("Error for url \"%@\": %@\n\n", request.URL!, error!);
-					}
+					self.debugPrint("Error for url \"\(request.URL)\": \(error)\n\n");
 				}
 				completion(response: nil, error: error)
 			}
@@ -139,7 +131,7 @@ extension ZeeguuAPI {
 	
 	func checkIfLoggedIn() -> Bool {
 		if (!self.isLoggedIn) {
-			NSLog("There is no user logged in currently!")
+			print("There is no user logged in currently!")
 			return false
 		}
 		return true
@@ -181,6 +173,12 @@ extension ZeeguuAPI {
 			UIApplication.sharedApplication().networkActivityIndicatorVisible = false
 		} else {
 			UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+		}
+	}
+	
+	func debugPrint(text: String) {
+		if (self.enableDebugOutput) {
+			print(text)
 		}
 	}
 }
