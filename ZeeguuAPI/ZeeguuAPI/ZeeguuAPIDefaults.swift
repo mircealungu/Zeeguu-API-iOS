@@ -3,10 +3,35 @@
 //  ZeeguuAPI
 //
 //  Created by Jorrit Oosterhof on 28-11-15.
-//  Copyright © 2015 Jorrit Oosterhof. All rights reserved.
+//  Copyright © 2015 Jorrit Oosterhof.
+//
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//  THE SOFTWARE.
 //
 
 import UIKit
+
+/// This global variable is used by the `showNetworkIndicator` function. The `showNetworkIndicator` function is called with parameter `show` being `true` once a request starts and called again with `show` being `false` once a request finished.
+///
+/// The iOS API Framework only allows the set the network activity indicator visible or hidden. This variable was created to indicate how many requests/network activities are currently active. The `showNetworkIndicator` function decrements (if `show` is `false`) this variable and only hides the network activity indicator once this variable reaches zero.
+///
+/// The function increments this variable if `show` is `true`.
+var networkActivityCounter = 0;
 
 extension ZeeguuAPI {
 	static let apiHost: String = "https://zeeguu.unibe.ch"
@@ -48,6 +73,10 @@ extension ZeeguuAPI {
 		if (method == HTTPMethod.POST) {
 			request.HTTPMethod = method.rawValue
 			request.HTTPBody = params.dataUsingEncoding(NSUTF8StringEncoding)
+			request.setValue("application/x-www-form-urlencoded; charset=utf-8", forHTTPHeaderField:"Content-Type");
+			if (self.enableDebugOutput) {
+				print("httpbody: \(NSString(data: request.HTTPBody!, encoding: NSUTF8StringEncoding)))")
+			}
 		}
 		
 		// If jsonBody != nil, overwrite http body with json data
@@ -84,28 +113,30 @@ extension ZeeguuAPI {
 	
 	func sendAsynchronousRequest(request: NSURLRequest, completion: (response: String?, error: NSError?) -> Void) {
 		let session = NSURLSession.sharedSession()
-		NSLog("Sending request for url \"%@\": %@\n\n", request.URL!, request);
+		debugPrint("Sending request for url \"\(request.URL)\": \(request)\n\n");
 		let task = session.dataTaskWithRequest(request) { (data, response, error) -> Void in
 			if (data != nil && response != nil && (response! as! NSHTTPURLResponse).statusCode == 200) {
 				let response = String(data: data!, encoding: NSUTF8StringEncoding)!
-				NSLog("Response from url \"%@\": %@\n\n", request.URL!, response);
+				self.debugPrint("Response from url \"\(request.URL)\": \(response)\n\n");
 				completion(response: response, error: nil)
 			} else {
 				if (response != nil) {
-					NSLog("Response object for url \"%@\": %@\n\n", request.URL!, response!);
+					self.debugPrint("Response object for url \"\(request.URL)\": \(response)\n\n");
 				}
 				if (error != nil) {
-					NSLog("Error for url \"%@\": %@\n\n", request.URL!, error!);
+					self.debugPrint("Error for url \"\(request.URL)\": \(error)\n\n");
 				}
 				completion(response: nil, error: error)
 			}
+			self.showNetworkIndicator(false)
 		}
 		task.resume()
+		self.showNetworkIndicator(true)
 	}
 	
 	func checkIfLoggedIn() -> Bool {
 		if (!self.isLoggedIn) {
-			NSLog("There is no user logged in currently!")
+			print("There is no user logged in currently!")
 			return false
 		}
 		return true
@@ -132,6 +163,32 @@ extension ZeeguuAPI {
 			completion(string: response!)
 		} else {
 			completion(string: nil)
+		}
+	}
+	
+	/// This function shows a network activity indicator. The network activity indicator is a small spinner in the status bar of the iPhone/iPad (where also the carrier, time, battery status etc. are displayed).
+	///
+	/// See also `networkActivityCounter`.
+	///
+	/// - parameter show: Indicates whether to show or hide the network activity indicator.
+	func showNetworkIndicator(show: Bool) {
+		if (show) {
+			++networkActivityCounter
+		} else {
+			if (--networkActivityCounter < 0) {
+				networkActivityCounter = 0
+			}
+		}
+		if (networkActivityCounter <= 0) {
+			UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+		} else {
+			UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+		}
+	}
+	
+	func debugPrint(text: String) {
+		if (self.enableDebugOutput) {
+			print(text)
 		}
 	}
 }

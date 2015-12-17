@@ -3,7 +3,25 @@
 //  ZeeguuAPITests
 //
 //  Created by Jorrit Oosterhof on 28-11-15.
-//  Copyright © 2015 Jorrit Oosterhof. All rights reserved.
+//  Copyright © 2015 Jorrit Oosterhof.
+//
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//  THE SOFTWARE.
 //
 
 import XCTest
@@ -16,11 +34,13 @@ class ZeeguuAPITests: XCTestCase {
 	override func setUp() {
 		super.setUp()
 		// Put setup code here. This method is called before the invocation of each test method in the class.
+		ZeeguuAPI.sharedAPI().enableDebugOutput = true
 		testLock.lock()
 	}
 	
 	override func tearDown() {
 		testLock.unlock()
+		ZeeguuAPI.sharedAPI().enableDebugOutput = false
 		// Put teardown code here. This method is called after the invocation of each test method in the class.
 		super.tearDown()
 	}
@@ -45,6 +65,12 @@ class ZeeguuAPITests: XCTestCase {
 			self.testLock.signal()
 		}
 		testLock.wait()
+	}
+	
+	func testZZZLogout() {
+		print("Testing logout:")
+		ZeeguuAPI.sharedAPI().logout()
+		XCTAssertFalse(ZeeguuAPI.sharedAPI().isLoggedIn)
 	}
 	
 	func testGetLearnedLanguage() {
@@ -107,6 +133,16 @@ class ZeeguuAPITests: XCTestCase {
 		testLock.wait()
 	}
 	
+	func testGetAvailableNativeLanguages() {
+		print("Testing available native languages:")
+		ZeeguuAPI.sharedAPI().getAvailableNativeLanguages { (array) -> Void in
+			XCTAssertNotNil(array)
+			print("array: ", array)
+			self.testLock.signal()
+		}
+		testLock.wait()
+	}
+	
 	func testGetStudyingWords() {
 		print("Testing user words:")
 		ZeeguuAPI.sharedAPI().getStudyingWords { (array) -> Void in
@@ -137,10 +173,31 @@ class ZeeguuAPITests: XCTestCase {
 		testLock.wait()
 	}
 	
-	func DISABLED_testTranslateWord() {
+	func testTranslateWord() {
 		print("Testing translating word:")
-		ZeeguuAPI.sharedAPI().translateWord("Gipfeltreffen", context: "Unmittelbar vor dem Gipfeltreffen der Europäischen Union mit der Türkei spricht Parlamentspräsident Martin Schulz (SPD) Klartext - eine Vereinbarung von Flüchtlingskontingenten mit der Türkei sei kaum aussichtsreich.", url: "http://www.spiegel.de/politik/ausland/eu-tuerkei-gipfel-streit-um-fluechtlingskontingent-a-1065093.html") { (translation) -> Void in
+		ZeeguuAPI.sharedAPI().translateWord("Gipfeltreffen", title: "EU-Türkei-Gipfel: Streit um Flüchtlingskontingent", context: "Unmittelbar vor dem Gipfeltreffen der Europäischen Union mit der Türkei spricht Parlamentspräsident Martin Schulz (SPD) Klartext - eine Vereinbarung von Flüchtlingskontingenten mit der Türkei sei kaum aussichtsreich.", url: "http://www.spiegel.de/politik/ausland/eu-tuerkei-gipfel-streit-um-fluechtlingskontingent-a-1065093.html") { (translation) -> Void in
 			
+			XCTAssertNotNil(translation)
+			print("translation: ", translation)
+			self.testLock.signal()
+		}
+		testLock.wait()
+	}
+	
+	func testTranslateOtherWord() {
+		print("Testing translating another word:")
+		ZeeguuAPI.sharedAPI().translateWord("buchstäblich", title: "Flüchtlinge: Angela Merkel spricht von historischer Bewährungsprobe für Europa", context: "\"Was wir im Fernsehen gesehen haben, kommt nun buchstäblich bis an unsere Haustür\", sagte die CDU-Vorsitzende.", url: "http://www.spiegel.de/politik/deutschland/fluechtlinge-angela-merkel-spricht-von-historischer-bewaehrungsprobe-fuer-europa-a-1067685.html") { (translation) -> Void in
+
+			XCTAssertNotNil(translation)
+			print("translation: ", translation)
+			self.testLock.signal()
+		}
+		testLock.wait()
+	}
+	
+	func testTranslateUmlautWord() {
+		print("Testing translating word:")
+		ZeeguuAPI.sharedAPI().translateWord("über", title: "", context: "", url: "") { (translation) -> Void in
 			XCTAssertNotNil(translation)
 			print("translation: ", translation)
 			self.testLock.signal()
@@ -347,29 +404,9 @@ class ZeeguuAPITests: XCTestCase {
 	
 	func testGetContentFromURLs() {
 		print("Testing get content from urls:")
-		ZeeguuAPI.sharedAPI().getContentFromURLs(["http://www.t-online.de/nachrichten/deutschland/id_76314572/frank-juergen-weise-geraet-wegen-langer-asylverfahren-in-die-kritik.html", "http://www.derbund.ch/wirtschaft/unternehmen-und-konjunktur/die-bankenriesen-in-den-bergkantonen/story/26984250", "http://www.computerbase.de/2015-11/bundestag-parlament-beschliesst-das-ende-vom-routerzwang-erneut/"]) { (dict) -> Void in
+		ZeeguuAPI.sharedAPI().getContentFromURLs(["http://www.t-online.de/nachrichten/deutschland/id_76314572/frank-juergen-weise-geraet-wegen-langer-asylverfahren-in-die-kritik.html", "http://www.derbund.ch/wirtschaft/unternehmen-und-konjunktur/die-bankenriesen-in-den-bergkantonen/story/26984250", "http://www.computerbase.de/2015-11/bundestag-parlament-beschliesst-das-ende-vom-routerzwang-erneut/", "http://www.spiegel.de/panorama/justiz/beate-zschaepe-im-nsu-prozess-was-sie-ausgesagt-hat-a-1066805.html"]) { (dict) -> Void in
 			XCTAssertNotNil(dict)
 			print("dict: ", dict)
-			self.testLock.signal()
-		}
-		testLock.wait()
-	}
-	
-	func testLookup() {
-		print("Testing lookup, leaving toLangCode nil:")
-		ZeeguuAPI.sharedAPI().lookupFromLangCode("de", term: "Kampf") { (success) -> Void in
-			XCTAssertTrue(success)
-			print("success: ", success)
-			self.testLock.signal()
-		}
-		testLock.wait()
-	}
-	
-	func testLookupWithToLangCode() {
-		print("Testing lookup, leaving toLangCode nil:")
-		ZeeguuAPI.sharedAPI().lookupFromLangCode("de", term: "Kampf", toLangCode: "en") { (success) -> Void in
-			XCTAssertTrue(success)
-			print("success: ", success)
 			self.testLock.signal()
 		}
 		testLock.wait()

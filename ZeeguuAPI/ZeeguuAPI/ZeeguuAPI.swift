@@ -3,7 +3,25 @@
 //  ZeeguuAPI
 //
 //  Created by Jorrit Oosterhof on 28-11-15.
-//  Copyright © 2015 Jorrit Oosterhof. All rights reserved.
+//  Copyright © 2015 Jorrit Oosterhof.
+//
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//  THE SOFTWARE.
 //
 
 import UIKit
@@ -11,6 +29,8 @@ import UIKit
 /// This class is a gateway to the Zeeguu API. You can use the instance of this class obtained by `ZeeguuAPI.sharedAPI()` to communicate with the Zeeguu API.
 public class ZeeguuAPI {
 	private static let instance = ZeeguuAPI()
+	
+	public var enableDebugOutput = false
 	
 	var currentSessionID: Int {
 		didSet {
@@ -69,7 +89,7 @@ public class ZeeguuAPI {
 	/// Logs a user in.
 	///
 	/// After the user is logged in, you can use the ZeeguuAPI object to make requests on behalf of the user.
-	/// 
+	///
 	/// - parameter email: The email address of the user to log in.
 	/// - parameter password: The password of the user.
 	/// - parameter completion: A block that receives a success parameter, which is true if the user was logged in successfully.
@@ -86,6 +106,15 @@ public class ZeeguuAPI {
 				completion(success: false)
 			}
 		}
+	}
+	
+	
+	
+	/// Logs the current user out.
+	///
+	/// After the user is logged in, you can use the ZeeguuAPI object to make requests on behalf of the user.
+	public func logout() {
+		self.currentSessionID = 0
 	}
 	
 	/// Retrieves the language code of the learned langugage of the logged in user.
@@ -155,14 +184,21 @@ public class ZeeguuAPI {
 		}
 	}
 	
-	/// Retrieves the language codes of all available languages that the Zeeguu API supports.
+	/// Retrieves the language codes of all available languages that the Zeeguu API supports as a learning language.
 	///
 	/// - parameter completion: A block that will receive a `JSON` object, which contains the array with the language codes.
 	public func getAvailableLanguages(completion: (array: JSON?) -> Void) {
-		if (!self.checkIfLoggedIn()) {
-			return completion(array: nil)
-		}
 		let request = self.requestWithEndPoint(.AvailableLanguages, pathComponents: nil, method: .GET, parameters: nil)
+		self.sendAsynchronousRequest(request) { (response, error) -> Void in
+			self.checkJSONResponse(response, error: error, completion: completion)
+		}
+	}
+	
+	/// Retrieves the language codes of all available languages that the Zeeguu API supports as a native language.
+	///
+	/// - parameter completion: A block that will receive a `JSON` object, which contains the array with the language codes.
+	public func getAvailableNativeLanguages(completion: (array: JSON?) -> Void) {
+		let request = self.requestWithEndPoint(.AvailableNativeLanguages, pathComponents: nil, method: .GET, parameters: nil)
 		self.sendAsynchronousRequest(request) { (response, error) -> Void in
 			self.checkJSONResponse(response, error: error, completion: completion)
 		}
@@ -207,7 +243,7 @@ public class ZeeguuAPI {
 	/// - parameter context: The context in which the word appeared.
 	/// - parameter url: The url of the article in which the word was translated.
 	/// - parameter completion: A block that will receive a string containing the translation of `word`.
-	public func translateWord(word: String, context: String, url: String, completion: (translation: String?) -> Void) {
+	public func translateWord(word: String, title: String, context: String, url: String, completion: (translation: String?) -> Void) {
 		if (!self.checkIfLoggedIn()) {
 			return completion(translation: nil)
 		}
@@ -215,13 +251,17 @@ public class ZeeguuAPI {
 		self.getLearnedAndNativeLanguage { (dict) -> Void in
 			if (dict != nil) {
 				if let learned = dict!["learned"].string, native = dict!["native"].string {
-					let request = self.requestWithEndPoint(.Translate, pathComponents: [learned, native], method: .POST, parameters: ["context": context, "word": word, "url": url])
+					let request = self.requestWithEndPoint(.Translate, pathComponents: [learned, native], method: .POST, parameters: ["title": title, "context": context, "word": word, "url": url])
 					self.sendAsynchronousRequest(request) { (response, error) -> Void in
 						self.checkStringResponse(response, error: error, completion: completion)
 					}
+				} else  {
+					completion(translation: nil)
 				}
+			} else {
+				completion(translation: nil)
 			}
-			completion(translation: nil)
+			
 		}
 	}
 	
@@ -529,7 +569,7 @@ public class ZeeguuAPI {
 	/// - parameter urls: The urls to get the content from.
 	/// - parameter maxTimeout: Maximal time in seconds to wait for the results.
 	/// - parameter completion: A block that will receive an array with the contents of the urls.
-	func getContentFromURLs(urls: Array<String>, maxTimeout: Int = 10, completion: (dict: JSON?) -> Void) {
+	public func getContentFromURLs(urls: Array<String>, maxTimeout: Int = 10, completion: (dict: JSON?) -> Void) {
 		var newURLs: [Dictionary<String, String>] = []
 		var counter = 0
 		for url in urls {
@@ -541,28 +581,6 @@ public class ZeeguuAPI {
 		let request = self.requestWithEndPoint(.GetContentFromURL, pathComponents: nil, method: .POST, parameters: nil, jsonBody: JSON(jsonDict))
 		self.sendAsynchronousRequest(request) { (response, error) -> Void in
 			self.checkJSONResponse(response, error: error, completion: completion)
-		}
-	}
-	
-	/// Logs a given search
-	///
-	/// - parameter fromLangCode: The language code of the language from which the term was translated.
-	/// - parameter term: The term that was translated.
-	/// - parameter toLangCode: The language code of the language to which the term was translated. If this parameter is nil, the learned language of the current user is used.
-	/// - parameter completion: A block that will receive an boolean, indicating if the search was logged correctly.
-	func lookupFromLangCode(fromLangCode: String, term: String, toLangCode: String? = nil, completion: (success: Bool) -> Void) {
-		if (!self.checkIfLoggedIn()) {
-			return completion(success: false)
-		}
-		var pathComponents: Array<String>
-		if let toLang = toLangCode {
-			pathComponents = [fromLangCode, term, toLang]
-		} else {
-			pathComponents = [fromLangCode, term]
-		}
-		let request = self.requestWithEndPoint(.Lookup, pathComponents: pathComponents, method: .POST, parameters: nil)
-		self.sendAsynchronousRequest(request) { (response, error) -> Void in
-			self.checkBooleanResponse(response, error: error, completion: completion)
 		}
 	}
 }
