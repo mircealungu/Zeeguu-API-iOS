@@ -243,7 +243,7 @@ public class ZeeguuAPI {
 	/// - parameter context: The context in which the word appeared.
 	/// - parameter url: The url of the article in which the word was translated.
 	/// - parameter completion: A block that will receive a string containing the translation of `word`.
-	public func translateWord(word: String, context: String, url: String, completion: (translation: String?) -> Void) {
+	public func translateWord(word: String, title: String, context: String, url: String, completion: (translation: String?) -> Void) {
 		if (!self.checkIfLoggedIn()) {
 			return completion(translation: nil)
 		}
@@ -251,7 +251,7 @@ public class ZeeguuAPI {
 		self.getLearnedAndNativeLanguage { (dict) -> Void in
 			if (dict != nil) {
 				if let learned = dict!["learned"].string, native = dict!["native"].string {
-					let request = self.requestWithEndPoint(.Translate, pathComponents: [learned, native], method: .POST, parameters: ["context": context, "word": word, "url": url])
+					let request = self.requestWithEndPoint(.Translate, pathComponents: [learned, native], method: .POST, parameters: ["title": title, "context": context, "word": word, "url": url])
 					self.sendAsynchronousRequest(request) { (response, error) -> Void in
 						self.checkStringResponse(response, error: error, completion: completion)
 					}
