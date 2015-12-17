@@ -26,6 +26,11 @@
 
 import UIKit
 
+/// This global variable is used by the `showNetworkIndicator` function. The `showNetworkIndicator` function is called with parameter `show` being `true` once a request starts and called again with `show` being `false` once a request finished.
+///
+/// The iOS API Framework only allows the set the network activity indicator visible or hidden. This variable was created to indicate how many requests/network activities are currently active. The `showNetworkIndicator` function decrements (if `show` is `false`) this variable and only hides the network activity indicator once this variable reaches zero.
+///
+/// The function increments this variable if `show` is `true`.
 var networkActivityCounter = 0;
 
 extension ZeeguuAPI {
@@ -161,6 +166,11 @@ extension ZeeguuAPI {
 		}
 	}
 	
+	/// This function shows a network activity indicator. The network activity indicator is a small spinner in the status bar of the iPhone/iPad (where also the carrier, time, battery status etc. are displayed).
+	///
+	/// See also `networkActivityCounter`.
+	///
+	/// - parameter show: Indicates whether to show or hide the network activity indicator.
 	func showNetworkIndicator(show: Bool) {
 		if (show) {
 			++networkActivityCounter
