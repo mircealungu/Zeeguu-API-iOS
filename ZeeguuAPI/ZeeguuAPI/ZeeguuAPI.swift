@@ -264,7 +264,7 @@ public class ZeeguuAPI {
 		self.getLearnedAndNativeLanguage { (dict) -> Void in
 			if (dict != nil) {
 				if let learned = dict!["learned"].string, native = dict!["native"].string {
-					let request = self.requestWithEndPoint(.Translate, pathComponents: [learned, native], method: .POST, parameters: ["title": title, "context": context, "word": word, "url": url])
+					let request = self.requestWithEndPoint(.TranslateAndBookmark, pathComponents: [learned, native], method: .POST, parameters: ["title": title, "context": context, "word": word, "url": url])
 					self.sendAsynchronousRequest(request) { (response, error) -> Void in
 						self.checkStringResponse(response, error: error, completion: completion)
 					}

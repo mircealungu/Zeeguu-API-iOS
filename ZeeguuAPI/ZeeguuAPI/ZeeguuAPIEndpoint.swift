@@ -56,7 +56,7 @@ enum ZeeguuAPIEndpoint: String {
 	case Logout = "logout_session"
 	case NativeLanguage = "native_language"
 	case Session = "session"
-	case Translate = "translate"
+	case TranslateAndBookmark = "translate_and_bookmark"
 	case UserWords = "user_words"
 	case Validate = "validate"
 }
