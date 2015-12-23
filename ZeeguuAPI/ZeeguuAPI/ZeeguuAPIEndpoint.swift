@@ -51,6 +51,7 @@ enum ZeeguuAPIEndpoint: String {
 	case GetTranslationsForBookmark = "get_translations_for_bookmark"
 	case GetUpperBoundPercentageOfBasicVocabulary = "get_upper_bound_percentage_of_basic_vocabulary"
 	case GetUpperBoundPercentageOfExtendedVocabulary = "get_upper_bound_percentage_of_extended_vocabulary"
+	case getUserDetails = "get_user_details"
 	case LearnedAndNativeLanguage = "learned_and_native_language"
 	case LearnedLanguage = "learned_language"
 	case Logout = "logout_session"

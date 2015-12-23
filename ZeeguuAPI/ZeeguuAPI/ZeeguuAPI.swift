@@ -108,7 +108,18 @@ public class ZeeguuAPI {
 		}
 	}
 	
-	
+	/// Retrieves the details of the user.
+	///
+	/// - parameter completion: A block that will receive a `JSON` object, which contains the list of bookmarks.
+	public func getUserDetails(completion: (dict: JSON?) -> Void) {
+		if (!self.checkIfLoggedIn()) {
+			return completion(dict: nil)
+		}
+		let request = self.requestWithEndPoint(.getUserDetails, pathComponents: nil, method: .GET, parameters: nil)
+		self.sendAsynchronousRequest(request) { (response, error) -> Void in
+			self.checkJSONResponse(response, error: error, completion: completion)
+		}
+	}
 	
 	/// Logs the current user out.
 	///

@@ -67,6 +67,16 @@ class ZeeguuAPITests: XCTestCase {
 		testLock.wait()
 	}
 	
+	func testGetUserDetails() {
+		print("Testing get user details:")
+		ZeeguuAPI.sharedAPI().getUserDetails { (dict) -> Void in
+			XCTAssertNotNil(dict)
+			print("dict: ", dict)
+			self.testLock.signal()
+		}
+		self.testLock.wait()
+	}
+	
 	func testZZZLogout() {
 		print("Testing logout:")
 		ZeeguuAPI.sharedAPI().logout { (success) -> Void in
