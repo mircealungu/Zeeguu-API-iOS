@@ -53,6 +53,7 @@ enum ZeeguuAPIEndpoint: String {
 	case GetUpperBoundPercentageOfExtendedVocabulary = "get_upper_bound_percentage_of_extended_vocabulary"
 	case LearnedAndNativeLanguage = "learned_and_native_language"
 	case LearnedLanguage = "learned_language"
+	case Logout = "logout_session"
 	case NativeLanguage = "native_language"
 	case Session = "session"
 	case Translate = "translate"

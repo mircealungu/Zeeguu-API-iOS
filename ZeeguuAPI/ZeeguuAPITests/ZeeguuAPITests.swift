@@ -69,7 +69,12 @@ class ZeeguuAPITests: XCTestCase {
 	
 	func testZZZLogout() {
 		print("Testing logout:")
-		ZeeguuAPI.sharedAPI().logout()
+		ZeeguuAPI.sharedAPI().logout { (success) -> Void in
+			XCTAssertTrue(success);
+			print("success: ", success)
+			self.testLock.signal()
+		}
+		testLock.wait()
 		XCTAssertFalse(ZeeguuAPI.sharedAPI().isLoggedIn)
 	}
 	

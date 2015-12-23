@@ -112,9 +112,22 @@ public class ZeeguuAPI {
 	
 	/// Logs the current user out.
 	///
-	/// After the user is logged in, you can use the ZeeguuAPI object to make requests on behalf of the user.
-	public func logout() {
-		self.currentSessionID = 0
+	/// After the user is logged out, you cannot use the ZeeguuAPI object anymore to make requests, until a user logs in again.
+	/// - parameter force: Force logout. Set this to `true` if the server is not able to complete logout and you want to get rid of the session id.
+	/// - parameter completion: A block that will receive a boolean indicating if the logout was a success.
+	public func logout(force force: Bool = false, completion: (success: Bool) -> Void) {
+		if (!self.checkIfLoggedIn()) {
+			return completion(success: false)
+		}
+		let request = self.requestWithEndPoint(.Logout, pathComponents: nil, method: .GET, parameters: nil)
+		self.sendAsynchronousRequest(request) { (response, error) -> Void in
+			self.checkBooleanResponse(response, error: error, completion: { (success) -> Void in
+				if (success || force) {
+					self.currentSessionID = 0
+				}
+				completion(success: success);
+			})
+		}
 	}
 	
 	/// Retrieves the language code of the learned langugage of the logged in user.

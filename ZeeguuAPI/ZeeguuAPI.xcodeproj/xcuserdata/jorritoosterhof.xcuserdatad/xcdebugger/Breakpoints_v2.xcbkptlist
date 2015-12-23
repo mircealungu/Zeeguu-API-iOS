@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ZeeguuAPI/ZeeguuAPI.swift"
-            timestampString = "471780765.536104"
+            timestampString = "472559009.713197"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "236"
-            endingLineNumber = "236"
+            startingLineNumber = "250"
+            endingLineNumber = "250"
             landmarkName = "getBookmarksByDayWithContext(_:completion:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ZeeguuAPI/ZeeguuAPI.swift"
-            timestampString = "471780765.536104"
+            timestampString = "472559009.713197"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "237"
-            endingLineNumber = "237"
+            startingLineNumber = "251"
+            endingLineNumber = "251"
             landmarkName = "getBookmarksByDayWithContext(_:completion:)"
             landmarkType = "5">
             <Locations>
@@ -74,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ZeeguuAPI/ZeeguuAPI.swift"
-            timestampString = "471780765.536104"
+            timestampString = "472559009.713197"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "238"
-            endingLineNumber = "238"
+            startingLineNumber = "252"
+            endingLineNumber = "252"
             landmarkName = "getBookmarksByDayWithContext(_:completion:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -112,70 +112,6 @@
             startingLineNumber = "150"
             endingLineNumber = "150"
             landmarkName = "checkBooleanResponse(_:error:completion:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ZeeguuAPITests/ZeeguuAPITests.swift"
-            timestampString = "471788180.994754"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "161"
-            endingLineNumber = "161"
-            landmarkName = "testGetBookmarksByDayWithoutContext()"
-            landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "ZeeguuAPITests.ZeeguuAPITests.(testTranslateWord (ZeeguuAPITests.ZeeguuAPITests) -&gt; () -&gt; ()).(closure #1)"
-                  moduleName = "ZeeguuAPITests"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/jorritoosterhof/Documents/Studie/2015-2016/Period%202/Short%20Programming%20Project/Zeeguu-API-iOS/ZeeguuAPI/ZeeguuAPITests/ZeeguuAPITests.swift"
-                  timestampString = "471349836.329342"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "144"
-                  endingLineNumber = "144"
-                  offsetFromSymbolStart = "55">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "ZeeguuAPITests.ZeeguuAPITests.(testTranslateWord (ZeeguuAPITests.ZeeguuAPITests) -&gt; () -&gt; ()).(closure #1).(implicit closure #1)"
-                  moduleName = "ZeeguuAPITests"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/jorritoosterhof/Documents/Studie/2015-2016/Period%202/Short%20Programming%20Project/Zeeguu-API-iOS/ZeeguuAPI/ZeeguuAPITests/ZeeguuAPITests.swift"
-                  timestampString = "471349836.329523"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "144"
-                  endingLineNumber = "144"
-                  offsetFromSymbolStart = "58">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ZeeguuAPITests/ZeeguuAPITests.swift"
-            timestampString = "471788180.994754"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "163"
-            endingLineNumber = "163"
-            landmarkName = "testGetBookmarksByDayWithoutContext()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
