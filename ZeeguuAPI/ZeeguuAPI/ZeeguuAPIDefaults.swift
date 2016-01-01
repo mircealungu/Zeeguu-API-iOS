@@ -37,7 +37,7 @@ extension ZeeguuAPI {
 	static let apiHost: String = "https://zeeguu.unibe.ch"
 	static let sessionIDKey: String = "ZeeguuSessionID"
 	
-	func requestWithEndPoint(endPoint: ZeeguuAPIEndpoint, pathComponents: Array<String>?, method: HTTPMethod, parameters: Dictionary<String, String>?, jsonBody: JSON? = nil) -> NSURLRequest {
+	func requestWithEndPoint(endPoint: ZeeguuAPIEndpoint, pathComponents: Array<String>? = nil, method: HTTPMethod, parameters: Dictionary<String, String>? = nil, jsonBody: JSON? = nil) -> NSURLRequest {
 		var path: NSString = NSString(string: ZeeguuAPI.apiHost).stringByAppendingPathComponent(endPoint.rawValue)
 		
 		// Add pathcomponent to the host if there are any (for example, adding <email> to host/add_user: host/add_user/<email>)
