@@ -98,7 +98,7 @@ class ZeeguuAPITests: XCTestCase {
 		testLock.wait()
 	}
 	
-	func DISABLED_testSetLearnedLanguage() {
+	func testSetLearnedLanguage() {
 		print("Testing set learned language:")
 		ZeeguuAPI.sharedAPI().setLearnedLanguage("de") { (success) -> Void in
 			XCTAssertTrue(success)
@@ -118,9 +118,9 @@ class ZeeguuAPITests: XCTestCase {
 		testLock.wait()
 	}
 	
-	func DISABLED_testSetNativeLanguage() {
+	func testSetNativeLanguage() {
 		print("Testing set native language:")
-		ZeeguuAPI.sharedAPI().setNativeLanguage("de") { (success) -> Void in
+		ZeeguuAPI.sharedAPI().setNativeLanguage("en") { (success) -> Void in
 			XCTAssertTrue(success)
 			print("success: ", success)
 			self.testLock.signal()
@@ -190,10 +190,10 @@ class ZeeguuAPITests: XCTestCase {
 	
 	func testTranslateWord() {
 		print("Testing translating word:")
-		ZeeguuAPI.sharedAPI().translateWord("Gipfeltreffen", title: "EU-Türkei-Gipfel: Streit um Flüchtlingskontingent", context: "Unmittelbar vor dem Gipfeltreffen der Europäischen Union mit der Türkei spricht Parlamentspräsident Martin Schulz (SPD) Klartext - eine Vereinbarung von Flüchtlingskontingenten mit der Türkei sei kaum aussichtsreich.", url: "http://www.spiegel.de/politik/ausland/eu-tuerkei-gipfel-streit-um-fluechtlingskontingent-a-1065093.html") { (translation) -> Void in
+		ZeeguuAPI.sharedAPI().translateWord("Gipfeltreffen", title: "EU-Türkei-Gipfel: Streit um Flüchtlingskontingent", context: "Unmittelbar vor dem Gipfeltreffen der Europäischen Union mit der Türkei spricht Parlamentspräsident Martin Schulz (SPD) Klartext - eine Vereinbarung von Flüchtlingskontingenten mit der Türkei sei kaum aussichtsreich.", url: "http://www.spiegel.de/politik/ausland/eu-tuerkei-gipfel-streit-um-fluechtlingskontingent-a-1065093.html") { (dict) -> Void in
 			
-			XCTAssertNotNil(translation)
-			print("translation: ", translation)
+			XCTAssertNotNil(dict)
+			print("translation: ", dict)
 			self.testLock.signal()
 		}
 		testLock.wait()
@@ -201,10 +201,10 @@ class ZeeguuAPITests: XCTestCase {
 	
 	func testTranslateOtherWord() {
 		print("Testing translating another word:")
-		ZeeguuAPI.sharedAPI().translateWord("buchstäblich", title: "Flüchtlinge: Angela Merkel spricht von historischer Bewährungsprobe für Europa", context: "\"Was wir im Fernsehen gesehen haben, kommt nun buchstäblich bis an unsere Haustür\", sagte die CDU-Vorsitzende.", url: "http://www.spiegel.de/politik/deutschland/fluechtlinge-angela-merkel-spricht-von-historischer-bewaehrungsprobe-fuer-europa-a-1067685.html") { (translation) -> Void in
+		ZeeguuAPI.sharedAPI().translateWord("buchstäblich", title: "Flüchtlinge: Angela Merkel spricht von historischer Bewährungsprobe für Europa", context: "\"Was wir im Fernsehen gesehen haben, kommt nun buchstäblich bis an unsere Haustür\", sagte die CDU-Vorsitzende.", url: "http://www.spiegel.de/politik/deutschland/fluechtlinge-angela-merkel-spricht-von-historischer-bewaehrungsprobe-fuer-europa-a-1067685.html") { (dict) -> Void in
 
-			XCTAssertNotNil(translation)
-			print("translation: ", translation)
+			XCTAssertNotNil(dict)
+			print("translation: ", dict)
 			self.testLock.signal()
 		}
 		testLock.wait()
@@ -212,9 +212,9 @@ class ZeeguuAPITests: XCTestCase {
 	
 	func testTranslateUmlautWord() {
 		print("Testing translating word:")
-		ZeeguuAPI.sharedAPI().translateWord("über", title: "", context: "", url: "") { (translation) -> Void in
-			XCTAssertNotNil(translation)
-			print("translation: ", translation)
+		ZeeguuAPI.sharedAPI().translateWord("über", title: "", context: "über", url: "") { (dict) -> Void in
+			XCTAssertNotNil(dict)
+			print("translation: ", dict)
 			self.testLock.signal()
 		}
 		testLock.wait()

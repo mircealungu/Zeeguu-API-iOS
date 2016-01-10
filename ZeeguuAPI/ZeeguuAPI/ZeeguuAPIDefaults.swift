@@ -115,6 +115,7 @@ extension ZeeguuAPI {
 		let session = NSURLSession.sharedSession()
 		debugPrint("Sending request for url \"\(request.URL)\": \(request)\n\n");
 		let task = session.dataTaskWithRequest(request) { (data, response, error) -> Void in
+			self.debugPrint("Entered dataTaksWithRequest completion block: data: \(data), response: \(response), error: \(error)");
 			if (data != nil && response != nil && (response! as! NSHTTPURLResponse).statusCode == 200) {
 				let response = String(data: data!, encoding: NSUTF8StringEncoding)!
 				self.debugPrint("Response from url \"\(request.URL)\": \(response)\n\n");
@@ -159,6 +160,7 @@ extension ZeeguuAPI {
 	}
 	
 	func checkStringResponse(response: String?, error: NSError?, completion: (string: String?) -> Void) {
+		debugPrint("repsonse: \(response)")
 		if (response != nil) {
 			completion(string: response!)
 		} else {

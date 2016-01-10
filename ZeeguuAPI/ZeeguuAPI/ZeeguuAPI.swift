@@ -267,7 +267,7 @@ public class ZeeguuAPI {
 	/// - parameter context: The context in which the word appeared.
 	/// - parameter url: The url of the article in which the word was translated.
 	/// - parameter completion: A block that will receive a string containing the translation of `word`.
-	public func translateWord(word: String, title: String, context: String, url: String, completion: (translation: String?) -> Void) {
+	public func translateWord(word: String, title: String, context: String, url: String, completion: (translation: JSON?) -> Void) {
 		if (!self.checkIfLoggedIn()) {
 			return completion(translation: nil)
 		}
@@ -277,7 +277,7 @@ public class ZeeguuAPI {
 				if let learned = dict!["learned"].string, native = dict!["native"].string {
 					let request = self.requestWithEndPoint(.TranslateAndBookmark, pathComponents: [learned, native], method: .POST, parameters: ["title": title, "context": context, "word": word, "url": url])
 					self.sendAsynchronousRequest(request) { (response, error) -> Void in
-						self.checkStringResponse(response, error: error, completion: completion)
+						self.checkJSONResponse(response, error: error, completion: completion)
 					}
 				} else  {
 					completion(translation: nil)
@@ -314,8 +314,9 @@ public class ZeeguuAPI {
 						self.checkStringResponse(response, error: error, completion: completion)
 					}
 				}
+			} else {
+				completion(bookmarkID: nil)
 			}
-			completion(bookmarkID: nil)
 		}
 	}
 	
