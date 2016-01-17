@@ -616,4 +616,11 @@ public class ZeeguuAPI {
 			self.checkJSONResponse(response, error: error, completion: completion)
 		}
 	}
+	
+	public func getFeedsBeingFollowed(completion: (dict: JSON?) -> Void) {
+		let request = self.requestWithEndPoint(.GetFeedsBeingFollowed, method: .GET)
+		self.sendAsynchronousRequest(request) { (response, error) -> Void in
+			self.checkJSONResponse(response, error: error, completion: completion)
+		}
+	}
 }
