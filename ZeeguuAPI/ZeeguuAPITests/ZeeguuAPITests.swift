@@ -427,6 +427,16 @@ class ZeeguuAPITests: XCTestCase {
 		testLock.wait()
 	}
 	
+	func testGetFeedsAtURL() {
+		print("Test getting feeds at url:")
+		ZeeguuAPI.sharedAPI().getFeedsAtUrl("http://www.spiegel.de") { (dict) -> Void in
+			XCTAssertNotNil(dict)
+			print("dict: ", dict)
+			self.testLock.signal()
+		}
+		self.testLock.wait()
+	}
+	
 	func DISABLED_testExample() {
 		// This is an example of a functional test case.
 		// Use XCTAssert and related functions to verify your tests produce the correct results.

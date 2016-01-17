@@ -608,4 +608,12 @@ public class ZeeguuAPI {
 			self.checkJSONResponse(response, error: error, completion: completion)
 		}
 	}
+	
+	public func getFeedsAtUrl(url: String, completion: (dict: JSON?) -> Void) {
+		let params = ["url": url]
+		let request = self.requestWithEndPoint(.GetFeedsAtURL, method: .POST, parameters: params)
+		self.sendAsynchronousRequest(request) { (response, error) -> Void in
+			self.checkJSONResponse(response, error: error, completion: completion)
+		}
+	}
 }
