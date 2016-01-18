@@ -61,7 +61,7 @@ enum ZeeguuAPIEndpoint: String {
 	case NativeLanguage = "native_language"
 	case Session = "session"
 	case StartFollowingFeeds = "start_following_feeds"
-	case StopFollowingFeeds = "stop_following_feed"
+	case StopFollowingFeed = "stop_following_feed"
 	case TranslateAndBookmark = "translate_and_bookmark"
 	case UserWords = "user_words"
 	case Validate = "validate"
