@@ -609,6 +609,11 @@ public class ZeeguuAPI {
 		}
 	}
 	
+	
+	/// Retrieves all feeds that were found at the given url.
+	///
+	/// - parameter url: The url for which to find the feeds.
+	/// - parameter completion: A block that will receive an array with the feeds.
 	public func getFeedsAtUrl(url: String, completion: (dict: JSON?) -> Void) {
 		let params = ["url": url]
 		let request = self.requestWithEndPoint(.GetFeedsAtURL, method: .POST, parameters: params)
@@ -617,6 +622,9 @@ public class ZeeguuAPI {
 		}
 	}
 	
+	/// Retrieves all feeds that are being followed by the current user.
+	///
+	/// - parameter completion: A block that will receive an array with the feeds.
 	public func getFeedsBeingFollowed(completion: (dict: JSON?) -> Void) {
 		let request = self.requestWithEndPoint(.GetFeedsBeingFollowed, method: .GET)
 		self.sendAsynchronousRequest(request) { (response, error) -> Void in
@@ -624,6 +632,10 @@ public class ZeeguuAPI {
 		}
 	}
 	
+	/// Adds the feed(s) to the list of feeds that the user is following.
+	///
+	/// - parameter feedURLs: An array of feed urls that the user wishes to follow.
+	/// - parameter completion: A block that will receive a boolean which indicates if the adding the feeds succeeded.
 	public func startFollowingFeeds(feedUrls: [String], completion: (success: Bool) -> Void) {
 		let params = ["feeds": JSON(feedUrls).rawString()!]
 		let request = self.requestWithEndPoint(.StartFollowingFeeds, method: .POST, parameters: params)
@@ -632,6 +644,10 @@ public class ZeeguuAPI {
 		}
 	}
 	
+	/// Removes the feed from the list of feeds that the user is following.
+	///
+	/// - parameter feedID: The ID of the feed that the user doesn't want to follow anymore.
+	/// - parameter completion: A block that will receive a boolean which indicates if the adding the feeds succeeded.
 	public func stopFollowingFeed(feedID: String, completion: (success: Bool) -> Void) {
 		let request = self.requestWithEndPoint(.StopFollowingFeed, pathComponents: [feedID], method: .GET)
 		self.sendAsynchronousRequest(request) { (response, error) -> Void in
