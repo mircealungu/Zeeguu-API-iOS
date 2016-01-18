@@ -26,17 +26,34 @@
 
 import UIKit
 
-class Article {
-	var source: String
-	var title: String
-	var url: String
-	var date: String
-	var contents: String?
+public class Article {
+	public var source: String
+	public var title: String
+	public var url: String
+	public var date: String
+	private var contents: String?
 	
-	init(articleTitle: String, articleUrl: String, articleDate: String, articleSource: String) {
+	public init(articleTitle: String, articleUrl: String, articleDate: String, articleSource: String) {
 		source = articleSource;
 		title = articleTitle;
 		url = articleUrl;
 		date = articleDate;
+	}
+	
+	public func getContents(completion: (contents: String) -> Void) {
+		if let con = contents {
+			completion(contents: con)
+		} else {
+			ZeeguuAPI.sharedAPI().getContentFromURLs([url]) { (dict) -> Void in
+				if let content = dict!["contents"][0]["content"].string {
+					self.contents = content
+					dispatch_async(dispatch_get_main_queue(), { () -> Void in
+						completion(contents: content)
+					})
+				} else {
+					ZeeguuAPI.sharedAPI().debugPrint("Failure, no content")
+				}
+			}
+		}
 	}
 }

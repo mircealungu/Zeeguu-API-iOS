@@ -44,21 +44,21 @@
 
 import UIKit
 
-class Bookmark {
+public class Bookmark {
 	
-	var date: NSDate
+	public var date: NSDate
 	
-	var word: String
-	var wordLanguage: String
+	public var word: String
+	public var wordLanguage: String
 	
-	var translation: [String]
-	var translationLanguage: String
+	public var translation: [String]
+	public var translationLanguage: String
 	
-	var title: String
-	var context: String?
-	var url: String
+	public var title: String
+	public var context: String?
+	public var url: String
 	
-	init(title: String, context: String? = nil, url: String, bookmarkDate: String, word: String, wordLanguage: String, translation: [String], translationLanguage: String) {
+	public init(title: String, context: String? = nil, url: String, bookmarkDate: String, word: String, wordLanguage: String, translation: [String], translationLanguage: String) {
 		self.title = title
 		self.context = context
 		self.url = url
