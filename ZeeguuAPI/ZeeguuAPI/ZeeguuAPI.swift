@@ -644,8 +644,6 @@ public class ZeeguuAPI {
 				let json = JSON.parse(res)
 				var feeds = [Feed]()
 				
-				self.debugPrint("json: \(json)")
-				
 				for (_, value):(String, JSON) in json {
 					if let id = value["id"].int?.description, title = value["title"].string, url = value["url"].string, language = value["language"].string, imageURL = value["image_url"].string {
 						feeds.append(Feed(id: id, title: title, url: url, description: "", language: language, imageURL: imageURL))

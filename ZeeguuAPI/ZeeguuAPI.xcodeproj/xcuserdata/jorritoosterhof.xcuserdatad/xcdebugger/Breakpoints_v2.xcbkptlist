@@ -209,38 +209,6 @@
             endingLineNumber = "226"
             landmarkName = "testBookmarkWord()"
             landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "ZeeguuAPITests.ZeeguuAPITests.(testBookmarkWord (ZeeguuAPITests.ZeeguuAPITests) -&gt; () -&gt; ()).(closure #1)"
-                  moduleName = "ZeeguuAPITests"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/jorritoosterhof/Documents/Studie/2015-2016/Period%202/Short%20Programming%20Project/Zeeguu-API-iOS/ZeeguuAPI/ZeeguuAPITests/ZeeguuAPITests.swift"
-                  timestampString = "474806243.945769"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "227"
-                  endingLineNumber = "227"
-                  offsetFromSymbolStart = "55">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "ZeeguuAPITests.ZeeguuAPITests.(testBookmarkWord (ZeeguuAPITests.ZeeguuAPITests) -&gt; () -&gt; ()).(closure #1).(implicit closure #1)"
-                  moduleName = "ZeeguuAPITests"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/jorritoosterhof/Documents/Studie/2015-2016/Period%202/Short%20Programming%20Project/Zeeguu-API-iOS/ZeeguuAPI/ZeeguuAPITests/ZeeguuAPITests.swift"
-                  timestampString = "474806243.946"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "227"
-                  endingLineNumber = "227"
-                  offsetFromSymbolStart = "58">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -282,12 +250,12 @@
                   moduleName = "ZeeguuAPI"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/jorritoosterhof/Documents/Studie/2015-2016/Period%202/Short%20Programming%20Project/Zeeguu-API-iOS/ZeeguuAPI/ZeeguuAPI/ZeeguuAPI.swift"
-                  timestampString = "474806243.959515"
+                  timestampString = "474822801.285742"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "313"
                   endingLineNumber = "313"
-                  offsetFromSymbolStart = "6475">
+                  offsetFromSymbolStart = "4448">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -297,12 +265,12 @@
                   moduleName = "ZeeguuAPI"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/jorritoosterhof/Documents/Studie/2015-2016/Period%202/Short%20Programming%20Project/Zeeguu-API-iOS/ZeeguuAPI/ZeeguuAPI/ZeeguuAPI.swift"
-                  timestampString = "474806243.959746"
+                  timestampString = "474822801.285872"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "314"
                   endingLineNumber = "314"
-                  offsetFromSymbolStart = "76">
+                  offsetFromSymbolStart = "64">
                </Location>
             </Locations>
          </BreakpointContent>
