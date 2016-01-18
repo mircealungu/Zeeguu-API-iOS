@@ -623,4 +623,13 @@ public class ZeeguuAPI {
 			self.checkJSONResponse(response, error: error, completion: completion)
 		}
 	}
+	
+	public func startFollowingFeeds(feedUrls: [String], completion: (success: Bool) -> Void) {
+		let params = ["feeds": JSON(feedUrls).rawString()!]
+		debugPrint("params: \(params)")
+		let request = self.requestWithEndPoint(.StartFollowingFeeds, method: .POST, parameters: params)
+		self.sendAsynchronousRequest(request) { (response, error) -> Void in
+			self.checkBooleanResponse(response, error: error, completion: completion)
+		}
+	}
 }

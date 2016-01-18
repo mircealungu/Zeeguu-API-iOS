@@ -447,6 +447,16 @@ class ZeeguuAPITests: XCTestCase {
 		self.testLock.wait()
 	}
 	
+	func testStartFollowinfFeeds() {
+		print("Test start following feeds:")
+		ZeeguuAPI.sharedAPI().startFollowingFeeds(["http://www.spiegel.de/index.rss"]) { (success) -> Void in
+			XCTAssertTrue(success)
+			print("success: ", success)
+			self.testLock.signal()
+		}
+		self.testLock.wait()
+	}
+	
 	func DISABLED_testExample() {
 		// This is an example of a functional test case.
 		// Use XCTAssert and related functions to verify your tests produce the correct results.
