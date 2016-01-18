@@ -28,7 +28,7 @@ import UIKit
 
 public class Feed: CustomStringConvertible {
 	
-	public var id: String
+	public var id: String?
 	public var title: String
 	public var url: String
 	public var feedDescription: String
@@ -41,7 +41,7 @@ public class Feed: CustomStringConvertible {
 		return "Feed: {\n\tid: \"\(id)\",\n\ttitle: \"\(title)\",\n\turl: \"\(url)\",\n\tdescription: \"\(feedDescription)\",\n\tlanguage: \"\(language)\",\n\timageURL: \"\(imageURL)\"\n}"
 	}
 	
-	init(id: String, title: String, url: String, description: String, language: String, imageURL: String) {
+	init(id: String? = nil, title: String, url: String, description: String, language: String, imageURL: String) {
 		self.id = id
 		self.title = title
 		self.url = url

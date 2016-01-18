@@ -623,8 +623,8 @@ public class ZeeguuAPI {
 				var feeds = [Feed]()
 				
 				for (_, value):(String, JSON) in json {
-					if let id = value["id"].string, title = value["title"].string, url = value["url"].string, description = value["description"].string, language = value["language"].string, imageURL = value["image_url"].string {
-						feeds.append(Feed(id: id, title: title, url: url, description: description, language: language, imageURL: imageURL))
+					if let title = value["title"].string, url = value["url"].string, description = value["description"].string, language = value["language"].string, imageURL = value["image_url"].string {
+						feeds.append(Feed(title: title, url: url, description: description, language: language, imageURL: imageURL))
 					}
 				}
 				completion(feeds: feeds)
@@ -637,10 +637,24 @@ public class ZeeguuAPI {
 	/// Retrieves all feeds that are being followed by the current user.
 	///
 	/// - parameter completion: A block that will receive an array with the feeds.
-	public func getFeedsBeingFollowed(completion: (dict: JSON?) -> Void) {
+	public func getFeedsBeingFollowed(completion: (feeds: [Feed]?) -> Void) {
 		let request = self.requestWithEndPoint(.GetFeedsBeingFollowed, method: .GET)
 		self.sendAsynchronousRequest(request) { (response, error) -> Void in
-			self.checkJSONResponse(response, error: error, completion: completion)
+			if let res = response {
+				let json = JSON.parse(res)
+				var feeds = [Feed]()
+				
+				self.debugPrint("json: \(json)")
+				
+				for (_, value):(String, JSON) in json {
+					if let id = value["id"].int?.description, title = value["title"].string, url = value["url"].string, language = value["language"].string, imageURL = value["image_url"].string {
+						feeds.append(Feed(id: id, title: title, url: url, description: "", language: language, imageURL: imageURL))
+					}
+				}
+				completion(feeds: feeds)
+			} else {
+				completion(feeds: nil)
+			}
 		}
 	}
 	
@@ -672,21 +686,25 @@ public class ZeeguuAPI {
 	/// - parameter feedID: The ID of the feed for which to retrieve a list of feed items.
 	/// - parameter completion: A block that will receive an array with the feed items.
 	public func getFeedItemsForFeed(feed: Feed, completion: (articles: [Article]?) -> Void) {
-		let request = self.requestWithEndPoint(.GetFeedItems, pathComponents: [feed.id], method: .GET)
-		self.sendAsynchronousRequest(request) { (response, error) -> Void in
-			if let res = response {
-				let json = JSON.parse(res)
-				var articles = [Article]()
-				
-				for (_, value):(String, JSON) in json {
-					if let title = value["title"].string, url = value["url"].string, summary = value["summary"].string, date = value["published"].string {
-						articles.append(Article(feed: feed, title: title, url: url, date: date, summary: summary))
+		if let id = feed.id {
+			let request = self.requestWithEndPoint(.GetFeedItems, pathComponents: [id], method: .GET)
+			self.sendAsynchronousRequest(request) { (response, error) -> Void in
+				if let res = response {
+					let json = JSON.parse(res)
+					var articles = [Article]()
+					
+					for (_, value):(String, JSON) in json {
+						if let title = value["title"].string, url = value["url"].string, summary = value["summary"].string, date = value["published"].string {
+							articles.append(Article(feed: feed, title: title, url: url, date: date, summary: summary))
+						}
 					}
+					completion(articles: articles)
+				} else {
+					completion(articles: nil)
 				}
-				completion(articles: articles)
-			} else {
-				completion(articles: nil)
 			}
+		} else {
+			completion(articles: nil)
 		}
 	}
 }
