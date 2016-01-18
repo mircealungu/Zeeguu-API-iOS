@@ -449,7 +449,7 @@ class ZeeguuAPITests: XCTestCase {
 	
 	func testStartFollowingFeeds() {
 		print("Test start following feeds:")
-		ZeeguuAPI.sharedAPI().startFollowingFeeds(["http://www.spiegel.de/index.rss"]) { (success) -> Void in
+		ZeeguuAPI.sharedAPI().startFollowingFeeds(["http://www.spiegel.de/index.rss", "http://www.spiegel.de/schlagzeilen/index.rss"]) { (success) -> Void in
 			XCTAssertTrue(success)
 			print("success: ", success)
 			self.testLock.signal()
@@ -462,6 +462,16 @@ class ZeeguuAPITests: XCTestCase {
 		ZeeguuAPI.sharedAPI().stopFollowingFeed("1") { (success) -> Void in
 			XCTAssertTrue(success)
 			print("success: ", success)
+			self.testLock.signal()
+		}
+		self.testLock.wait()
+	}
+	
+	func testGetFeedItems() {
+		print("Test getting feed items:")
+		ZeeguuAPI.sharedAPI().getFeedItemsForFeed("2") { (dict) -> Void in
+			XCTAssertNotNil(dict)
+			print("dict: ", dict)
 			self.testLock.signal()
 		}
 		self.testLock.wait()

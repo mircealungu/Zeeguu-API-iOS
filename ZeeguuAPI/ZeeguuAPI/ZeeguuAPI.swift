@@ -654,4 +654,15 @@ public class ZeeguuAPI {
 			self.checkBooleanResponse(response, error: error, completion: completion)
 		}
 	}
+	
+	/// Retrieves a list of feed items (articles) for a feed.
+	///
+	/// - parameter feedID: The ID of the feed for which to retrieve a list of feed items.
+	/// - parameter completion: A block that will receive an array with the feed items.
+	public func getFeedItemsForFeed(feedID: String, completion: (dict: JSON?) -> Void) {
+		let request = self.requestWithEndPoint(.GetFeedItems, pathComponents: [feedID], method: .GET)
+		self.sendAsynchronousRequest(request) { (response, error) -> Void in
+			self.checkJSONResponse(response, error: error, completion: completion)
+		}
+	}
 }
