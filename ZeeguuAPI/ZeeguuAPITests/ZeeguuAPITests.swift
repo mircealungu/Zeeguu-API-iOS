@@ -429,9 +429,9 @@ class ZeeguuAPITests: XCTestCase {
 	
 	func testGetFeedsAtURL() {
 		print("Test getting feeds at url:")
-		ZeeguuAPI.sharedAPI().getFeedsAtUrl("http://www.spiegel.de") { (dict) -> Void in
-			XCTAssertNotNil(dict)
-			print("dict: ", dict)
+		ZeeguuAPI.sharedAPI().getFeedsAtUrl("http://www.spiegel.de") { (feeds) -> Void in
+			XCTAssertNotNil(feeds)
+			print("feeds: ", feeds)
 			self.testLock.signal()
 		}
 		self.testLock.wait()

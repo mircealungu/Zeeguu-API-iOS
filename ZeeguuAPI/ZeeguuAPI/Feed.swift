@@ -26,20 +26,24 @@
 
 import UIKit
 
-public class Feed {
+public class Feed: CustomStringConvertible {
 	
 	public var title: String
 	public var url: String
-	public var description: String
+	public var feedDescription: String
 	public var language: String
 	
 	private var imageURL: String
 	private var image: UIImage?
 	
+	public var description: String {
+		return "Feed: {\n\ttitle: \"\(title)\",\n\turl: \"\(url)\",\n\tdescription: \"\(feedDescription)\",\n\tlanguage: \"\(language)\",\n\timageURL: \"\(imageURL)\"\n}"
+	}
+	
 	init(title: String, url: String, description: String, language: String, imageURL: String) {
 		self.title = title
 		self.url = url
-		self.description = description
+		self.feedDescription = description
 		self.language = language
 		self.imageURL = imageURL
 	}

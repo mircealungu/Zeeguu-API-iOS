@@ -614,11 +614,24 @@ public class ZeeguuAPI {
 	///
 	/// - parameter url: The url for which to find the feeds.
 	/// - parameter completion: A block that will receive an array with the feeds.
-	public func getFeedsAtUrl(url: String, completion: (dict: JSON?) -> Void) {
+	public func getFeedsAtUrl(url: String, completion: (feeds: [Feed]?) -> Void) {
 		let params = ["url": url]
 		let request = self.requestWithEndPoint(.GetFeedsAtURL, method: .POST, parameters: params)
 		self.sendAsynchronousRequest(request) { (response, error) -> Void in
-			self.checkJSONResponse(response, error: error, completion: completion)
+//			self.checkJSONResponse(response, error: error, completion: completion)
+			if let res = response {
+				let json = JSON.parse(res)
+				var feeds = [Feed]()
+				
+				for (_, value):(String, JSON) in json {
+					if let title = value["title"].string, url = value["url"].string, description = value["description"].string, language = value["language"].string, imageURL = value["image_url"].string {
+						feeds.append(Feed(title: title, url: url, description: description, language: language, imageURL: imageURL))
+					}
+				}
+				completion(feeds: feeds)
+			} else {
+				completion(feeds: nil)
+			}
 		}
 	}
 	
