@@ -469,9 +469,9 @@ class ZeeguuAPITests: XCTestCase {
 	
 	func testGetFeedItems() {
 		print("Test getting feed items:")
-		ZeeguuAPI.sharedAPI().getFeedItemsForFeed("2") { (dict) -> Void in
-			XCTAssertNotNil(dict)
-			print("dict: ", dict)
+		ZeeguuAPI.sharedAPI().getFeedItemsForFeed(Feed(id: "2", title: "Spiegel", url: "http://www.spiegel.de/schlagzeilen/index.rss", description: "Spiegel beschrijving", language: "de", imageURL: "niets")) { (articles) -> Void in
+			XCTAssertNotNil(articles)
+			print("articles: ", articles)
 			self.testLock.signal()
 		}
 		self.testLock.wait()

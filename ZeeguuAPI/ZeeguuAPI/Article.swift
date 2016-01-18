@@ -26,18 +26,25 @@
 
 import UIKit
 
-public class Article {
-	public var source: String
+public class Article: CustomStringConvertible {
+	public var feed: Feed
 	public var title: String
 	public var url: String
 	public var date: String
+	public var summary: String
 	private var contents: String?
 	
-	public init(articleTitle: String, articleUrl: String, articleDate: String, articleSource: String) {
-		source = articleSource;
-		title = articleTitle;
-		url = articleUrl;
-		date = articleDate;
+	public var description: String {
+		let str = feed.description.stringByReplacingOccurrencesOfString("\n", withString: "\n\t")
+		return "Article: {\n\tfeed: \"\(str)\",\n\ttitle: \"\(title)\",\n\turl: \"\(url)\",\n\tdate: \"\(date)\",\n\tsummary: \"\(summary)\",\n\tcontents: \"\(contents)\"\n}"
+	}
+	
+	public init(feed: Feed, title: String, url: String, date: String, summary: String) {
+		self.feed = feed
+		self.title = title;
+		self.url = url;
+		self.date = date;
+		self.summary = summary
 	}
 	
 	public func getContents(completion: (contents: String) -> Void) {
