@@ -53,9 +53,9 @@ public class Feed: CustomStringConvertible {
 	public func getImage(completion: (image: UIImage?) -> Void) {
 		if let imURL = NSURL(string: self.imageURL) {
 			let request = NSMutableURLRequest(URL: imURL)
-			ZeeguuAPI.sharedAPI().sendAsynchronousRequest(request) { (response, error) -> Void in
-				if let res = response, data = res.dataUsingEncoding(NSUTF8StringEncoding) {
-					completion(image: UIImage(data: data))
+			ZeeguuAPI.sharedAPI().sendAsynchronousRequestWithDataResponse(request) { (data, error) -> Void in
+				if let res = data {
+					completion(image: UIImage(data: res))
 				} else {
 					ZeeguuAPI.sharedAPI().debugPrint("Could not get image with url '\(self.imageURL)', error: \(error)")
 					completion(image: nil)

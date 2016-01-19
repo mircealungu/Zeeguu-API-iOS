@@ -135,6 +135,28 @@ extension ZeeguuAPI {
 		self.showNetworkIndicator(true)
 	}
 	
+	func sendAsynchronousRequestWithDataResponse(request: NSURLRequest, completion: (data: NSData?, error: NSError?) -> Void) {
+		let session = NSURLSession.sharedSession()
+		debugPrint("Sending request for url \"\(request.URL)\": \(request)\n\n");
+		let task = session.dataTaskWithRequest(request) { (data, response, error) -> Void in
+			self.debugPrint("Entered dataTaksWithRequest completion block: data: \(data), response: \(response), error: \(error)");
+			if (data != nil && response != nil && (response! as! NSHTTPURLResponse).statusCode == 200) {
+				completion(data: data, error: nil)
+			} else {
+				if (response != nil) {
+					self.debugPrint("Response object for url \"\(request.URL)\": \(response)\n\n");
+				}
+				if (error != nil) {
+					self.debugPrint("Error for url \"\(request.URL)\": \(error)\n\n");
+				}
+				completion(data: nil, error: error)
+			}
+			self.showNetworkIndicator(false)
+		}
+		task.resume()
+		self.showNetworkIndicator(true)
+	}
+	
 	func checkIfLoggedIn() -> Bool {
 		if (!self.isLoggedIn) {
 			print("There is no user logged in currently!")

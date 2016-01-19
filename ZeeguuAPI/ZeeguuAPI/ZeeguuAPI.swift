@@ -623,8 +623,12 @@ public class ZeeguuAPI {
 				var feeds = [Feed]()
 				
 				for (_, value):(String, JSON) in json {
-					if let title = value["title"].string, url = value["url"].string, description = value["description"].string, language = value["language"].string, imageURL = value["image_url"].string {
-						feeds.append(Feed(title: title, url: url, description: description, language: language, imageURL: imageURL))
+					if let title = value["title"].string, url = value["url"].string, description = value["description"].string, language = value["language"].string {
+						if let imageURL = value["image_url"]["href"].string {
+							feeds.append(Feed(title: title, url: url, description: description, language: language, imageURL: imageURL))
+						} else {
+							feeds.append(Feed(title: title, url: url, description: description, language: language, imageURL: ""))
+						}
 					}
 				}
 				completion(feeds: feeds)
@@ -645,8 +649,8 @@ public class ZeeguuAPI {
 				var feeds = [Feed]()
 				
 				for (_, value):(String, JSON) in json {
-					if let id = value["id"].int?.description, title = value["title"].string, url = value["url"].string, language = value["language"].string, imageURL = value["image_url"].string {
-						feeds.append(Feed(id: id, title: title, url: url, description: "", language: language, imageURL: imageURL))
+					if let id = value["id"].int?.description, title = value["title"].string, url = value["url"].string, description = value["description"].string, language = value["language"].string, imageURL = value["image_url"].string {
+						feeds.append(Feed(id: id, title: title, url: url, description: description, language: language, imageURL: imageURL))
 					}
 				}
 				completion(feeds: feeds)
