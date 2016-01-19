@@ -437,6 +437,56 @@ class ZeeguuAPITests: XCTestCase {
 		self.testLock.wait()
 	}
 	
+	func testGetFeedsAtURL2() {
+		print("Test getting feeds at url:")
+		ZeeguuAPI.sharedAPI().getFeedsAtUrl("http://www.welt.de") { (feeds) -> Void in
+			XCTAssertNotNil(feeds)
+			print("feeds: ", feeds)
+			self.testLock.signal()
+		}
+		self.testLock.wait()
+	}
+	
+	func testGetFeedsAtURL3() {
+		print("Test getting feeds at url:")
+		ZeeguuAPI.sharedAPI().getFeedsAtUrl("http://www.bild.de") { (feeds) -> Void in
+			XCTAssertNotNil(feeds)
+			print("feeds: ", feeds)
+			self.testLock.signal()
+		}
+		self.testLock.wait()
+	}
+	
+	func testGetFeedsAtURL4() {
+		print("Test getting feeds at url:")
+		ZeeguuAPI.sharedAPI().getFeedsAtUrl("http://www.zeit.de/index") { (feeds) -> Void in
+			XCTAssertNotNil(feeds)
+			print("feeds: ", feeds)
+			self.testLock.signal()
+		}
+		self.testLock.wait()
+	}
+	
+	func testGetFeedsAtURL5() {
+		print("Test getting feeds at url:")
+		ZeeguuAPI.sharedAPI().getFeedsAtUrl("http://www.tagesschau.de") { (feeds) -> Void in
+			XCTAssertNotNil(feeds)
+			print("feeds: ", feeds)
+			self.testLock.signal()
+		}
+		self.testLock.wait()
+	}
+	
+	func testGetFeedsAtURL6() {
+		print("Test getting feeds at url:")
+		ZeeguuAPI.sharedAPI().getFeedsAtUrl("http://www.handelsblatt.com") { (feeds) -> Void in
+			XCTAssertNotNil(feeds)
+			print("feeds: ", feeds)
+			self.testLock.signal()
+		}
+		self.testLock.wait()
+	}
+	
 	func testGetFeedsBeingFollowed() {
 		print("Test getting feeds being followed:")
 		ZeeguuAPI.sharedAPI().getFeedsBeingFollowed() { (dict) -> Void in
@@ -449,7 +499,47 @@ class ZeeguuAPITests: XCTestCase {
 	
 	func testStartFollowingFeeds() {
 		print("Test start following feeds:")
+		ZeeguuAPI.sharedAPI().startFollowingFeeds(["http://www.bild.de/rss-feeds/rss-16725492,feed=home.bild.html"]) { (success) -> Void in
+			XCTAssertTrue(success)
+			print("success: ", success)
+			self.testLock.signal()
+		}
+		self.testLock.wait()
+	}
+	
+	func testStartFollowingFeeds2() {
+		print("Test start following feeds:")
 		ZeeguuAPI.sharedAPI().startFollowingFeeds(["http://www.spiegel.de/index.rss", "http://www.spiegel.de/schlagzeilen/index.rss"]) { (success) -> Void in
+			XCTAssertTrue(success)
+			print("success: ", success)
+			self.testLock.signal()
+		}
+		self.testLock.wait()
+	}
+	
+	func testStartFollowingFeeds3() {
+		print("Test start following feeds:")
+		ZeeguuAPI.sharedAPI().startFollowingFeeds(["http://newsfeed.zeit.de/index"]) { (success) -> Void in
+			XCTAssertTrue(success)
+			print("success: ", success)
+			self.testLock.signal()
+		}
+		self.testLock.wait()
+	}
+	
+	func testStartFollowingFeeds4() {
+		print("Test start following feeds:")
+		ZeeguuAPI.sharedAPI().startFollowingFeeds(["http://www.handelsblatt.com/contentexport/feed/top-themen/"]) { (success) -> Void in
+			XCTAssertTrue(success)
+			print("success: ", success)
+			self.testLock.signal()
+		}
+		self.testLock.wait()
+	}
+	
+	func testStartFollowingFeeds5() {
+		print("Test start following feeds:")
+		ZeeguuAPI.sharedAPI().startFollowingFeeds(["http://www.tagesschau.de/xml/rss2"]) { (success) -> Void in
 			XCTAssertTrue(success)
 			print("success: ", success)
 			self.testLock.signal()
@@ -469,7 +559,7 @@ class ZeeguuAPITests: XCTestCase {
 	
 	func testGetFeedItems() {
 		print("Test getting feed items:")
-		ZeeguuAPI.sharedAPI().getFeedItemsForFeed(Feed(id: "2", title: "Spiegel", url: "http://www.spiegel.de/schlagzeilen/index.rss", description: "Spiegel beschrijving", language: "de", imageURL: "niets")) { (articles) -> Void in
+		ZeeguuAPI.sharedAPI().getFeedItemsForFeed(Feed(id: "8", title: "Spiegel", url: "http://www.spiegel.de/schlagzeilen/index.rss", description: "Spiegel beschrijving", language: "de", imageURL: "niets")) { (articles) -> Void in
 			XCTAssertNotNil(articles)
 			print("articles: ", articles)
 			self.testLock.signal()
