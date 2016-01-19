@@ -67,9 +67,24 @@ class ZeeguuAPITests: XCTestCase {
 		testLock.wait()
 	}
 	
+	func testGetUserDetails() {
+		print("Testing get user details:")
+		ZeeguuAPI.sharedAPI().getUserDetails { (dict) -> Void in
+			XCTAssertNotNil(dict)
+			print("dict: ", dict)
+			self.testLock.signal()
+		}
+		self.testLock.wait()
+	}
+	
 	func testZZZLogout() {
 		print("Testing logout:")
-		ZeeguuAPI.sharedAPI().logout()
+		ZeeguuAPI.sharedAPI().logout { (success) -> Void in
+			XCTAssertTrue(success);
+			print("success: ", success)
+			self.testLock.signal()
+		}
+		testLock.wait()
 		XCTAssertFalse(ZeeguuAPI.sharedAPI().isLoggedIn)
 	}
 	
@@ -83,7 +98,7 @@ class ZeeguuAPITests: XCTestCase {
 		testLock.wait()
 	}
 	
-	func DISABLED_testSetLearnedLanguage() {
+	func testSetLearnedLanguage() {
 		print("Testing set learned language:")
 		ZeeguuAPI.sharedAPI().setLearnedLanguage("de") { (success) -> Void in
 			XCTAssertTrue(success)
@@ -103,9 +118,9 @@ class ZeeguuAPITests: XCTestCase {
 		testLock.wait()
 	}
 	
-	func DISABLED_testSetNativeLanguage() {
+	func testSetNativeLanguage() {
 		print("Testing set native language:")
-		ZeeguuAPI.sharedAPI().setNativeLanguage("de") { (success) -> Void in
+		ZeeguuAPI.sharedAPI().setNativeLanguage("en") { (success) -> Void in
 			XCTAssertTrue(success)
 			print("success: ", success)
 			self.testLock.signal()
@@ -175,10 +190,10 @@ class ZeeguuAPITests: XCTestCase {
 	
 	func testTranslateWord() {
 		print("Testing translating word:")
-		ZeeguuAPI.sharedAPI().translateWord("Gipfeltreffen", title: "EU-Türkei-Gipfel: Streit um Flüchtlingskontingent", context: "Unmittelbar vor dem Gipfeltreffen der Europäischen Union mit der Türkei spricht Parlamentspräsident Martin Schulz (SPD) Klartext - eine Vereinbarung von Flüchtlingskontingenten mit der Türkei sei kaum aussichtsreich.", url: "http://www.spiegel.de/politik/ausland/eu-tuerkei-gipfel-streit-um-fluechtlingskontingent-a-1065093.html") { (translation) -> Void in
+		ZeeguuAPI.sharedAPI().translateWord("Gipfeltreffen", title: "EU-Türkei-Gipfel: Streit um Flüchtlingskontingent", context: "Unmittelbar vor dem Gipfeltreffen der Europäischen Union mit der Türkei spricht Parlamentspräsident Martin Schulz (SPD) Klartext - eine Vereinbarung von Flüchtlingskontingenten mit der Türkei sei kaum aussichtsreich.", url: "http://www.spiegel.de/politik/ausland/eu-tuerkei-gipfel-streit-um-fluechtlingskontingent-a-1065093.html") { (dict) -> Void in
 			
-			XCTAssertNotNil(translation)
-			print("translation: ", translation)
+			XCTAssertNotNil(dict)
+			print("translation: ", dict)
 			self.testLock.signal()
 		}
 		testLock.wait()
@@ -186,10 +201,10 @@ class ZeeguuAPITests: XCTestCase {
 	
 	func testTranslateOtherWord() {
 		print("Testing translating another word:")
-		ZeeguuAPI.sharedAPI().translateWord("buchstäblich", title: "Flüchtlinge: Angela Merkel spricht von historischer Bewährungsprobe für Europa", context: "\"Was wir im Fernsehen gesehen haben, kommt nun buchstäblich bis an unsere Haustür\", sagte die CDU-Vorsitzende.", url: "http://www.spiegel.de/politik/deutschland/fluechtlinge-angela-merkel-spricht-von-historischer-bewaehrungsprobe-fuer-europa-a-1067685.html") { (translation) -> Void in
+		ZeeguuAPI.sharedAPI().translateWord("buchstäblich", title: "Flüchtlinge: Angela Merkel spricht von historischer Bewährungsprobe für Europa", context: "\"Was wir im Fernsehen gesehen haben, kommt nun buchstäblich bis an unsere Haustür\", sagte die CDU-Vorsitzende.", url: "http://www.spiegel.de/politik/deutschland/fluechtlinge-angela-merkel-spricht-von-historischer-bewaehrungsprobe-fuer-europa-a-1067685.html") { (dict) -> Void in
 
-			XCTAssertNotNil(translation)
-			print("translation: ", translation)
+			XCTAssertNotNil(dict)
+			print("translation: ", dict)
 			self.testLock.signal()
 		}
 		testLock.wait()
@@ -197,15 +212,15 @@ class ZeeguuAPITests: XCTestCase {
 	
 	func testTranslateUmlautWord() {
 		print("Testing translating word:")
-		ZeeguuAPI.sharedAPI().translateWord("über", title: "", context: "", url: "") { (translation) -> Void in
-			XCTAssertNotNil(translation)
-			print("translation: ", translation)
+		ZeeguuAPI.sharedAPI().translateWord("über", title: "", context: "über", url: "") { (dict) -> Void in
+			XCTAssertNotNil(dict)
+			print("translation: ", dict)
 			self.testLock.signal()
 		}
 		testLock.wait()
 	}
 	
-	func DISABLED_testBookmarkWord() {
+	func testBookmarkWord() {
 		print("Testing bookmarking word:")
 		ZeeguuAPI.sharedAPI().bookmarkWord("Gipfeltreffen", translation: "summit", context: "Unmittelbar vor dem Gipfeltreffen der Europäischen Union mit der Türkei spricht Parlamentspräsident Martin Schulz (SPD) Klartext - eine Vereinbarung von Flüchtlingskontingenten mit der Türkei sei kaum aussichtsreich.", url: "http://www.spiegel.de/politik/ausland/eu-tuerkei-gipfel-streit-um-fluechtlingskontingent-a-1065093.html", title: "EU-Türkei-Gipfel: Streit um Flüchtlingskontingent") { (bookmarkID) -> Void in
 			
@@ -410,6 +425,146 @@ class ZeeguuAPITests: XCTestCase {
 			self.testLock.signal()
 		}
 		testLock.wait()
+	}
+	
+	func testGetFeedsAtURL() {
+		print("Test getting feeds at url:")
+		ZeeguuAPI.sharedAPI().getFeedsAtUrl("http://www.spiegel.de") { (feeds) -> Void in
+			XCTAssertNotNil(feeds)
+			print("feeds: ", feeds)
+			self.testLock.signal()
+		}
+		self.testLock.wait()
+	}
+	
+	func testGetFeedsAtURL2() {
+		print("Test getting feeds at url:")
+		ZeeguuAPI.sharedAPI().getFeedsAtUrl("http://www.welt.de") { (feeds) -> Void in
+			XCTAssertNotNil(feeds)
+			print("feeds: ", feeds)
+			self.testLock.signal()
+		}
+		self.testLock.wait()
+	}
+	
+	func testGetFeedsAtURL3() {
+		print("Test getting feeds at url:")
+		ZeeguuAPI.sharedAPI().getFeedsAtUrl("http://www.bild.de") { (feeds) -> Void in
+			XCTAssertNotNil(feeds)
+			print("feeds: ", feeds)
+			self.testLock.signal()
+		}
+		self.testLock.wait()
+	}
+	
+	func testGetFeedsAtURL4() {
+		print("Test getting feeds at url:")
+		ZeeguuAPI.sharedAPI().getFeedsAtUrl("http://www.zeit.de/index") { (feeds) -> Void in
+			XCTAssertNotNil(feeds)
+			print("feeds: ", feeds)
+			self.testLock.signal()
+		}
+		self.testLock.wait()
+	}
+	
+	func testGetFeedsAtURL5() {
+		print("Test getting feeds at url:")
+		ZeeguuAPI.sharedAPI().getFeedsAtUrl("http://www.tagesschau.de") { (feeds) -> Void in
+			XCTAssertNotNil(feeds)
+			print("feeds: ", feeds)
+			self.testLock.signal()
+		}
+		self.testLock.wait()
+	}
+	
+	func testGetFeedsAtURL6() {
+		print("Test getting feeds at url:")
+		ZeeguuAPI.sharedAPI().getFeedsAtUrl("http://www.handelsblatt.com") { (feeds) -> Void in
+			XCTAssertNotNil(feeds)
+			print("feeds: ", feeds)
+			self.testLock.signal()
+		}
+		self.testLock.wait()
+	}
+	
+	func testGetFeedsBeingFollowed() {
+		print("Test getting feeds being followed:")
+		ZeeguuAPI.sharedAPI().getFeedsBeingFollowed() { (dict) -> Void in
+			XCTAssertNotNil(dict)
+			print("dict: ", dict)
+			self.testLock.signal()
+		}
+		self.testLock.wait()
+	}
+	
+	func testStartFollowingFeeds() {
+		print("Test start following feeds:")
+		ZeeguuAPI.sharedAPI().startFollowingFeeds(["http://www.bild.de/rss-feeds/rss-16725492,feed=home.bild.html"]) { (success) -> Void in
+			XCTAssertTrue(success)
+			print("success: ", success)
+			self.testLock.signal()
+		}
+		self.testLock.wait()
+	}
+	
+	func testStartFollowingFeeds2() {
+		print("Test start following feeds:")
+		ZeeguuAPI.sharedAPI().startFollowingFeeds(["http://www.spiegel.de/index.rss", "http://www.spiegel.de/schlagzeilen/index.rss"]) { (success) -> Void in
+			XCTAssertTrue(success)
+			print("success: ", success)
+			self.testLock.signal()
+		}
+		self.testLock.wait()
+	}
+	
+	func testStartFollowingFeeds3() {
+		print("Test start following feeds:")
+		ZeeguuAPI.sharedAPI().startFollowingFeeds(["http://newsfeed.zeit.de/index"]) { (success) -> Void in
+			XCTAssertTrue(success)
+			print("success: ", success)
+			self.testLock.signal()
+		}
+		self.testLock.wait()
+	}
+	
+	func testStartFollowingFeeds4() {
+		print("Test start following feeds:")
+		ZeeguuAPI.sharedAPI().startFollowingFeeds(["http://www.handelsblatt.com/contentexport/feed/top-themen/"]) { (success) -> Void in
+			XCTAssertTrue(success)
+			print("success: ", success)
+			self.testLock.signal()
+		}
+		self.testLock.wait()
+	}
+	
+	func testStartFollowingFeeds5() {
+		print("Test start following feeds:")
+		ZeeguuAPI.sharedAPI().startFollowingFeeds(["http://www.tagesschau.de/xml/rss2"]) { (success) -> Void in
+			XCTAssertTrue(success)
+			print("success: ", success)
+			self.testLock.signal()
+		}
+		self.testLock.wait()
+	}
+	
+	func testStopFollowingFeed() {
+		print("Test stop following feeds:")
+		ZeeguuAPI.sharedAPI().stopFollowingFeed("1") { (success) -> Void in
+			XCTAssertTrue(success)
+			print("success: ", success)
+			self.testLock.signal()
+		}
+		self.testLock.wait()
+	}
+	
+	func testGetFeedItems() {
+		print("Test getting feed items:")
+		ZeeguuAPI.sharedAPI().getFeedItemsForFeed(Feed(id: "8", title: "Spiegel", url: "http://www.spiegel.de/schlagzeilen/index.rss", description: "Spiegel beschrijving", language: "de", imageURL: "niets")) { (articles) -> Void in
+			XCTAssertNotNil(articles)
+			print("articles: ", articles)
+			self.testLock.signal()
+		}
+		self.testLock.wait()
 	}
 	
 	func DISABLED_testExample() {

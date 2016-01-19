@@ -37,7 +37,7 @@ extension ZeeguuAPI {
 	static let apiHost: String = "https://zeeguu.unibe.ch"
 	static let sessionIDKey: String = "ZeeguuSessionID"
 	
-	func requestWithEndPoint(endPoint: ZeeguuAPIEndpoint, pathComponents: Array<String>?, method: HTTPMethod, parameters: Dictionary<String, String>?, jsonBody: JSON? = nil) -> NSURLRequest {
+	func requestWithEndPoint(endPoint: ZeeguuAPIEndpoint, pathComponents: Array<String>? = nil, method: HTTPMethod, parameters: Dictionary<String, String>? = nil, jsonBody: JSON? = nil) -> NSURLRequest {
 		var path: NSString = NSString(string: ZeeguuAPI.apiHost).stringByAppendingPathComponent(endPoint.rawValue)
 		
 		// Add pathcomponent to the host if there are any (for example, adding <email> to host/add_user: host/add_user/<email>)
@@ -115,6 +115,7 @@ extension ZeeguuAPI {
 		let session = NSURLSession.sharedSession()
 		debugPrint("Sending request for url \"\(request.URL)\": \(request)\n\n");
 		let task = session.dataTaskWithRequest(request) { (data, response, error) -> Void in
+			self.debugPrint("Entered dataTaksWithRequest completion block: data: \(data), response: \(response), error: \(error)");
 			if (data != nil && response != nil && (response! as! NSHTTPURLResponse).statusCode == 200) {
 				let response = String(data: data!, encoding: NSUTF8StringEncoding)!
 				self.debugPrint("Response from url \"\(request.URL)\": \(response)\n\n");
@@ -127,6 +128,28 @@ extension ZeeguuAPI {
 					self.debugPrint("Error for url \"\(request.URL)\": \(error)\n\n");
 				}
 				completion(response: nil, error: error)
+			}
+			self.showNetworkIndicator(false)
+		}
+		task.resume()
+		self.showNetworkIndicator(true)
+	}
+	
+	func sendAsynchronousRequestWithDataResponse(request: NSURLRequest, completion: (data: NSData?, error: NSError?) -> Void) {
+		let session = NSURLSession.sharedSession()
+		debugPrint("Sending request for url \"\(request.URL)\": \(request)\n\n");
+		let task = session.dataTaskWithRequest(request) { (data, response, error) -> Void in
+			self.debugPrint("Entered dataTaksWithRequest completion block: data: \(data), response: \(response), error: \(error)");
+			if (data != nil && response != nil && (response! as! NSHTTPURLResponse).statusCode == 200) {
+				completion(data: data, error: nil)
+			} else {
+				if (response != nil) {
+					self.debugPrint("Response object for url \"\(request.URL)\": \(response)\n\n");
+				}
+				if (error != nil) {
+					self.debugPrint("Error for url \"\(request.URL)\": \(error)\n\n");
+				}
+				completion(data: nil, error: error)
 			}
 			self.showNetworkIndicator(false)
 		}
@@ -159,6 +182,7 @@ extension ZeeguuAPI {
 	}
 	
 	func checkStringResponse(response: String?, error: NSError?, completion: (string: String?) -> Void) {
+		debugPrint("repsonse: \(response)")
 		if (response != nil) {
 			completion(string: response!)
 		} else {

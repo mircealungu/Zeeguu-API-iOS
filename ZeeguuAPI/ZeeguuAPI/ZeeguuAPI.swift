@@ -108,13 +108,37 @@ public class ZeeguuAPI {
 		}
 	}
 	
-	
+	/// Retrieves the details of the user.
+	///
+	/// - parameter completion: A block that will receive a `JSON` object, which contains the list of bookmarks.
+	public func getUserDetails(completion: (dict: JSON?) -> Void) {
+		if (!self.checkIfLoggedIn()) {
+			return completion(dict: nil)
+		}
+		let request = self.requestWithEndPoint(.getUserDetails, method: .GET)
+		self.sendAsynchronousRequest(request) { (response, error) -> Void in
+			self.checkJSONResponse(response, error: error, completion: completion)
+		}
+	}
 	
 	/// Logs the current user out.
 	///
-	/// After the user is logged in, you can use the ZeeguuAPI object to make requests on behalf of the user.
-	public func logout() {
-		self.currentSessionID = 0
+	/// After the user is logged out, you cannot use the ZeeguuAPI object anymore to make requests, until a user logs in again.
+	/// - parameter force: Force logout. Set this to `true` if the server is not able to complete logout and you want to get rid of the session id.
+	/// - parameter completion: A block that will receive a boolean indicating if the logout was a success.
+	public func logout(force force: Bool = false, completion: (success: Bool) -> Void) {
+		if (!self.checkIfLoggedIn()) {
+			return completion(success: false)
+		}
+		let request = self.requestWithEndPoint(.Logout, method: .GET)
+		self.sendAsynchronousRequest(request) { (response, error) -> Void in
+			self.checkBooleanResponse(response, error: error, completion: { (success) -> Void in
+				if (success || force) {
+					self.currentSessionID = 0
+				}
+				completion(success: success);
+			})
+		}
 	}
 	
 	/// Retrieves the language code of the learned langugage of the logged in user.
@@ -124,7 +148,7 @@ public class ZeeguuAPI {
 		if (!self.checkIfLoggedIn()) {
 			return completion(langCode: nil)
 		}
-		let request = self.requestWithEndPoint(.LearnedLanguage, pathComponents: nil, method: .GET, parameters: nil)
+		let request = self.requestWithEndPoint(.LearnedLanguage, method: .GET)
 		self.sendAsynchronousRequest(request) { (response, error) -> Void in
 			self.checkStringResponse(response, error: error, completion: completion)
 		}
@@ -138,7 +162,7 @@ public class ZeeguuAPI {
 		if (!self.checkIfLoggedIn()) {
 			return completion(success: false)
 		}
-		let request = self.requestWithEndPoint(.LearnedLanguage, pathComponents: [newLanguageCode], method: .POST, parameters: nil)
+		let request = self.requestWithEndPoint(.LearnedLanguage, pathComponents: [newLanguageCode], method: .POST)
 		self.sendAsynchronousRequest(request) { (response, error) -> Void in
 			self.checkBooleanResponse(response, error: error, completion: completion);
 		}
@@ -151,7 +175,7 @@ public class ZeeguuAPI {
 		if (!self.checkIfLoggedIn()) {
 			return completion(langCode: nil)
 		}
-		let request = self.requestWithEndPoint(.NativeLanguage, pathComponents: nil, method: .GET, parameters: nil)
+		let request = self.requestWithEndPoint(.NativeLanguage, method: .GET)
 		self.sendAsynchronousRequest(request) { (response, error) -> Void in
 			self.checkStringResponse(response, error: error, completion: completion)
 		}
@@ -165,7 +189,7 @@ public class ZeeguuAPI {
 		if (!self.checkIfLoggedIn()) {
 			return completion(success: false)
 		}
-		let request = self.requestWithEndPoint(.NativeLanguage, pathComponents: [newLanguageCode], method: .POST, parameters: nil)
+		let request = self.requestWithEndPoint(.NativeLanguage, pathComponents: [newLanguageCode], method: .POST)
 		self.sendAsynchronousRequest(request) { (response, error) -> Void in
 			self.checkBooleanResponse(response, error: error, completion: completion);
 		}
@@ -178,7 +202,7 @@ public class ZeeguuAPI {
 		if (!self.checkIfLoggedIn()) {
 			return completion(dict: nil)
 		}
-		let request = self.requestWithEndPoint(.LearnedAndNativeLanguage, pathComponents: nil, method: .GET, parameters: nil)
+		let request = self.requestWithEndPoint(.LearnedAndNativeLanguage, method: .GET)
 		self.sendAsynchronousRequest(request) { (response, error) -> Void in
 			self.checkJSONResponse(response, error: error, completion: completion)
 		}
@@ -188,7 +212,7 @@ public class ZeeguuAPI {
 	///
 	/// - parameter completion: A block that will receive a `JSON` object, which contains the array with the language codes.
 	public func getAvailableLanguages(completion: (array: JSON?) -> Void) {
-		let request = self.requestWithEndPoint(.AvailableLanguages, pathComponents: nil, method: .GET, parameters: nil)
+		let request = self.requestWithEndPoint(.AvailableLanguages, method: .GET)
 		self.sendAsynchronousRequest(request) { (response, error) -> Void in
 			self.checkJSONResponse(response, error: error, completion: completion)
 		}
@@ -198,7 +222,7 @@ public class ZeeguuAPI {
 	///
 	/// - parameter completion: A block that will receive a `JSON` object, which contains the array with the language codes.
 	public func getAvailableNativeLanguages(completion: (array: JSON?) -> Void) {
-		let request = self.requestWithEndPoint(.AvailableNativeLanguages, pathComponents: nil, method: .GET, parameters: nil)
+		let request = self.requestWithEndPoint(.AvailableNativeLanguages, method: .GET)
 		self.sendAsynchronousRequest(request) { (response, error) -> Void in
 			self.checkJSONResponse(response, error: error, completion: completion)
 		}
@@ -211,7 +235,7 @@ public class ZeeguuAPI {
 		if (!self.checkIfLoggedIn()) {
 			return completion(array: nil)
 		}
-		let request = self.requestWithEndPoint(.UserWords, pathComponents: nil, method: .GET, parameters: nil)
+		let request = self.requestWithEndPoint(.UserWords, method: .GET)
 		self.sendAsynchronousRequest(request) { (response, error) -> Void in
 			self.checkJSONResponse(response, error: error, completion: completion)
 		}
@@ -231,7 +255,7 @@ public class ZeeguuAPI {
 		} else {
 			pathComponents = ["without_context"]
 		}
-		let request = self.requestWithEndPoint(.BookmarksByDay, pathComponents: pathComponents, method: .GET, parameters: nil)
+		let request = self.requestWithEndPoint(.BookmarksByDay, pathComponents: pathComponents, method: .GET)
 		self.sendAsynchronousRequest(request) { (response, error) -> Void in
 			self.checkJSONResponse(response, error: error, completion: completion)
 		}
@@ -243,7 +267,7 @@ public class ZeeguuAPI {
 	/// - parameter context: The context in which the word appeared.
 	/// - parameter url: The url of the article in which the word was translated.
 	/// - parameter completion: A block that will receive a string containing the translation of `word`.
-	public func translateWord(word: String, title: String, context: String, url: String, completion: (translation: String?) -> Void) {
+	public func translateWord(word: String, title: String, context: String, url: String, completion: (translation: JSON?) -> Void) {
 		if (!self.checkIfLoggedIn()) {
 			return completion(translation: nil)
 		}
@@ -251,9 +275,9 @@ public class ZeeguuAPI {
 		self.getLearnedAndNativeLanguage { (dict) -> Void in
 			if (dict != nil) {
 				if let learned = dict!["learned"].string, native = dict!["native"].string {
-					let request = self.requestWithEndPoint(.Translate, pathComponents: [learned, native], method: .POST, parameters: ["title": title, "context": context, "word": word, "url": url])
+					let request = self.requestWithEndPoint(.TranslateAndBookmark, pathComponents: [learned, native], method: .POST, parameters: ["title": title, "context": context, "word": word, "url": url])
 					self.sendAsynchronousRequest(request) { (response, error) -> Void in
-						self.checkStringResponse(response, error: error, completion: completion)
+						self.checkJSONResponse(response, error: error, completion: completion)
 					}
 				} else  {
 					completion(translation: nil)
@@ -290,8 +314,9 @@ public class ZeeguuAPI {
 						self.checkStringResponse(response, error: error, completion: completion)
 					}
 				}
+			} else {
+				completion(bookmarkID: nil)
 			}
-			completion(bookmarkID: nil)
 		}
 	}
 	
@@ -303,7 +328,7 @@ public class ZeeguuAPI {
 		if (!self.checkIfLoggedIn()) {
 			return completion(success: false)
 		}
-		let request = self.requestWithEndPoint(.DeleteBookmark, pathComponents: [bookmarkID], method: .POST, parameters: nil)
+		let request = self.requestWithEndPoint(.DeleteBookmark, pathComponents: [bookmarkID], method: .POST)
 		self.sendAsynchronousRequest(request) { (response, error) -> Void in
 			self.checkBooleanResponse(response, error: error, completion: completion);
 		}
@@ -317,7 +342,7 @@ public class ZeeguuAPI {
 		if (!self.checkIfLoggedIn()) {
 			return completion(dict: nil)
 		}
-		let request = self.requestWithEndPoint(.GetExerciseLogForBookmark, pathComponents: [bookmarkID], method: .GET, parameters: nil)
+		let request = self.requestWithEndPoint(.GetExerciseLogForBookmark, pathComponents: [bookmarkID], method: .GET)
 		self.sendAsynchronousRequest(request) { (response, error) -> Void in
 			self.checkJSONResponse(response, error: error, completion: completion)
 		}
@@ -332,7 +357,7 @@ public class ZeeguuAPI {
 		if (!self.checkIfLoggedIn()) {
 			return completion(success: false)
 		}
-		let request = self.requestWithEndPoint(.AddNewTranslationToBookmark, pathComponents: [translation, bookmarkID], method: .POST, parameters: nil)
+		let request = self.requestWithEndPoint(.AddNewTranslationToBookmark, pathComponents: [translation, bookmarkID], method: .POST)
 		self.sendAsynchronousRequest(request) { (response, error) -> Void in
 			self.checkBooleanResponse(response, error: error, completion: completion);
 		}
@@ -347,7 +372,7 @@ public class ZeeguuAPI {
 		if (!self.checkIfLoggedIn()) {
 			return completion(success: false)
 		}
-		let request = self.requestWithEndPoint(.DeleteTranslationFromBookmark, pathComponents: [bookmarkID, translation], method: .POST, parameters: nil)
+		let request = self.requestWithEndPoint(.DeleteTranslationFromBookmark, pathComponents: [bookmarkID, translation], method: .POST)
 		self.sendAsynchronousRequest(request) { (response, error) -> Void in
 			self.checkBooleanResponse(response, error: error, completion: completion);
 		}
@@ -361,7 +386,7 @@ public class ZeeguuAPI {
 		if (!self.checkIfLoggedIn()) {
 			return completion(dict: nil)
 		}
-		let request = self.requestWithEndPoint(.GetTranslationsForBookmark, pathComponents: [bookmarkID], method: .GET, parameters: nil)
+		let request = self.requestWithEndPoint(.GetTranslationsForBookmark, pathComponents: [bookmarkID], method: .GET)
 		self.sendAsynchronousRequest(request) { (response, error) -> Void in
 			self.checkJSONResponse(response, error: error, completion: completion)
 		}
@@ -375,7 +400,7 @@ public class ZeeguuAPI {
 		if (!self.checkIfLoggedIn()) {
 			return completion(dict: nil)
 		}
-		let request = self.requestWithEndPoint(.GetNotEncounteredWords, pathComponents: [langCode], method: .GET, parameters: nil)
+		let request = self.requestWithEndPoint(.GetNotEncounteredWords, pathComponents: [langCode], method: .GET)
 		self.sendAsynchronousRequest(request) { (response, error) -> Void in
 			self.checkJSONResponse(response, error: error, completion: completion)
 		}
@@ -389,7 +414,7 @@ public class ZeeguuAPI {
 		if (!self.checkIfLoggedIn()) {
 			return completion(dict: nil)
 		}
-		let request = self.requestWithEndPoint(.GetKnownBookmarks, pathComponents: [langCode], method: .GET, parameters: nil)
+		let request = self.requestWithEndPoint(.GetKnownBookmarks, pathComponents: [langCode], method: .GET)
 		self.sendAsynchronousRequest(request) { (response, error) -> Void in
 			self.checkJSONResponse(response, error: error, completion: completion)
 		}
@@ -403,7 +428,7 @@ public class ZeeguuAPI {
 		if (!self.checkIfLoggedIn()) {
 			return completion(dict: nil)
 		}
-		let request = self.requestWithEndPoint(.GetKnownWords, pathComponents: [langCode], method: .GET, parameters: nil)
+		let request = self.requestWithEndPoint(.GetKnownWords, pathComponents: [langCode], method: .GET)
 		self.sendAsynchronousRequest(request) { (response, error) -> Void in
 			self.checkJSONResponse(response, error: error, completion: completion)
 		}
@@ -417,7 +442,7 @@ public class ZeeguuAPI {
 		if (!self.checkIfLoggedIn()) {
 			return completion(dict: nil)
 		}
-		let request = self.requestWithEndPoint(.GetProbablyKnownWords, pathComponents: [langCode], method: .GET, parameters: nil)
+		let request = self.requestWithEndPoint(.GetProbablyKnownWords, pathComponents: [langCode], method: .GET)
 		self.sendAsynchronousRequest(request) { (response, error) -> Void in
 			self.checkJSONResponse(response, error: error, completion: completion)
 		}
@@ -430,7 +455,7 @@ public class ZeeguuAPI {
 		if (!self.checkIfLoggedIn()) {
 			return completion(percentage: nil)
 		}
-		let request = self.requestWithEndPoint(.GetLowerBoundPercentageOfBasicVocabulary, pathComponents: nil, method: .GET, parameters: nil)
+		let request = self.requestWithEndPoint(.GetLowerBoundPercentageOfBasicVocabulary, method: .GET)
 		self.sendAsynchronousRequest(request) { (response, error) -> Void in
 			self.checkStringResponse(response, error: error, completion: completion)
 		}
@@ -443,7 +468,7 @@ public class ZeeguuAPI {
 		if (!self.checkIfLoggedIn()) {
 			return completion(percentage: nil)
 		}
-		let request = self.requestWithEndPoint(.GetUpperBoundPercentageOfBasicVocabulary, pathComponents: nil, method: .GET, parameters: nil)
+		let request = self.requestWithEndPoint(.GetUpperBoundPercentageOfBasicVocabulary, method: .GET)
 		self.sendAsynchronousRequest(request) { (response, error) -> Void in
 			self.checkStringResponse(response, error: error, completion: completion)
 		}
@@ -456,7 +481,7 @@ public class ZeeguuAPI {
 		if (!self.checkIfLoggedIn()) {
 			return completion(percentage: nil)
 		}
-		let request = self.requestWithEndPoint(.GetLowerBoundPercentageOfExtendedVocabulary, pathComponents: nil, method: .GET, parameters: nil)
+		let request = self.requestWithEndPoint(.GetLowerBoundPercentageOfExtendedVocabulary, method: .GET)
 		self.sendAsynchronousRequest(request) { (response, error) -> Void in
 			self.checkStringResponse(response, error: error, completion: completion)
 		}
@@ -469,7 +494,7 @@ public class ZeeguuAPI {
 		if (!self.checkIfLoggedIn()) {
 			return completion(percentage: nil)
 		}
-		let request = self.requestWithEndPoint(.GetUpperBoundPercentageOfExtendedVocabulary, pathComponents: nil, method: .GET, parameters: nil)
+		let request = self.requestWithEndPoint(.GetUpperBoundPercentageOfExtendedVocabulary, method: .GET)
 		self.sendAsynchronousRequest(request) { (response, error) -> Void in
 			self.checkStringResponse(response, error: error, completion: completion)
 		}
@@ -482,7 +507,7 @@ public class ZeeguuAPI {
 		if (!self.checkIfLoggedIn()) {
 			return completion(percentage: nil)
 		}
-		let request = self.requestWithEndPoint(.GetPercentageOfProbablyKnownBookmarkedWords, pathComponents: nil, method: .GET, parameters: nil)
+		let request = self.requestWithEndPoint(.GetPercentageOfProbablyKnownBookmarkedWords, method: .GET)
 		self.sendAsynchronousRequest(request) { (response, error) -> Void in
 			self.checkStringResponse(response, error: error, completion: completion)
 		}
@@ -496,7 +521,7 @@ public class ZeeguuAPI {
 		if (!self.checkIfLoggedIn()) {
 			return completion(dict: nil)
 		}
-		let request = self.requestWithEndPoint(.GetLearnedBookmarks, pathComponents: [langCode], method: .GET, parameters: nil)
+		let request = self.requestWithEndPoint(.GetLearnedBookmarks, pathComponents: [langCode], method: .GET)
 		self.sendAsynchronousRequest(request) { (response, error) -> Void in
 			self.checkJSONResponse(response, error: error, completion: completion)
 		}
@@ -510,7 +535,7 @@ public class ZeeguuAPI {
 		if (!self.checkIfLoggedIn()) {
 			return completion(dict: nil)
 		}
-		let request = self.requestWithEndPoint(.GetNotLookedUpWords, pathComponents: [langCode], method: .GET, parameters: nil)
+		let request = self.requestWithEndPoint(.GetNotLookedUpWords, pathComponents: [langCode], method: .GET)
 		self.sendAsynchronousRequest(request) { (response, error) -> Void in
 			self.checkJSONResponse(response, error: error, completion: completion)
 		}
@@ -535,7 +560,7 @@ public class ZeeguuAPI {
 		
 		let jsonDict = ["texts": newTexts, "personalized": String(personalized), "rank_boundary": String(rankBoundary)]
 		
-		let request = self.requestWithEndPoint(.GetDifficultyForText, pathComponents: [langCode], method: .POST, parameters: nil, jsonBody: JSON(jsonDict))
+		let request = self.requestWithEndPoint(.GetDifficultyForText, pathComponents: [langCode], method: .POST, jsonBody: JSON(jsonDict))
 		self.sendAsynchronousRequest(request) { (response, error) -> Void in
 			self.checkJSONResponse(response, error: error, completion: completion)
 		}
@@ -558,7 +583,7 @@ public class ZeeguuAPI {
 		
 		let jsonDict = ["texts": newTexts]
 		
-		let request = self.requestWithEndPoint(.GetLearnabilityForText, pathComponents: [langCode], method: .POST, parameters: nil, jsonBody: JSON(jsonDict))
+		let request = self.requestWithEndPoint(.GetLearnabilityForText, pathComponents: [langCode], method: .POST, jsonBody: JSON(jsonDict))
 		self.sendAsynchronousRequest(request) { (response, error) -> Void in
 			self.checkJSONResponse(response, error: error, completion: completion)
 		}
@@ -578,9 +603,110 @@ public class ZeeguuAPI {
 		
 		let jsonDict = ["urls": newURLs, "timeout": String(maxTimeout)]
 		
-		let request = self.requestWithEndPoint(.GetContentFromURL, pathComponents: nil, method: .POST, parameters: nil, jsonBody: JSON(jsonDict))
+		let request = self.requestWithEndPoint(.GetContentFromURL, method: .POST, jsonBody: JSON(jsonDict))
 		self.sendAsynchronousRequest(request) { (response, error) -> Void in
 			self.checkJSONResponse(response, error: error, completion: completion)
+		}
+	}
+	
+	
+	/// Retrieves all feeds that were found at the given url.
+	///
+	/// - parameter url: The url for which to find the feeds.
+	/// - parameter completion: A block that will receive an array with the feeds.
+	public func getFeedsAtUrl(url: String, completion: (feeds: [Feed]?) -> Void) {
+		let params = ["url": url]
+		let request = self.requestWithEndPoint(.GetFeedsAtURL, method: .POST, parameters: params)
+		self.sendAsynchronousRequest(request) { (response, error) -> Void in
+			if let res = response {
+				let json = JSON.parse(res)
+				var feeds = [Feed]()
+				
+				for (_, value):(String, JSON) in json {
+					if let title = value["title"].string, url = value["url"].string, description = value["description"].string, language = value["language"].string {
+						if let imageURL = value["image_url"]["href"].string {
+							feeds.append(Feed(title: title, url: url, description: description, language: language, imageURL: imageURL))
+						} else {
+							feeds.append(Feed(title: title, url: url, description: description, language: language, imageURL: ""))
+						}
+					}
+				}
+				completion(feeds: feeds)
+			} else {
+				completion(feeds: nil)
+			}
+		}
+	}
+	
+	/// Retrieves all feeds that are being followed by the current user.
+	///
+	/// - parameter completion: A block that will receive an array with the feeds.
+	public func getFeedsBeingFollowed(completion: (feeds: [Feed]?) -> Void) {
+		let request = self.requestWithEndPoint(.GetFeedsBeingFollowed, method: .GET)
+		self.sendAsynchronousRequest(request) { (response, error) -> Void in
+			if let res = response {
+				let json = JSON.parse(res)
+				var feeds = [Feed]()
+				
+				for (_, value):(String, JSON) in json {
+					if let id = value["id"].int?.description, title = value["title"].string, url = value["url"].string, description = value["description"].string, language = value["language"].string, imageURL = value["image_url"].string {
+						feeds.append(Feed(id: id, title: title, url: url, description: description, language: language, imageURL: imageURL))
+					}
+				}
+				completion(feeds: feeds)
+			} else {
+				completion(feeds: nil)
+			}
+		}
+	}
+	
+	/// Adds the feed(s) to the list of feeds that the user is following.
+	///
+	/// - parameter feedURLs: An array of feed urls that the user wishes to follow.
+	/// - parameter completion: A block that will receive a boolean which indicates if the adding the feeds succeeded.
+	public func startFollowingFeeds(feedUrls: [String], completion: (success: Bool) -> Void) {
+		let params = ["feeds": JSON(feedUrls).rawString()!]
+		let request = self.requestWithEndPoint(.StartFollowingFeeds, method: .POST, parameters: params)
+		self.sendAsynchronousRequest(request) { (response, error) -> Void in
+			self.checkBooleanResponse(response, error: error, completion: completion)
+		}
+	}
+	
+	/// Removes the feed from the list of feeds that the user is following.
+	///
+	/// - parameter feedID: The ID of the feed that the user doesn't want to follow anymore.
+	/// - parameter completion: A block that will receive a boolean which indicates if the adding the feeds succeeded.
+	public func stopFollowingFeed(feedID: String, completion: (success: Bool) -> Void) {
+		let request = self.requestWithEndPoint(.StopFollowingFeed, pathComponents: [feedID], method: .GET)
+		self.sendAsynchronousRequest(request) { (response, error) -> Void in
+			self.checkBooleanResponse(response, error: error, completion: completion)
+		}
+	}
+	
+	/// Retrieves a list of feed items (articles) for a feed.
+	///
+	/// - parameter feedID: The ID of the feed for which to retrieve a list of feed items.
+	/// - parameter completion: A block that will receive an array with the feed items.
+	public func getFeedItemsForFeed(feed: Feed, completion: (articles: [Article]?) -> Void) {
+		if let id = feed.id {
+			let request = self.requestWithEndPoint(.GetFeedItems, pathComponents: [id], method: .GET)
+			self.sendAsynchronousRequest(request) { (response, error) -> Void in
+				if let res = response {
+					let json = JSON.parse(res)
+					var articles = [Article]()
+					
+					for (_, value):(String, JSON) in json {
+						if let title = value["title"].string, url = value["url"].string, summary = value["summary"].string, date = value["published"].string {
+							articles.append(Article(feed: feed, title: title, url: url, date: date, summary: summary))
+						}
+					}
+					completion(articles: articles)
+				} else {
+					completion(articles: nil)
+				}
+			}
+		} else {
+			completion(articles: nil)
 		}
 	}
 }
