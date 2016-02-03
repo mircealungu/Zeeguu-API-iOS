@@ -135,6 +135,38 @@ extension ZeeguuAPI {
 		self.showNetworkIndicator(true)
 	}
 	
+	func write500ErrorToLog(request: NSURLRequest, data: NSData?, response: NSURLResponse?, error: NSError?) {
+		let file = "500Erros.log" //this is the file. we will write to and read from it
+		
+		var text = "\n\n\nDate: \(NSDate())\n\nSent request for url \"\(request.URL)\": \(request)\n\n" //just a text
+		
+		text += "Server response:\n\ndata: \(data)\n\nresponse: \(response)\n\nerror: \(error)\n\n"
+		
+		if let dat = data {
+			text += "Server response as text: \(NSString(data: dat, encoding: NSUTF8StringEncoding))\n\n\n"
+		}
+		if let dir : NSString = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true).first {
+			let path = dir.stringByAppendingPathComponent(file);
+			
+			//writing
+			do {
+				if (NSFileManager.defaultManager().fileExistsAtPath(path)) {
+					if let textData = text.dataUsingEncoding(NSUTF8StringEncoding),
+						fileHandle = NSFileHandle(forWritingAtPath: path) {
+							fileHandle.seekToEndOfFile()
+							fileHandle.writeData(textData)
+							fileHandle.closeFile()
+					}
+				} else {
+					try text.writeToFile(path, atomically: false, encoding: NSUTF8StringEncoding)
+				}
+				
+				
+			}
+			catch {/* error handling here */}
+		}
+	}
+	
 	func sendAsynchronousRequestWithDataResponse(request: NSURLRequest, completion: (data: NSData?, error: NSError?) -> Void) {
 		let session = NSURLSession.sharedSession()
 		debugPrint("Sending request for url \"\(request.URL)\": \(request)\n\n");
@@ -142,6 +174,11 @@ extension ZeeguuAPI {
 			self.debugPrint("Entered dataTaksWithRequest completion block: data: \(data), response: \(response), error: \(error)");
 			if (data != nil && response != nil && (response! as! NSHTTPURLResponse).statusCode == 200) {
 				completion(data: data, error: nil)
+			} else if ((response! as! NSHTTPURLResponse).statusCode == 500) {
+				
+				self.write500ErrorToLog(request, data: data, response: response, error: error)
+				
+				completion(data: nil, error: error)
 			} else {
 				if (response != nil) {
 					self.debugPrint("Response object for url \"\(request.URL)\": \(response)\n\n");
