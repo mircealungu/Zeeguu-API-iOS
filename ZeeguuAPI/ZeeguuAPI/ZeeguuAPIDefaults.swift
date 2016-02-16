@@ -172,19 +172,18 @@ extension ZeeguuAPI {
 		debugPrint("Sending request for url \"\(request.URL)\": \(request)\n\n");
 		let task = session.dataTaskWithRequest(request) { (data, response, error) -> Void in
 			self.debugPrint("Entered dataTaksWithRequest completion block: data: \(data), response: \(response), error: \(error)");
-			if (data != nil && response != nil && (response! as! NSHTTPURLResponse).statusCode == 200) {
-				completion(data: data, error: nil)
-			} else if ((response! as! NSHTTPURLResponse).statusCode == 500) {
-				
+			
+			if let d = data, r = response as? NSHTTPURLResponse where r.statusCode == 200 {
+				completion(data: d, error: nil)
+			} else if let r = response as? NSHTTPURLResponse where r.statusCode == 500 {
 				self.write500ErrorToLog(request, data: data, response: response, error: error)
-				
 				completion(data: nil, error: error)
 			} else {
-				if (response != nil) {
-					self.debugPrint("Response object for url \"\(request.URL)\": \(response)\n\n");
+				if let r = response {
+					self.debugPrint("Response object for url \"\(request.URL)\": \(r)\n\n");
 				}
-				if (error != nil) {
-					self.debugPrint("Error for url \"\(request.URL)\": \(error)\n\n");
+				if let err = error {
+					self.debugPrint("Error for url \"\(request.URL)\": \(err)\n\n");
 				}
 				completion(data: nil, error: error)
 			}
