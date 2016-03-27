@@ -235,7 +235,7 @@ extension ZeeguuAPI {
 		if (show) {
 			networkActivityCounter += 1
 		} else {
-			networkActivityCounter -= 1;
+			networkActivityCounter -= 1
 			if (networkActivityCounter < 0) {
 				networkActivityCounter = 0
 			}
