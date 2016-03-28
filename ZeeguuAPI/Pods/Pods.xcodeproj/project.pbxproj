@@ -1,0 +1,662 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		05DD8321213CAE640B73AFC3FBA24CCA /* Pods-ZeeguuAPITests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 827BBD2325C6ADCDDE769DA0BB97D54B /* Pods-ZeeguuAPITests-dummy.m */; };
+		17A4593D0468073724D0B1BB54E7AC6C /* Pods-ZeeguuAPITests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = DD87C9B07ECCD51F3CF3837FC0795345 /* Pods-ZeeguuAPITests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		19F1D5810DE5977DFBE3A2E17834D4E9 /* Pods-ZeeguuAPI-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E4BB2B64359096CB653121CFB69A304 /* Pods-ZeeguuAPI-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5FDE70C08790B9F07B55A6A3D7B199AA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */; };
+		64DE4717D8A7CC9242CA063AE788141F /* SwiftyJSON-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 05CA09B061E193906653AC21FD3A94F1 /* SwiftyJSON-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B002BF2568478319828B2A171086657F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */; };
+		B9129395DAE9A22F09E215267B644704 /* Pods-ZeeguuAPI-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 096D90993EF012DB1DE528B2B5F33DDE /* Pods-ZeeguuAPI-dummy.m */; };
+		DDC8A1140C6118E490053ED2E97DAFAD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */; };
+		E3DD25FAF71A8BAB5ECE18012DD4BA10 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE506ECE97701EBA44FDBFF401C1A04 /* SwiftyJSON.swift */; };
+		E6113EB39A22B26DACFD1E0B68747AD3 /* SwiftyJSON-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 32B9BBA8F5B33E56C38F5546432F66B7 /* SwiftyJSON-dummy.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		8E257DB1D5B036679A51C2BD7056EC28 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 754D20D35BA4F8C54F01C0E5D1D5E3D3;
+			remoteInfo = SwiftyJSON;
+		};
+		BC2B4323BA925DF6E6D67F388A081A43 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 754D20D35BA4F8C54F01C0E5D1D5E3D3;
+			remoteInfo = SwiftyJSON;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		013BA0A9B3881C9558BCF516E6A96799 /* Pods-ZeeguuAPITests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-ZeeguuAPITests.modulemap"; sourceTree = "<group>"; };
+		05CA09B061E193906653AC21FD3A94F1 /* SwiftyJSON-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftyJSON-umbrella.h"; sourceTree = "<group>"; };
+		096D90993EF012DB1DE528B2B5F33DDE /* Pods-ZeeguuAPI-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-ZeeguuAPI-dummy.m"; sourceTree = "<group>"; };
+		10D2431C0F5C78E62AB27E49FC94CFD0 /* Pods-ZeeguuAPITests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-ZeeguuAPITests-frameworks.sh"; sourceTree = "<group>"; };
+		1E4BB2B64359096CB653121CFB69A304 /* Pods-ZeeguuAPI-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-ZeeguuAPI-umbrella.h"; sourceTree = "<group>"; };
+		25088C1F26DD58B0220D58E02C53B81D /* Pods-ZeeguuAPITests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-ZeeguuAPITests-resources.sh"; sourceTree = "<group>"; };
+		2E7F7C62EE34D2D271E6E1234A2002B2 /* SwiftyJSON.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SwiftyJSON.xcconfig; sourceTree = "<group>"; };
+		32B9BBA8F5B33E56C38F5546432F66B7 /* SwiftyJSON-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SwiftyJSON-dummy.m"; sourceTree = "<group>"; };
+		3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		40B335E93372BBDADFB7FEE645F1545F /* Pods-ZeeguuAPI-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-ZeeguuAPI-frameworks.sh"; sourceTree = "<group>"; };
+		4773D3D239E8BE094BD37E8D88AEE02F /* Pods-ZeeguuAPI-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-ZeeguuAPI-acknowledgements.plist"; sourceTree = "<group>"; };
+		4C83B69FA31AD5ABAD3112461C16B9DD /* Pods-ZeeguuAPI.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-ZeeguuAPI.modulemap"; sourceTree = "<group>"; };
+		5B58ABD42323259AADCFEF28B68BE365 /* Pods-ZeeguuAPI.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ZeeguuAPI.debug.xcconfig"; sourceTree = "<group>"; };
+		79CE6B3984EDF9F86FFB17F3F45E81DC /* Pods_ZeeguuAPI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ZeeguuAPI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		827BBD2325C6ADCDDE769DA0BB97D54B /* Pods-ZeeguuAPITests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-ZeeguuAPITests-dummy.m"; sourceTree = "<group>"; };
+		92F2FBA04A276E46B2B8456F58DE75DB /* SwiftyJSON.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftyJSON.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9D1E096AA222F68CC15E93115AEECF13 /* Pods-ZeeguuAPITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ZeeguuAPITests.release.xcconfig"; sourceTree = "<group>"; };
+		9DA8F4C439394034887178ED25A75B06 /* Pods-ZeeguuAPITests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-ZeeguuAPITests-acknowledgements.plist"; sourceTree = "<group>"; };
+		9E14A858016A2AB2A122117816329A58 /* Pods-ZeeguuAPI-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-ZeeguuAPI-resources.sh"; sourceTree = "<group>"; };
+		9EC40AEA77A8F6EC9C7781AE01A46F35 /* Pods-ZeeguuAPI-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-ZeeguuAPI-acknowledgements.markdown"; sourceTree = "<group>"; };
+		A544B88FED5F1F99DC129E69D8EA6774 /* Pods_ZeeguuAPITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ZeeguuAPITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BA6428E9F66FD5A23C0A2E06ED26CD2F /* Podfile */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		BBF610E40BDF6E542FA21FF7E5491205 /* SwiftyJSON-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftyJSON-prefix.pch"; sourceTree = "<group>"; };
+		BDE506ECE97701EBA44FDBFF401C1A04 /* SwiftyJSON.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SwiftyJSON.swift; path = Source/SwiftyJSON.swift; sourceTree = "<group>"; };
+		C158AEBF939D8DF60F6158DF02CB7BD4 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C4A9A658C966F6BB111BEDBDEA1F874A /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D032A29E584B77AE187E586922267CF5 /* SwiftyJSON.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = SwiftyJSON.modulemap; sourceTree = "<group>"; };
+		D6266A367708C3D329D70F24995BDD33 /* Pods-ZeeguuAPI.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ZeeguuAPI.release.xcconfig"; sourceTree = "<group>"; };
+		D7BCD6DE9E3EE9422DAE7E4474A99DF2 /* Pods-ZeeguuAPITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ZeeguuAPITests.debug.xcconfig"; sourceTree = "<group>"; };
+		DD87C9B07ECCD51F3CF3837FC0795345 /* Pods-ZeeguuAPITests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-ZeeguuAPITests-umbrella.h"; sourceTree = "<group>"; };
+		EE0911CDE4790EF37FE8FA99D8D8AEA9 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F65E32C213219D6B042B6308EF3CE6BC /* Pods-ZeeguuAPITests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-ZeeguuAPITests-acknowledgements.markdown"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		0EFAD4DEC4F10490E7E6F336C185969E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B002BF2568478319828B2A171086657F /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4444B101D55D0107473DD1784E5053C2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DDC8A1140C6118E490053ED2E97DAFAD /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DEA7B2195CE4F136FCDFBCBCCB95A527 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5FDE70C08790B9F07B55A6A3D7B199AA /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		28D7B862B2CCAFA33CE7719D7AD3EABF /* Pods-ZeeguuAPI */ = {
+			isa = PBXGroup;
+			children = (
+				C158AEBF939D8DF60F6158DF02CB7BD4 /* Info.plist */,
+				4C83B69FA31AD5ABAD3112461C16B9DD /* Pods-ZeeguuAPI.modulemap */,
+				9EC40AEA77A8F6EC9C7781AE01A46F35 /* Pods-ZeeguuAPI-acknowledgements.markdown */,
+				4773D3D239E8BE094BD37E8D88AEE02F /* Pods-ZeeguuAPI-acknowledgements.plist */,
+				096D90993EF012DB1DE528B2B5F33DDE /* Pods-ZeeguuAPI-dummy.m */,
+				40B335E93372BBDADFB7FEE645F1545F /* Pods-ZeeguuAPI-frameworks.sh */,
+				9E14A858016A2AB2A122117816329A58 /* Pods-ZeeguuAPI-resources.sh */,
+				1E4BB2B64359096CB653121CFB69A304 /* Pods-ZeeguuAPI-umbrella.h */,
+				5B58ABD42323259AADCFEF28B68BE365 /* Pods-ZeeguuAPI.debug.xcconfig */,
+				D6266A367708C3D329D70F24995BDD33 /* Pods-ZeeguuAPI.release.xcconfig */,
+			);
+			name = "Pods-ZeeguuAPI";
+			path = "Target Support Files/Pods-ZeeguuAPI";
+			sourceTree = "<group>";
+		};
+		32EFFB5C9ED1D2F3822174A031F9D1E8 /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				28D7B862B2CCAFA33CE7719D7AD3EABF /* Pods-ZeeguuAPI */,
+				8B22824CF81E066647A7BB6B907B6BAF /* Pods-ZeeguuAPITests */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		70A8E4D3C62B6C203D238581DA091C21 /* SwiftyJSON */ = {
+			isa = PBXGroup;
+			children = (
+				BDE506ECE97701EBA44FDBFF401C1A04 /* SwiftyJSON.swift */,
+				8EC39E1DC11846207722B71AAFE40F98 /* Support Files */,
+			);
+			path = SwiftyJSON;
+			sourceTree = "<group>";
+		};
+		7DB346D0F39D3F0E887471402A8071AB = {
+			isa = PBXGroup;
+			children = (
+				BA6428E9F66FD5A23C0A2E06ED26CD2F /* Podfile */,
+				BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */,
+				BD1E3C710F12F4B4C092FC8E2AD22110 /* Pods */,
+				F80DA7104943D49DD395D3FD647E1436 /* Products */,
+				32EFFB5C9ED1D2F3822174A031F9D1E8 /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		8B22824CF81E066647A7BB6B907B6BAF /* Pods-ZeeguuAPITests */ = {
+			isa = PBXGroup;
+			children = (
+				EE0911CDE4790EF37FE8FA99D8D8AEA9 /* Info.plist */,
+				013BA0A9B3881C9558BCF516E6A96799 /* Pods-ZeeguuAPITests.modulemap */,
+				F65E32C213219D6B042B6308EF3CE6BC /* Pods-ZeeguuAPITests-acknowledgements.markdown */,
+				9DA8F4C439394034887178ED25A75B06 /* Pods-ZeeguuAPITests-acknowledgements.plist */,
+				827BBD2325C6ADCDDE769DA0BB97D54B /* Pods-ZeeguuAPITests-dummy.m */,
+				10D2431C0F5C78E62AB27E49FC94CFD0 /* Pods-ZeeguuAPITests-frameworks.sh */,
+				25088C1F26DD58B0220D58E02C53B81D /* Pods-ZeeguuAPITests-resources.sh */,
+				DD87C9B07ECCD51F3CF3837FC0795345 /* Pods-ZeeguuAPITests-umbrella.h */,
+				D7BCD6DE9E3EE9422DAE7E4474A99DF2 /* Pods-ZeeguuAPITests.debug.xcconfig */,
+				9D1E096AA222F68CC15E93115AEECF13 /* Pods-ZeeguuAPITests.release.xcconfig */,
+			);
+			name = "Pods-ZeeguuAPITests";
+			path = "Target Support Files/Pods-ZeeguuAPITests";
+			sourceTree = "<group>";
+		};
+		8EC39E1DC11846207722B71AAFE40F98 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				C4A9A658C966F6BB111BEDBDEA1F874A /* Info.plist */,
+				D032A29E584B77AE187E586922267CF5 /* SwiftyJSON.modulemap */,
+				2E7F7C62EE34D2D271E6E1234A2002B2 /* SwiftyJSON.xcconfig */,
+				32B9BBA8F5B33E56C38F5546432F66B7 /* SwiftyJSON-dummy.m */,
+				BBF610E40BDF6E542FA21FF7E5491205 /* SwiftyJSON-prefix.pch */,
+				05CA09B061E193906653AC21FD3A94F1 /* SwiftyJSON-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/SwiftyJSON";
+			sourceTree = "<group>";
+		};
+		BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BF6342C8B29F4CEEA088EFF7AB4DE362 /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BD1E3C710F12F4B4C092FC8E2AD22110 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				70A8E4D3C62B6C203D238581DA091C21 /* SwiftyJSON */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		BF6342C8B29F4CEEA088EFF7AB4DE362 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		F80DA7104943D49DD395D3FD647E1436 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				79CE6B3984EDF9F86FFB17F3F45E81DC /* Pods_ZeeguuAPI.framework */,
+				A544B88FED5F1F99DC129E69D8EA6774 /* Pods_ZeeguuAPITests.framework */,
+				92F2FBA04A276E46B2B8456F58DE75DB /* SwiftyJSON.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		8137F33EF2F1D5FE770D04EFD96CAAEA /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				19F1D5810DE5977DFBE3A2E17834D4E9 /* Pods-ZeeguuAPI-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A9DDD409F042A87E5CB229D9FD9723E5 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				17A4593D0468073724D0B1BB54E7AC6C /* Pods-ZeeguuAPITests-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C4A0B6818C1C97620763BA09E5086CD3 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				64DE4717D8A7CC9242CA063AE788141F /* SwiftyJSON-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		4BD706A23FAB185CC34FDF9D9609F3C4 /* Pods-ZeeguuAPITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3BC21CAA3BDEC73351A3A7EC5A9141DD /* Build configuration list for PBXNativeTarget "Pods-ZeeguuAPITests" */;
+			buildPhases = (
+				8D0B39CEF68E76576BA50E92837A42E8 /* Sources */,
+				DEA7B2195CE4F136FCDFBCBCCB95A527 /* Frameworks */,
+				A9DDD409F042A87E5CB229D9FD9723E5 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				98BEBFAF32DC9479223AF3A8B0C1896A /* PBXTargetDependency */,
+			);
+			name = "Pods-ZeeguuAPITests";
+			productName = "Pods-ZeeguuAPITests";
+			productReference = A544B88FED5F1F99DC129E69D8EA6774 /* Pods_ZeeguuAPITests.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		4E35417D7D3F47FBC83674A02A359D31 /* Pods-ZeeguuAPI */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C09F936EC218DDFF8667E18B68A70AD9 /* Build configuration list for PBXNativeTarget "Pods-ZeeguuAPI" */;
+			buildPhases = (
+				F942F165E866098724355C3027BBB7D1 /* Sources */,
+				4444B101D55D0107473DD1784E5053C2 /* Frameworks */,
+				8137F33EF2F1D5FE770D04EFD96CAAEA /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FEC7203D2D800A1FB22DEE7156C64782 /* PBXTargetDependency */,
+			);
+			name = "Pods-ZeeguuAPI";
+			productName = "Pods-ZeeguuAPI";
+			productReference = 79CE6B3984EDF9F86FFB17F3F45E81DC /* Pods_ZeeguuAPI.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		754D20D35BA4F8C54F01C0E5D1D5E3D3 /* SwiftyJSON */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 24E22066F73D943110F8129740BF5160 /* Build configuration list for PBXNativeTarget "SwiftyJSON" */;
+			buildPhases = (
+				CA7C94BC3B3AAD9A6688A9CBCA9662A7 /* Sources */,
+				0EFAD4DEC4F10490E7E6F336C185969E /* Frameworks */,
+				C4A0B6818C1C97620763BA09E5086CD3 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SwiftyJSON;
+			productName = SwiftyJSON;
+			productReference = 92F2FBA04A276E46B2B8456F58DE75DB /* SwiftyJSON.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D41D8CD98F00B204E9800998ECF8427E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0700;
+				LastUpgradeCheck = 0700;
+			};
+			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
+			productRefGroup = F80DA7104943D49DD395D3FD647E1436 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4E35417D7D3F47FBC83674A02A359D31 /* Pods-ZeeguuAPI */,
+				4BD706A23FAB185CC34FDF9D9609F3C4 /* Pods-ZeeguuAPITests */,
+				754D20D35BA4F8C54F01C0E5D1D5E3D3 /* SwiftyJSON */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8D0B39CEF68E76576BA50E92837A42E8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				05DD8321213CAE640B73AFC3FBA24CCA /* Pods-ZeeguuAPITests-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CA7C94BC3B3AAD9A6688A9CBCA9662A7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E6113EB39A22B26DACFD1E0B68747AD3 /* SwiftyJSON-dummy.m in Sources */,
+				E3DD25FAF71A8BAB5ECE18012DD4BA10 /* SwiftyJSON.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F942F165E866098724355C3027BBB7D1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B9129395DAE9A22F09E215267B644704 /* Pods-ZeeguuAPI-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		98BEBFAF32DC9479223AF3A8B0C1896A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SwiftyJSON;
+			target = 754D20D35BA4F8C54F01C0E5D1D5E3D3 /* SwiftyJSON */;
+			targetProxy = 8E257DB1D5B036679A51C2BD7056EC28 /* PBXContainerItemProxy */;
+		};
+		FEC7203D2D800A1FB22DEE7156C64782 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SwiftyJSON;
+			target = 754D20D35BA4F8C54F01C0E5D1D5E3D3 /* SwiftyJSON */;
+			targetProxy = BC2B4323BA925DF6E6D67F388A081A43 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		28152351F832B74418DC52F6AA5C5633 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5B58ABD42323259AADCFEF28B68BE365 /* Pods-ZeeguuAPI.debug.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-ZeeguuAPI/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-ZeeguuAPI/Pods-ZeeguuAPI.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = Pods_ZeeguuAPI;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		295531D75C118176F2B4D2F8910132EF /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9D1E096AA222F68CC15E93115AEECF13 /* Pods-ZeeguuAPITests.release.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-ZeeguuAPITests/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-ZeeguuAPITests/Pods-ZeeguuAPITests.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = Pods_ZeeguuAPITests;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		5CE5176205D06FF3FFE3DDDA9291E44B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				ONLY_ACTIVE_ARCH = YES;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+		6423877E876087A0ABF6CD58388A60CE /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2E7F7C62EE34D2D271E6E1234A2002B2 /* SwiftyJSON.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/SwiftyJSON/SwiftyJSON-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SwiftyJSON/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/SwiftyJSON/SwiftyJSON.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = SwiftyJSON;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		74857149DC1E0D599B8A01A78349A926 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = "RELEASE=1";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		E1E9E03BD059338C25BBA65C29971506 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2E7F7C62EE34D2D271E6E1234A2002B2 /* SwiftyJSON.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/SwiftyJSON/SwiftyJSON-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SwiftyJSON/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/SwiftyJSON/SwiftyJSON.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = SwiftyJSON;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		FD8339CBA1774CC008F1634A0A8E7744 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D6266A367708C3D329D70F24995BDD33 /* Pods-ZeeguuAPI.release.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-ZeeguuAPI/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-ZeeguuAPI/Pods-ZeeguuAPI.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = Pods_ZeeguuAPI;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		FE5E7F756C6ED2277F5FB4839A4A6CC3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D7BCD6DE9E3EE9422DAE7E4474A99DF2 /* Pods-ZeeguuAPITests.debug.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-ZeeguuAPITests/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-ZeeguuAPITests/Pods-ZeeguuAPITests.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = Pods_ZeeguuAPITests;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		24E22066F73D943110F8129740BF5160 /* Build configuration list for PBXNativeTarget "SwiftyJSON" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E1E9E03BD059338C25BBA65C29971506 /* Debug */,
+				6423877E876087A0ABF6CD58388A60CE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5CE5176205D06FF3FFE3DDDA9291E44B /* Debug */,
+				74857149DC1E0D599B8A01A78349A926 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3BC21CAA3BDEC73351A3A7EC5A9141DD /* Build configuration list for PBXNativeTarget "Pods-ZeeguuAPITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FE5E7F756C6ED2277F5FB4839A4A6CC3 /* Debug */,
+				295531D75C118176F2B4D2F8910132EF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C09F936EC218DDFF8667E18B68A70AD9 /* Build configuration list for PBXNativeTarget "Pods-ZeeguuAPI" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				28152351F832B74418DC52F6AA5C5633 /* Debug */,
+				FD8339CBA1774CC008F1634A0A8E7744 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+}

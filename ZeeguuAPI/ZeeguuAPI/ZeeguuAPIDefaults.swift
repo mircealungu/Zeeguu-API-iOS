@@ -233,9 +233,10 @@ extension ZeeguuAPI {
 	/// - parameter show: Indicates whether to show or hide the network activity indicator.
 	func showNetworkIndicator(show: Bool) {
 		if (show) {
-			++networkActivityCounter
+			networkActivityCounter += 1
 		} else {
-			if (--networkActivityCounter < 0) {
+			networkActivityCounter -= 1
+			if (networkActivityCounter < 0) {
 				networkActivityCounter = 0
 			}
 		}

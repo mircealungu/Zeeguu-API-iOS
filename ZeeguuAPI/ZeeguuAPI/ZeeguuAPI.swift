@@ -555,7 +555,8 @@ public class ZeeguuAPI {
 		var newTexts: [Dictionary<String, String>] = []
 		var counter = 0
 		for text in texts {
-			newTexts.append(["content": text, "id": String(counter++)])
+			counter += 1
+			newTexts.append(["content": text, "id": String(counter)])
 		}
 		
 		let jsonDict = ["texts": newTexts, "personalized": String(personalized), "rank_boundary": String(rankBoundary)]
@@ -578,7 +579,8 @@ public class ZeeguuAPI {
 		var newTexts: [Dictionary<String, String>] = []
 		var counter = 0
 		for text in texts {
-			newTexts.append(["content": text, "id": String(counter++)])
+			counter += 1
+			newTexts.append(["content": text, "id": String(counter)])
 		}
 		
 		let jsonDict = ["texts": newTexts]
@@ -598,7 +600,8 @@ public class ZeeguuAPI {
 		var newURLs: [Dictionary<String, String>] = []
 		var counter = 0
 		for url in urls {
-			newURLs.append(["url": url, "id": String(counter++)])
+			counter += 1
+			newURLs.append(["url": url, "id": String(counter)])
 		}
 		
 		let jsonDict = ["urls": newURLs, "timeout": String(maxTimeout)]
