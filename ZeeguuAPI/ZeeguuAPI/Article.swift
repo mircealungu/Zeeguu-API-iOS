@@ -26,7 +26,11 @@
 
 import UIKit
 
-public class Article: CustomStringConvertible {
+public func ==(lhs: Article, rhs: Article) -> Bool {
+	return lhs.feed == rhs.feed && lhs.title == rhs.title && lhs.url == rhs.url && lhs.date == rhs.date && lhs.summary == rhs.summary
+}
+
+public class Article: CustomStringConvertible, Equatable {
 	public var feed: Feed
 	public var title: String
 	public var url: String
