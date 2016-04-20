@@ -76,7 +76,7 @@ public class Article: CustomStringConvertible, Equatable {
 			completion(difficulty: diff)
 		} else {
 			getContents({ (contents) in
-				ZeeguuAPI.sharedAPI().getDifficultyForTexts([contents], langCode: feed.language, personalized: personalized, completion: { (dict) in
+				ZeeguuAPI.sharedAPI().getDifficultyForTexts([contents], langCode: self.feed.language, personalized: personalized, completion: { (dict) in
 					if let d = dict {
 						// process difficulty dictionary
 					} else {
