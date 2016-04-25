@@ -2,5 +2,5 @@ language: objective-c
 osx_image: xcode7.3
 script:
     - xcodebuild clean -workspace ZeeguuAPI/ZeeguuAPI.xcworkspace -scheme "ZeeguuAPI" | xcpretty
-    - xcodebuild test -workspace ZeeguuAPI/ZeeguuAPI.xcworkspace -scheme "ZeeguuAPI" -destination 'platform=iOS Simulator,name=iPad Air 2' | xcpretty
+    - set -o pipefail && xcodebuild test -workspace ZeeguuAPI/ZeeguuAPI.xcworkspace -scheme "ZeeguuAPI" -destination 'platform=iOS Simulator,name=iPad Air 2' | xcpretty
 
