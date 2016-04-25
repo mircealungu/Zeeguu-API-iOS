@@ -1,4 +1,5 @@
 language: swift
+osx_image: xcode7.3
 script: 
-    - xcodebuild clean -workspace ZeeguuAPI.xcworkspace -scheme "ZeeguuAPI" | xcpretty
-    - xcodebuild test -workspace ZeeguuAPI.xcworkspace -scheme "ZeeguuAPI" -destination 'platform=iOS Simulator,name=iPad Air 2' | xcpretty -c && killall "Simulator" && exit ${PIPESTATUS[0]}
+    - xcodebuild clean -workspace ZeeguuAPI/ZeeguuAPI.xcworkspace -scheme "ZeeguuAPI" | xcpretty
+    - xcodebuild test -workspace ZeeguuAPI/ZeeguuAPI.xcworkspace -scheme "ZeeguuAPI" -destination 'platform=iOS Simulator,name=iPad Air 2' | xcpretty -c && killall "Simulator" && exit ${PIPESTATUS[0]}
