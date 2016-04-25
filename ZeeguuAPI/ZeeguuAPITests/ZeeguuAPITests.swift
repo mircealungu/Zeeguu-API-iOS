@@ -549,7 +549,7 @@ class ZeeguuAPITests: XCTestCase {
 		self.testLock.wait()
 	}
 	
-	func testStopFollowingFeed() {
+	func DISABLED_testStopFollowingFeed() {
 		print("Test stop following feeds:")
 		ZeeguuAPI.sharedAPI().stopFollowingFeed("1") { (success) -> Void in
 			XCTAssertTrue(success)
