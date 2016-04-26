@@ -401,9 +401,9 @@ class ZeeguuAPITests: XCTestCase {
 	
 	func testGetDifficultyForTexts() {
 		print("Testing get difficulty for texts:")
-		ZeeguuAPI.sharedAPI().getDifficultyForTexts([ZeeguuAPITests.TEST_TEXT], langCode: "de") { (dict) -> Void in
-			XCTAssertNotNil(dict)
-			print("dict: ", dict)
+		ZeeguuAPI.sharedAPI().getDifficultyForTexts([ZeeguuAPITests.TEST_TEXT], langCode: "de") { (difficulties) in
+			XCTAssertNotNil(difficulties)
+			print("difficulties: ", difficulties)
 			self.testLock.signal()
 		}
 		testLock.wait()
@@ -421,9 +421,9 @@ class ZeeguuAPITests: XCTestCase {
 	
 	func testGetContentFromURLs() {
 		print("Testing get content from urls:")
-		ZeeguuAPI.sharedAPI().getContentFromURLs(["http://www.t-online.de/nachrichten/deutschland/id_76314572/frank-juergen-weise-geraet-wegen-langer-asylverfahren-in-die-kritik.html", "http://www.derbund.ch/wirtschaft/unternehmen-und-konjunktur/die-bankenriesen-in-den-bergkantonen/story/26984250", "http://www.computerbase.de/2015-11/bundestag-parlament-beschliesst-das-ende-vom-routerzwang-erneut/", "http://www.spiegel.de/panorama/justiz/beate-zschaepe-im-nsu-prozess-was-sie-ausgesagt-hat-a-1066805.html"]) { (dict) -> Void in
-			XCTAssertNotNil(dict)
-			print("dict: ", dict)
+		ZeeguuAPI.sharedAPI().getContentFromURLs(["http://www.t-online.de/nachrichten/deutschland/id_76314572/frank-juergen-weise-geraet-wegen-langer-asylverfahren-in-die-kritik.html", "http://www.derbund.ch/wirtschaft/unternehmen-und-konjunktur/die-bankenriesen-in-den-bergkantonen/story/26984250", "http://www.computerbase.de/2015-11/bundestag-parlament-beschliesst-das-ende-vom-routerzwang-erneut/", "http://www.spiegel.de/panorama/justiz/beate-zschaepe-im-nsu-prozess-was-sie-ausgesagt-hat-a-1066805.html"]) { (contents) in
+			XCTAssertNotNil(contents)
+			print("contents: ", contents)
 			self.testLock.signal()
 		}
 		testLock.wait()
