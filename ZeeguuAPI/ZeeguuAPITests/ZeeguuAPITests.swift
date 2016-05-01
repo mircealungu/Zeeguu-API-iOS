@@ -175,6 +175,9 @@ class ZeeguuAPITests: XCTestCase {
 		ZeeguuAPI.sharedAPI().getBookmarksByDayWithContext(false) { (dict) -> Void in
 			XCTAssertNotNil(dict)
 			print("dict: ", dict)
+			if let firstBookmark = dict?[0]["bookmarks"][0].dictionary {
+				XCTAssertNil(firstBookmark["context"])
+			}
 			self.testLock.signal()
 		}
 		testLock.wait()
@@ -185,6 +188,73 @@ class ZeeguuAPITests: XCTestCase {
 		ZeeguuAPI.sharedAPI().getBookmarksByDayWithContext(true) { (dict) -> Void in
 			XCTAssertNotNil(dict)
 			print("dict: ", dict)
+			if let firstBookmark = dict?[0]["bookmarks"][0].dictionary {
+				XCTAssertNotNil(firstBookmark["context"])
+			}
+			self.testLock.signal()
+		}
+		testLock.wait()
+	}
+	
+	func testGetBookmarksByDayWithoutContext2() {
+		print("Testing bookmarks by day with context:")
+		let dateStr = "2016-04-01 00:00:00"
+		let formatter = NSDateFormatter()
+		formatter.timeZone = NSTimeZone(name: "GMT")
+		formatter.dateFormat = "y-MM-dd HH:mm:ss"
+		let afterDate = formatter.dateFromString(dateStr)!
+		ZeeguuAPI.sharedAPI().getBookmarksByDayWithContext(false, afterDate: afterDate) { (dict) -> Void in
+			XCTAssertNotNil(dict)
+			print("dict: ", dict)
+			if let firstBookmark = dict?[0]["bookmarks"][0].dictionary {
+				XCTAssertNil(firstBookmark["context"])
+			}
+			if let dict = dict?.array {
+				for dateObject in dict {
+					let dateStr = dateObject["date"].stringValue
+					
+					let formatter = NSDateFormatter()
+					formatter.locale = NSLocale(localeIdentifier: "EN-US")
+					formatter.dateFormat = "EEEE, dd MMMM y"
+					
+					let date = formatter.dateFromString(dateStr)!
+					
+					let ordering = afterDate.compare(date)
+					XCTAssertTrue(ordering == .OrderedAscending)
+				}
+			}
+			self.testLock.signal()
+		}
+		testLock.wait()
+	}
+	
+	func testGetBookmarksByDayWithContext2() {
+		print("Testing bookmarks by day with context:")
+		let dateStr = "2016-04-01 00:00:00"
+		let formatter = NSDateFormatter()
+		formatter.timeZone = NSTimeZone(name: "GMT")
+		formatter.dateFormat = "y-MM-dd HH:mm:ss"
+		let afterDate = formatter.dateFromString(dateStr)!
+		ZeeguuAPI.sharedAPI().getBookmarksByDayWithContext(true, afterDate: afterDate) { (dict) -> Void in
+			XCTAssertNotNil(dict)
+			print("dict: ", dict)
+			if let firstBookmark = dict?[0]["bookmarks"][0].dictionary {
+				XCTAssertNotNil(firstBookmark["context"])
+			}
+			if let dict = dict?.array {
+				for dateObject in dict {
+					let dateStr = dateObject["date"].stringValue
+					
+					let formatter = NSDateFormatter()
+					formatter.locale = NSLocale(localeIdentifier: "EN-US")
+					formatter.dateFormat = "EEEE, dd MMMM y"
+					
+					let date = formatter.dateFromString(dateStr)!
+					
+					let ordering = afterDate.compare(date)
+					XCTAssertTrue(ordering == .OrderedAscending)
+				}
+			}
 			self.testLock.signal()
 		}
 		testLock.wait()
@@ -401,9 +471,9 @@ class ZeeguuAPITests: XCTestCase {
 	
 	func testGetDifficultyForTexts() {
 		print("Testing get difficulty for texts:")
-		ZeeguuAPI.sharedAPI().getDifficultyForTexts([ZeeguuAPITests.TEST_TEXT], langCode: "de") { (dict) -> Void in
-			XCTAssertNotNil(dict)
-			print("dict: ", dict)
+		ZeeguuAPI.sharedAPI().getDifficultyForTexts([ZeeguuAPITests.TEST_TEXT], langCode: "de") { (difficulties) in
+			XCTAssertNotNil(difficulties)
+			print("difficulties: ", difficulties)
 			self.testLock.signal()
 		}
 		testLock.wait()
@@ -421,9 +491,19 @@ class ZeeguuAPITests: XCTestCase {
 	
 	func testGetContentFromURLs() {
 		print("Testing get content from urls:")
-		ZeeguuAPI.sharedAPI().getContentFromURLs(["http://www.t-online.de/nachrichten/deutschland/id_76314572/frank-juergen-weise-geraet-wegen-langer-asylverfahren-in-die-kritik.html", "http://www.derbund.ch/wirtschaft/unternehmen-und-konjunktur/die-bankenriesen-in-den-bergkantonen/story/26984250", "http://www.computerbase.de/2015-11/bundestag-parlament-beschliesst-das-ende-vom-routerzwang-erneut/", "http://www.spiegel.de/panorama/justiz/beate-zschaepe-im-nsu-prozess-was-sie-ausgesagt-hat-a-1066805.html"]) { (dict) -> Void in
-			XCTAssertNotNil(dict)
-			print("dict: ", dict)
+		ZeeguuAPI.sharedAPI().getContentFromURLs(["http://www.t-online.de/nachrichten/deutschland/id_76314572/frank-juergen-weise-geraet-wegen-langer-asylverfahren-in-die-kritik.html", "http://www.derbund.ch/wirtschaft/unternehmen-und-konjunktur/die-bankenriesen-in-den-bergkantonen/story/26984250", "http://www.computerbase.de/2015-11/bundestag-parlament-beschliesst-das-ende-vom-routerzwang-erneut/", "http://www.spiegel.de/panorama/justiz/beate-zschaepe-im-nsu-prozess-was-sie-ausgesagt-hat-a-1066805.html"]) { (contents) in
+			XCTAssertNotNil(contents)
+			print("contents: ", contents)
+			self.testLock.signal()
+		}
+		testLock.wait()
+	}
+	
+	func testGetContentFromURLs2() {
+		print("Testing get content from urls:")
+		ZeeguuAPI.sharedAPI().getContentFromURLs(["http://www.t-online.de/nachrichten/deutschland/id_76314572/frank-juergen-weise-geraet-wegen-langer-asylverfahren-in-die-kritik.html", "http://www.derbund.ch/wirtschaft/unternehmen-und-konjunktur/die-bankenriesen-in-den-bergkantonen/story/26984250", "http://www.computerbase.de/2015-11/bundestag-parlament-beschliesst-das-ende-vom-routerzwang-erneut/", "http://www.spiegel.de/panorama/justiz/beate-zschaepe-im-nsu-prozess-was-sie-ausgesagt-hat-a-1066805.html"], langCode: "de") { (contents) in
+			XCTAssertNotNil(contents)
+			print("contents: ", contents)
 			self.testLock.signal()
 		}
 		testLock.wait()
@@ -549,7 +629,7 @@ class ZeeguuAPITests: XCTestCase {
 		self.testLock.wait()
 	}
 	
-	func testStopFollowingFeed() {
+	func DISABLED_testStopFollowingFeed() {
 		print("Test stop following feeds:")
 		ZeeguuAPI.sharedAPI().stopFollowingFeed("1") { (success) -> Void in
 			XCTAssertTrue(success)

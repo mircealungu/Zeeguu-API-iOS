@@ -261,6 +261,30 @@ public class ZeeguuAPI {
 		}
 	}
 	
+	/// Retrieves the bookmarks of the user, organized by date.
+	///
+	/// - parameter withContext: If `withContext` is `true`, the text where a bookmark was found is also returned. If `false`, only the bookmark (without context) is returned.
+	/// - parameter afterDate: the date after which to start retrieving the bookmarks. if no date is specified, all the bookmarks are returned.
+	/// - parameter completion: A block that will receive a `JSON` object, which contains the list of bookmarks.
+	public func getBookmarksByDayWithContext(withContext: Bool, afterDate: NSDate, completion: (dict: JSON?) -> Void) {
+		if (!self.checkIfLoggedIn()) {
+			return completion(dict: nil)
+		}
+		
+		var jsonDict = Dictionary<String, String>()
+		jsonDict["with_context"] = String(withContext)
+		
+		let formatter = NSDateFormatter()
+		formatter.timeZone = NSTimeZone(name: "GMT")
+		formatter.dateFormat = "y-MM-dd'T'HH:mm:ss"
+		jsonDict["after_date"] = formatter.stringFromDate(afterDate)
+		
+		let request = self.requestWithEndPoint(.BookmarksByDay, method: .POST, parameters: jsonDict)
+		self.sendAsynchronousRequest(request) { (response, error) -> Void in
+			self.checkJSONResponse(response, error: error, completion: completion)
+		}
+	}
+	
 	/// Retrieves the translation of the given word from the user's learned language to the user's native language.
 	///
 	/// - parameter word: The word to translate.
@@ -548,9 +572,9 @@ public class ZeeguuAPI {
 	/// - parameter personalized: Calculate difficulty score specific for the current user.
 	/// - parameter rankBoundary: Upper boundary for word frequency rank (1-10000)
 	/// - parameter completion: A block that will receive an array with the difficulties.
-	public func getDifficultyForTexts(texts: Array<String>, langCode: String, personalized: Bool = true, rankBoundary: Float = 10000, completion: (dict: JSON?) -> Void) {
+	public func getDifficultyForTexts(texts: Array<String>, langCode: String, difficultyComputer: String = "default", completion: (difficulties: [ArticleDifficulty]?) -> Void) {
 		if (!self.checkIfLoggedIn()) {
-			return completion(dict: nil)
+			return completion(difficulties: nil)
 		}
 		var newTexts: [Dictionary<String, String>] = []
 		var counter = 0
@@ -559,11 +583,39 @@ public class ZeeguuAPI {
 			newTexts.append(["content": text, "id": String(counter)])
 		}
 		
-		let jsonDict = ["texts": newTexts, "personalized": String(personalized), "rank_boundary": String(rankBoundary)]
+		let jsonDict = ["texts": newTexts, "difficulty_computer": difficultyComputer]
 		
 		let request = self.requestWithEndPoint(.GetDifficultyForText, pathComponents: [langCode], method: .POST, jsonBody: JSON(jsonDict))
 		self.sendAsynchronousRequest(request) { (response, error) -> Void in
-			self.checkJSONResponse(response, error: error, completion: completion)
+			self.checkJSONResponse(response, error: error, completion: { (dict) in
+				if var array = dict?["difficulties"].array {
+					array.sortInPlace({ (lhs, rhs) -> Bool in
+						if let l = lhs["id"].string, r = rhs["id"].string {
+							return Int(l) < Int(r)
+						}
+						return false
+					})
+					
+					// The following piece of code loops over texts and tries to find the corresponding
+					// difficulty in array. As array is sorted, if we don't find it, our current index (i) is
+					// still lower than 'id' of the first difficulty in array. if we don't find difficulty, we insert
+					// .Unknown string in the difficulties array
+					var difficulties = [ArticleDifficulty]()
+					var arrayIndex = 0
+					for i in 0 ..< texts.count {
+						let textIndex = i + 1
+						if let idxStr = (arrayIndex < array.count ? array[arrayIndex]["id"].string : nil), idx = Int(idxStr), diff = array[i]["estimated_difficulty"].string, difficulty = ArticleDifficulty(rawValue: diff) where idx == textIndex {
+							difficulties.append(difficulty)
+							arrayIndex += 1
+						} else {
+							difficulties.append(.Unknown)
+						}
+					}
+					completion(difficulties: difficulties)
+				} else {
+					completion(difficulties: nil)
+				}
+			})
 		}
 	}
 	
@@ -595,8 +647,8 @@ public class ZeeguuAPI {
 	///
 	/// - parameter urls: The urls to get the content from.
 	/// - parameter maxTimeout: Maximal time in seconds to wait for the results.
-	/// - parameter completion: A block that will receive an array with the contents of the urls.
-	public func getContentFromURLs(urls: Array<String>, maxTimeout: Int = 10, completion: (dict: JSON?) -> Void) {
+	/// - parameter completion: A block that will receive an array with the pairs (contents, image) of the urls.
+	public func getContentFromURLs(urls: Array<String>, langCode: String? = nil, maxTimeout: Int = 10, completion: (contents: [(String, String, ArticleDifficulty)]?) -> Void) {
 		var newURLs: [Dictionary<String, String>] = []
 		var counter = 0
 		for url in urls {
@@ -604,11 +656,47 @@ public class ZeeguuAPI {
 			newURLs.append(["url": url, "id": String(counter)])
 		}
 		
-		let jsonDict = ["urls": newURLs, "timeout": String(maxTimeout)]
+		var jsonDict: Dictionary<String, AnyObject> = ["urls": newURLs, "timeout": String(maxTimeout)]
+		if let lc = langCode {
+			jsonDict["lang_code"] = lc
+		}
 		
 		let request = self.requestWithEndPoint(.GetContentFromURL, method: .POST, jsonBody: JSON(jsonDict))
 		self.sendAsynchronousRequest(request) { (response, error) -> Void in
-			self.checkJSONResponse(response, error: error, completion: completion)
+			self.checkJSONResponse(response, error: error, completion: { (dict) in
+				if var array = dict?["contents"].array {
+					array.sortInPlace({ (lhs, rhs) -> Bool in
+						if let l = lhs["id"].string, r = rhs["id"].string {
+							return Int(l) < Int(r)
+						}
+						return false
+					})
+					
+					// The following piece of code loops over newURLs and tries to find the corresponding
+					// content in array. As array is sorted, if we don't find it, our current index (i) is
+					// still lower than 'id' of the first content in array. if we don't find content, we insert
+					// an empty string in the contents array
+					var contents = [(String, String, ArticleDifficulty)]()
+					var arrayIndex = 0
+					for i in 0 ..< newURLs.count {
+						let urlIndex = i + 1
+						
+						if let idxStr = (arrayIndex < array.count ? array[arrayIndex]["id"].string : nil), idx = Int(idxStr), content = array[arrayIndex]["content"].string, image = array[arrayIndex]["image"].string where idx == urlIndex {
+							if let difficulty = array[arrayIndex]["difficulty"]["estimated_difficulty"].string, diff = ArticleDifficulty(rawValue: difficulty) {
+								contents.append((content, image, diff))
+							} else {
+								contents.append((content, image, .Unknown))
+							}
+							arrayIndex += 1
+						} else {
+							contents.append(("", "", .Unknown))
+						}
+					}
+					completion(contents: contents)
+				} else {
+					completion(contents: nil)
+				}
+			})
 		}
 	}
 	
