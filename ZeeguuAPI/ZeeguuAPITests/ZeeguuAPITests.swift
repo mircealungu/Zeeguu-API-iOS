@@ -175,6 +175,9 @@ class ZeeguuAPITests: XCTestCase {
 		ZeeguuAPI.sharedAPI().getBookmarksByDayWithContext(false) { (dict) -> Void in
 			XCTAssertNotNil(dict)
 			print("dict: ", dict)
+			if let firstBookmark = dict?[0]["bookmarks"][0].dictionary {
+				XCTAssertNil(firstBookmark["context"])
+			}
 			self.testLock.signal()
 		}
 		testLock.wait()
@@ -185,6 +188,9 @@ class ZeeguuAPITests: XCTestCase {
 		ZeeguuAPI.sharedAPI().getBookmarksByDayWithContext(true) { (dict) -> Void in
 			XCTAssertNotNil(dict)
 			print("dict: ", dict)
+			if let firstBookmark = dict?[0]["bookmarks"][0].dictionary {
+				XCTAssertNotNil(firstBookmark["context"])
+			}
 			self.testLock.signal()
 		}
 		testLock.wait()
@@ -196,9 +202,27 @@ class ZeeguuAPITests: XCTestCase {
 		let formatter = NSDateFormatter()
 		formatter.timeZone = NSTimeZone(name: "GMT")
 		formatter.dateFormat = "y-MM-dd HH:mm:ss"
-		ZeeguuAPI.sharedAPI().getBookmarksByDayWithContext(false, afterDate: formatter.dateFromString(dateStr)!) { (dict) -> Void in
+		let afterDate = formatter.dateFromString(dateStr)!
+		ZeeguuAPI.sharedAPI().getBookmarksByDayWithContext(false, afterDate: afterDate) { (dict) -> Void in
 			XCTAssertNotNil(dict)
 			print("dict: ", dict)
+			if let firstBookmark = dict?[0]["bookmarks"][0].dictionary {
+				XCTAssertNil(firstBookmark["context"])
+			}
+			if let dict = dict?.array {
+				for dateObject in dict {
+					let dateStr = dateObject["date"].stringValue
+					
+					let formatter = NSDateFormatter()
+					formatter.locale = NSLocale(localeIdentifier: "EN-US")
+					formatter.dateFormat = "EEEE, dd MMMM y"
+					
+					let date = formatter.dateFromString(dateStr)!
+					
+					let ordering = afterDate.compare(date)
+					XCTAssertTrue(ordering == .OrderedAscending)
+				}
+			}
 			self.testLock.signal()
 		}
 		testLock.wait()
@@ -210,9 +234,27 @@ class ZeeguuAPITests: XCTestCase {
 		let formatter = NSDateFormatter()
 		formatter.timeZone = NSTimeZone(name: "GMT")
 		formatter.dateFormat = "y-MM-dd HH:mm:ss"
-		ZeeguuAPI.sharedAPI().getBookmarksByDayWithContext(true, afterDate: formatter.dateFromString(dateStr)!) { (dict) -> Void in
+		let afterDate = formatter.dateFromString(dateStr)!
+		ZeeguuAPI.sharedAPI().getBookmarksByDayWithContext(true, afterDate: afterDate) { (dict) -> Void in
 			XCTAssertNotNil(dict)
 			print("dict: ", dict)
+			if let firstBookmark = dict?[0]["bookmarks"][0].dictionary {
+				XCTAssertNotNil(firstBookmark["context"])
+			}
+			if let dict = dict?.array {
+				for dateObject in dict {
+					let dateStr = dateObject["date"].stringValue
+					
+					let formatter = NSDateFormatter()
+					formatter.locale = NSLocale(localeIdentifier: "EN-US")
+					formatter.dateFormat = "EEEE, dd MMMM y"
+					
+					let date = formatter.dateFromString(dateStr)!
+					
+					let ordering = afterDate.compare(date)
+					XCTAssertTrue(ordering == .OrderedAscending)
+				}
+			}
 			self.testLock.signal()
 		}
 		testLock.wait()
