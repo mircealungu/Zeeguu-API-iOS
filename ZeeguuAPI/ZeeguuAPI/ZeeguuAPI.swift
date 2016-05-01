@@ -271,15 +271,15 @@ public class ZeeguuAPI {
 			return completion(dict: nil)
 		}
 		
-		var jsonDict = Dictionary<String, AnyObject>()
-		jsonDict["with_context"] = true
+		var jsonDict = Dictionary<String, String>()
+		jsonDict["with_context"] = String(withContext)
 		
 		let formatter = NSDateFormatter()
 		formatter.timeZone = NSTimeZone(name: "GMT")
 		formatter.dateFormat = "y-MM-dd'T'HH:mm:ss"
 		jsonDict["after_date"] = formatter.stringFromDate(afterDate)
 		
-		let request = self.requestWithEndPoint(.BookmarksByDay, method: .POST, jsonBody: JSON(jsonDict))
+		let request = self.requestWithEndPoint(.BookmarksByDay, method: .POST, parameters: jsonDict)
 		self.sendAsynchronousRequest(request) { (response, error) -> Void in
 			self.checkJSONResponse(response, error: error, completion: completion)
 		}
