@@ -190,6 +190,34 @@ class ZeeguuAPITests: XCTestCase {
 		testLock.wait()
 	}
 	
+	func testGetBookmarksByDayWithoutContext2() {
+		print("Testing bookmarks by day with context:")
+		let dateStr = "2016-04-01 00:00:00"
+		let formatter = NSDateFormatter()
+		formatter.timeZone = NSTimeZone(name: "GMT")
+		formatter.dateFormat = "y-MM-dd HH:mm:ss"
+		ZeeguuAPI.sharedAPI().getBookmarksByDayWithContext(false, afterDate: formatter.dateFromString(dateStr)!) { (dict) -> Void in
+			XCTAssertNotNil(dict)
+			print("dict: ", dict)
+			self.testLock.signal()
+		}
+		testLock.wait()
+	}
+	
+	func testGetBookmarksByDayWithContext2() {
+		print("Testing bookmarks by day with context:")
+		let dateStr = "2016-04-01 00:00:00"
+		let formatter = NSDateFormatter()
+		formatter.timeZone = NSTimeZone(name: "GMT")
+		formatter.dateFormat = "y-MM-dd HH:mm:ss"
+		ZeeguuAPI.sharedAPI().getBookmarksByDayWithContext(true, afterDate: formatter.dateFromString(dateStr)!) { (dict) -> Void in
+			XCTAssertNotNil(dict)
+			print("dict: ", dict)
+			self.testLock.signal()
+		}
+		testLock.wait()
+	}
+	
 	func testTranslateWord() {
 		print("Testing translating word:")
 		ZeeguuAPI.sharedAPI().translateWord("Gipfeltreffen", title: "EU-Türkei-Gipfel: Streit um Flüchtlingskontingent", context: "Unmittelbar vor dem Gipfeltreffen der Europäischen Union mit der Türkei spricht Parlamentspräsident Martin Schulz (SPD) Klartext - eine Vereinbarung von Flüchtlingskontingenten mit der Türkei sei kaum aussichtsreich.", url: "http://www.spiegel.de/politik/ausland/eu-tuerkei-gipfel-streit-um-fluechtlingskontingent-a-1065093.html") { (dict) -> Void in

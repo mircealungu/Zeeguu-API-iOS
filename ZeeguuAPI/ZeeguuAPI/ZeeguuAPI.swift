@@ -261,6 +261,30 @@ public class ZeeguuAPI {
 		}
 	}
 	
+	/// Retrieves the bookmarks of the user, organized by date.
+	///
+	/// - parameter withContext: If `withContext` is `true`, the text where a bookmark was found is also returned. If `false`, only the bookmark (without context) is returned.
+	/// - parameter afterDate: the date after which to start retrieving the bookmarks. if no date is specified, all the bookmarks are returned.
+	/// - parameter completion: A block that will receive a `JSON` object, which contains the list of bookmarks.
+	public func getBookmarksByDayWithContext(withContext: Bool, afterDate: NSDate, completion: (dict: JSON?) -> Void) {
+		if (!self.checkIfLoggedIn()) {
+			return completion(dict: nil)
+		}
+		
+		var jsonDict = Dictionary<String, AnyObject>()
+		jsonDict["with_context"] = true
+		
+		let formatter = NSDateFormatter()
+		formatter.timeZone = NSTimeZone(name: "GMT")
+		formatter.dateFormat = "y-MM-dd'T'HH:mm:ss"
+		jsonDict["after_date"] = formatter.stringFromDate(afterDate)
+		
+		let request = self.requestWithEndPoint(.BookmarksByDay, method: .POST, jsonBody: JSON(jsonDict))
+		self.sendAsynchronousRequest(request) { (response, error) -> Void in
+			self.checkJSONResponse(response, error: error, completion: completion)
+		}
+	}
+	
 	/// Retrieves the translation of the given word from the user's learned language to the user's native language.
 	///
 	/// - parameter word: The word to translate.
