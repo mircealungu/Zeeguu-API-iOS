@@ -548,7 +548,7 @@ public class ZeeguuAPI {
 	/// - parameter personalized: Calculate difficulty score specific for the current user.
 	/// - parameter rankBoundary: Upper boundary for word frequency rank (1-10000)
 	/// - parameter completion: A block that will receive an array with the difficulties.
-	public func getDifficultyForTexts(texts: Array<String>, langCode: String, personalized: Bool = true, rankBoundary: Float = 10000, completion: (difficulties: [ArticleDifficulty]?) -> Void) {
+	public func getDifficultyForTexts(texts: Array<String>, langCode: String, difficultyComputer: String = "default", completion: (difficulties: [ArticleDifficulty]?) -> Void) {
 		if (!self.checkIfLoggedIn()) {
 			return completion(difficulties: nil)
 		}
@@ -559,7 +559,7 @@ public class ZeeguuAPI {
 			newTexts.append(["content": text, "id": String(counter)])
 		}
 		
-		let jsonDict = ["texts": newTexts, "personalized": String(personalized), "rank_boundary": String(rankBoundary)]
+		let jsonDict = ["texts": newTexts, "difficulty_computer": difficultyComputer]
 		
 		let request = self.requestWithEndPoint(.GetDifficultyForText, pathComponents: [langCode], method: .POST, jsonBody: JSON(jsonDict))
 		self.sendAsynchronousRequest(request) { (response, error) -> Void in
@@ -624,7 +624,7 @@ public class ZeeguuAPI {
 	/// - parameter urls: The urls to get the content from.
 	/// - parameter maxTimeout: Maximal time in seconds to wait for the results.
 	/// - parameter completion: A block that will receive an array with the pairs (contents, image) of the urls.
-	public func getContentFromURLs(urls: Array<String>, maxTimeout: Int = 10, completion: (contents: [(String, String)]?) -> Void) {
+	public func getContentFromURLs(urls: Array<String>, langCode: String? = nil, maxTimeout: Int = 10, completion: (contents: [(String, String, ArticleDifficulty)]?) -> Void) {
 		var newURLs: [Dictionary<String, String>] = []
 		var counter = 0
 		for url in urls {
@@ -632,7 +632,10 @@ public class ZeeguuAPI {
 			newURLs.append(["url": url, "id": String(counter)])
 		}
 		
-		let jsonDict = ["urls": newURLs, "timeout": String(maxTimeout)]
+		var jsonDict: Dictionary<String, AnyObject> = ["urls": newURLs, "timeout": String(maxTimeout)]
+		if let lc = langCode {
+			jsonDict["lang_code"] = lc
+		}
 		
 		let request = self.requestWithEndPoint(.GetContentFromURL, method: .POST, jsonBody: JSON(jsonDict))
 		self.sendAsynchronousRequest(request) { (response, error) -> Void in
@@ -649,16 +652,20 @@ public class ZeeguuAPI {
 					// content in array. As array is sorted, if we don't find it, our current index (i) is
 					// still lower than 'id' of the first content in array. if we don't find content, we insert
 					// an empty string in the contents array
-					var contents = [(String, String)]()
+					var contents = [(String, String, ArticleDifficulty)]()
 					var arrayIndex = 0
 					for i in 0 ..< newURLs.count {
 						let urlIndex = i + 1
 						
 						if let idxStr = (arrayIndex < array.count ? array[arrayIndex]["id"].string : nil), idx = Int(idxStr), content = array[arrayIndex]["content"].string, image = array[arrayIndex]["image"].string where idx == urlIndex {
-							contents.append((content, image))
+							if let difficulty = array[arrayIndex]["difficulty"]["estimated_difficulty"].string, diff = ArticleDifficulty(rawValue: difficulty) {
+								contents.append((content, image, diff))
+							} else {
+								contents.append((content, image, .Unknown))
+							}
 							arrayIndex += 1
 						} else {
-							contents.append(("", ""))
+							contents.append(("", "", .Unknown))
 						}
 					}
 					completion(contents: contents)
