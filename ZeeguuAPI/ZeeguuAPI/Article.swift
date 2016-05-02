@@ -166,7 +166,9 @@ public class Article: CustomStringConvertible, Equatable {
 	}
 	
 	private func _getContents(withDifficulty: Bool = false, completion: (contents: (String, String, ArticleDifficulty)?) -> Void) {
-		if let con = contents, imURL = imageURL {
+		if let con = contents, imURL = imageURL, diff = difficulty where withDifficulty == true {
+			completion(contents: (con, imURL, diff))
+		} else if let con = contents, imURL = imageURL where withDifficulty == false {
 			completion(contents: (con, imURL, difficulty == nil ? .Unknown : difficulty!))
 		} else {
 			ZeeguuAPI.sharedAPI().getContentFromURLs([url]) { (contents) in
