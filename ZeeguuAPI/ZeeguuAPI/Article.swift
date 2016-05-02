@@ -26,99 +26,53 @@
 
 import UIKit
 
+/// Adds support for comparing `Article` objects using the equals operator (`==`)
+///
+/// - parameter lhs: The left `Article` operand of the `==` operator (left hand side) <pre><b>lhs</b> == rhs</pre>
+/// - parameter rhs: The right `Article` operand of the `==` operator (right hand side) <pre>lhs == <b>rhs</b></pre>
+/// - returns: A `Bool` that states whether the two `Article` objects are equal
 public func ==(lhs: Article, rhs: Article) -> Bool {
 	return lhs.feed == rhs.feed && lhs.title == rhs.title && lhs.url == rhs.url && lhs.date == rhs.date && lhs.summary == rhs.summary
 }
 
+/// The `Article` class represents an article. It holds the source (`feed`), `title`, `url`, `date`, `summary` and more about the article.
 public class Article: CustomStringConvertible, Equatable {
+	
+	// MARK: Properties -
+	
+	/// The `Feed` from which this article was retrieved
 	public var feed: Feed
+	/// The title of this article
 	public var title: String
+	/// The url of this article
 	public var url: String
+	/// The publication date of this article
 	public var date: String
+	/// The summary of this article
 	public var summary: String
-	
-	public var isContentLoaded: Bool {
-		return contents != nil
-	}
-	
-	public var isDifficultyLoaded: Bool {
-		return difficulty != nil
-	}
 	
 	private var imageURL: String?
 	private var image: UIImage?
 	private var contents: String?
 	private var difficulty: ArticleDifficulty?
 	
+	/// Whether the contents of this article have been retrieved yet
+	public var isContentLoaded: Bool {
+		return contents != nil
+	}
+	
+	/// Whether the difficulty of this article has been calculated yet
+	public var isDifficultyLoaded: Bool {
+		return difficulty != nil
+	}
+	
+	/// The description of this `Article` object. The value of this property will be used whenever the system tries to print this `Article` object or when the system tries to convert this `Article` object to a `String`.
 	public var description: String {
 		let str = feed.description.stringByReplacingOccurrencesOfString("\n", withString: "\n\t")
 		return "Article: {\n\tfeed: \"\(str)\",\n\ttitle: \"\(title)\",\n\turl: \"\(url)\",\n\tdate: \"\(date)\",\n\tsummary: \"\(summary)\",\n\tcontents: \"\(contents)\"\n}"
 	}
 	
-	public init(feed: Feed, title: String, url: String, date: String, summary: String) {
-		self.feed = feed
-		self.title = title;
-		self.url = url;
-		self.date = date;
-		self.summary = summary
-	}
-	
-	public func getContents(completion: (contents: String) -> Void) {
-		if let c = contents {
-			return completion(contents: c)
-		}
-		_getContents { (contents) in
-			if let c = contents {
-				return completion(contents: c.0)
-			}
-			completion(contents: "")
-		}
-	}
-	
-	public func getImage(completion: (image: UIImage?) -> Void) {
-		_getContents { (contents) in
-			if let c = contents, imURL = NSURL(string: c.1) {
-				let request = NSMutableURLRequest(URL: imURL)
-				ZeeguuAPI.sharedAPI().sendAsynchronousRequestWithDataResponse(request) { (data, error) -> Void in
-					if let res = data {
-						return completion(image: UIImage(data: res))
-					}
-					ZeeguuAPI.sharedAPI().debugPrint("Could not get image with url '\(self.imageURL)', error: \(error)")
-					completion(image: nil)
-				}
-			} else {
-				completion(image: nil)
-			}
-		}
-	}
-	
-	public func getDifficulty(difficultyComputer: String = "default", completion: (difficulty: ArticleDifficulty) -> Void) {
-		if let diff = difficulty {
-			return completion(difficulty: diff)
-		}
-		if difficultyComputer == "default" {
-			_getContents(true) { (contents) in
-				if let c = contents {
-					return completion(difficulty: c.2)
-				}
-				completion(difficulty: .Unknown)
-			}
-		} else {
-			getContents({ (contents) in
-				if contents == "" {
-					return completion(difficulty: .Unknown)
-				}
-				ZeeguuAPI.sharedAPI().getDifficultyForTexts([contents], langCode: self.feed.language, difficultyComputer: difficultyComputer, completion: { (difficulties) in
-					if let diffs = difficulties {
-						self.difficulty = diffs[0]
-						return completion(difficulty: diffs[0])
-					}
-					completion(difficulty: .Unknown)
-				})
-			})
-		}
-	}
-		
+	// MARK: Static methods -
 	
 	/// Get difficulty for all given articles
 	///
@@ -152,6 +106,100 @@ public class Article: CustomStringConvertible, Equatable {
 			completion(success: false)
 		}
 	}
+	
+	// MARK: Constructors -
+	
+	/**
+	Construct a new `Article` object.
+	
+	- parameter feed: The `Feed` from which this article was retrieved
+	- parameter title: The title of the article
+	- parameter url: The url of the article
+	- parameter date: The publication date of the article
+	- parameter summary: The summary of the article
+	*/
+	public init(feed: Feed, title: String, url: String, date: String, summary: String) {
+		self.feed = feed
+		self.title = title;
+		self.url = url;
+		self.date = date;
+		self.summary = summary
+	}
+	
+	// MARK: Methods -
+	
+	/**
+	Get the contents of this article. This method will make sure that the contents are cached within this `Article` object, so calling this method again will not retrieve the contents again, but will return the cached version instead.
+	
+	- parameter completion: A closure that will be called once the contents have been retrieved. If there were no contents to retrieve, `contents` is the empty string. Otherwise, it contains the article contents.
+	*/
+	public func getContents(completion: (contents: String) -> Void) {
+		if let c = contents {
+			return completion(contents: c)
+		}
+		_getContents { (contents) in
+			if let c = contents {
+				return completion(contents: c.0)
+			}
+			completion(contents: "")
+		}
+	}
+	
+	/**
+	Get the image of this article. This method will make sure that the image url is cached within this `Article` object, so calling this method again will not retrieve the image again, but will return the cached version instead.
+	
+	- parameter completion: A closure that will be called once the image has been retrieved. If there was no image to retrieve, `image` is `nil`. Otherwise, it contains the article image.
+	*/
+	public func getImage(completion: (image: UIImage?) -> Void) {
+		_getContents { (contents) in
+			if let c = contents, imURL = NSURL(string: c.1) {
+				let request = NSMutableURLRequest(URL: imURL)
+				ZeeguuAPI.sharedAPI().sendAsynchronousRequestWithDataResponse(request) { (data, error) -> Void in
+					if let res = data {
+						return completion(image: UIImage(data: res))
+					}
+					ZeeguuAPI.sharedAPI().debugPrint("Could not get image with url '\(self.imageURL)', error: \(error)")
+					completion(image: nil)
+				}
+			} else {
+				completion(image: nil)
+			}
+		}
+	}
+	
+	/**
+	Get the difficulty of this article. This method will make sure that the difficulty is cached within this `Article` object, so calling this method again will not calculate the difficulty again, but will return the cached version instead.
+	
+	- parameter completion: A closure that will be called once the difficulty has been calculated. If there was no difficulty to calculate, `difficulty` is `ArticleDifficulty.Unknown`. Otherwise, it contains the article difficulty.
+	*/
+	public func getDifficulty(difficultyComputer: String = "default", completion: (difficulty: ArticleDifficulty) -> Void) {
+		if let diff = difficulty {
+			return completion(difficulty: diff)
+		}
+		if difficultyComputer == "default" {
+			_getContents(true) { (contents) in
+				if let c = contents {
+					return completion(difficulty: c.2)
+				}
+				completion(difficulty: .Unknown)
+			}
+		} else {
+			getContents({ (contents) in
+				if contents == "" {
+					return completion(difficulty: .Unknown)
+				}
+				ZeeguuAPI.sharedAPI().getDifficultyForTexts([contents], langCode: self.feed.language, difficultyComputer: difficultyComputer, completion: { (difficulties) in
+					if let diffs = difficulties {
+						self.difficulty = diffs[0]
+						return completion(difficulty: diffs[0])
+					}
+					completion(difficulty: .Unknown)
+				})
+			})
+		}
+	}
+	
+	// MARK: -
 	
 	private func _updateContents(contents: (String, String, ArticleDifficulty), withDifficulty: Bool) {
 		if contents.0 != "" {
