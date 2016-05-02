@@ -646,6 +646,7 @@ public class ZeeguuAPI {
 	/// Retrieves the content and an image from the given urls.
 	///
 	/// - parameter urls: The urls to get the content from.
+	/// - parameter langCode: If not `nil`, the difficulty is calculated for all the contents.
 	/// - parameter maxTimeout: Maximal time in seconds to wait for the results.
 	/// - parameter completion: A block that will receive an array with the pairs (contents, image) of the urls.
 	public func getContentFromURLs(urls: Array<String>, langCode: String? = nil, maxTimeout: Int = 10, completion: (contents: [(String, String, ArticleDifficulty)]?) -> Void) {

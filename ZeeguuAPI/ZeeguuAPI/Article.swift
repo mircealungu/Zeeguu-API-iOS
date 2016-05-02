@@ -64,10 +64,14 @@ public class Article: CustomStringConvertible, Equatable {
 	}
 	
 	public func getContents(completion: (contents: String) -> Void) {
+		if let c = contents {
+			return completion(contents: c)
+		}
 		_getContents { (contents) in
 			if let c = contents {
-				completion(contents: c.0)
+				return completion(contents: c.0)
 			}
+			completion(contents: "")
 		}
 	}
 	
@@ -77,11 +81,10 @@ public class Article: CustomStringConvertible, Equatable {
 				let request = NSMutableURLRequest(URL: imURL)
 				ZeeguuAPI.sharedAPI().sendAsynchronousRequestWithDataResponse(request) { (data, error) -> Void in
 					if let res = data {
-						completion(image: UIImage(data: res))
-					} else {
-						ZeeguuAPI.sharedAPI().debugPrint("Could not get image with url '\(self.imageURL)', error: \(error)")
-						completion(image: nil)
+						return completion(image: UIImage(data: res))
 					}
+					ZeeguuAPI.sharedAPI().debugPrint("Could not get image with url '\(self.imageURL)', error: \(error)")
+					completion(image: nil)
 				}
 			} else {
 				completion(image: nil)
@@ -91,16 +94,26 @@ public class Article: CustomStringConvertible, Equatable {
 	
 	public func getDifficulty(difficultyComputer: String = "default", completion: (difficulty: ArticleDifficulty) -> Void) {
 		if let diff = difficulty {
-			completion(difficulty: diff)
+			return completion(difficulty: diff)
+		}
+		if difficultyComputer == "default" {
+			_getContents(true) { (contents) in
+				if let c = contents {
+					return completion(difficulty: c.2)
+				}
+				completion(difficulty: .Unknown)
+			}
 		} else {
 			getContents({ (contents) in
+				if contents == "" {
+					return completion(difficulty: .Unknown)
+				}
 				ZeeguuAPI.sharedAPI().getDifficultyForTexts([contents], langCode: self.feed.language, difficultyComputer: difficultyComputer, completion: { (difficulties) in
 					if let diffs = difficulties {
 						self.difficulty = diffs[0]
-						completion(difficulty: diffs[0])
-					} else {
-						completion(difficulty: .Unknown)
+						return completion(difficulty: diffs[0])
 					}
+					completion(difficulty: .Unknown)
 				})
 			})
 		}
@@ -109,77 +122,56 @@ public class Article: CustomStringConvertible, Equatable {
 	
 	/// Get difficulty for all given articles
 	///
+	/// Note: This method uses the default difficulty computer.
+	///
 	/// - parameter articles: The articles for which to get difficulties. Please note that all `Article` objects are references and once `completion` is called, the given `Article` objects have difficulties.
-	/// - parameter personalized: Calculate difficulty score specific for the current user.
-	/// - parameter completion: A block that will indicate success. If `success` is `true`, all `Article` objects have been given their difficulty. Otherwise nothing has happened to the `Article` objects.
-	public static func getDifficultiesForArticles(articles: [Article], personalized: Bool = true, completion: (success: Bool) -> Void) {
-		self.getContentsForArticles(articles) { (success) in
-			if (success) {
-				var texts = [String]()
-				for i in 0 ..< articles.count {
-					if let c = articles[i].contents {
-						texts.append(c)
-					}
-				}
-				
-				ZeeguuAPI.sharedAPI().getDifficultyForTexts(texts, langCode: articles[0].feed.language, completion: { (difficulties) in
-					if let diffs = difficulties {
-						for i in 0 ..< diffs.count {
-							if !articles[i].isContentLoaded {
-								continue
-							}
-							articles[i].difficulty = diffs[i]
-						}
-						completion(success: true)
-					} else {
-						completion(success: false)
-					}
-				})
-			} else {
-				completion(success: false)
-			}
-		}
+	/// - parameter completion: A block that will indicate success. If `success` is `true`, all `Article` objects have been given their difficulty. Otherwise nothing has happened to the `Article` objects. If `articles` is empty, `success` is `false`.
+	public static func getDifficultiesForArticles(articles: [Article], completion: (success: Bool) -> Void) {
+		self.getContentsForArticles(articles, withDifficulty: true, completion: completion)
 	}
 	
 	/// Get contents for all given articles
 	///
 	/// - parameter articles: The articles for which to get contents. Please note that all `Article` objects are references and once `completion` is called, the given `Article` objects have contents.
-	/// - parameter completion: A block that will indicate success. If `success` is `true`, all `Article` objects have been given their contents. Otherwise nothing has happened to the `Article` objects.
-	public static func getContentsForArticles(articles: [Article], completion: (success: Bool) -> Void) {
+	/// - parameter withDifficulty: Whether to calculate difficulty for the retrieved contents. Setting this to `true` will send the language code of the first article's feed as the language of all contents.
+	/// - parameter completion: A block that will indicate success. If `success` is `true`, all `Article` objects have been given their contents. Otherwise nothing has happened to the `Article` objects. If `articles` is empty, `success` is `false`.
+	public static func getContentsForArticles(articles: [Article], withDifficulty: Bool = false, completion: (success: Bool) -> Void) {
+		if articles.count == 0 {
+			return completion(success: false) // No articles to get content for
+		}
 		let urls = articles.map({ $0.url })
 		
-		ZeeguuAPI.sharedAPI().getContentFromURLs(urls, maxTimeout: urls.count * 10) { (contents) in
+		let langCode: String? = withDifficulty ? articles[0].feed.language : nil
+		ZeeguuAPI.sharedAPI().getContentFromURLs(urls, langCode: langCode, maxTimeout: urls.count * 10) { (contents) in
 			if let contents = contents {
 				for i in 0 ..< contents.count {
-					let content = contents[i]
-					
-					if content.0 != "" {
-						articles[i].contents = content.0
-					}
-					if content.1 != "" {
-						articles[i].imageURL = content.1
-					}
+					articles[i]._updateContents(contents[i], withDifficulty: withDifficulty)
 				}
-				completion(success: true)
-			} else {
-				completion(success: false)
+				return completion(success: true)
 			}
+			completion(success: false)
 		}
 	}
 	
+	private func _updateContents(contents: (String, String, ArticleDifficulty), withDifficulty: Bool) {
+		if contents.0 != "" {
+			self.contents = contents.0
+		}
+		if contents.1 != "" {
+			self.imageURL = contents.1
+		}
+		if withDifficulty {
+			self.difficulty = contents.2
+		}
+	}
 	
-	private func _getContents(completion: (contents: (String, String, ArticleDifficulty)?) -> Void) {
+	private func _getContents(withDifficulty: Bool = false, completion: (contents: (String, String, ArticleDifficulty)?) -> Void) {
 		if let con = contents, imURL = imageURL {
 			completion(contents: (con, imURL, difficulty == nil ? .Unknown : difficulty!))
 		} else {
 			ZeeguuAPI.sharedAPI().getContentFromURLs([url]) { (contents) in
 				if let content = contents?[0] {
-					if content.0 != "" {
-						self.contents = content.0
-					}
-					if content.1 != "" {
-						self.imageURL = content.1
-					}
+					self._updateContents(content, withDifficulty: withDifficulty)
 					
 					dispatch_async(dispatch_get_main_queue(), { () -> Void in
 						completion(contents: content)
