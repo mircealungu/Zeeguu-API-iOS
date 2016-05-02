@@ -4,10 +4,10 @@ platform :ios, '9.0'
 use_frameworks!
 
 target 'ZeeguuAPI' do
-	pod 'SwiftyJSON', '~> 2.3'
+	pod 'SwiftyJSON', :git => "https://github.com/SwiftyJSON/SwiftyJSON.git"
 end
 
 target 'ZeeguuAPITests' do
-	pod 'SwiftyJSON', '~> 2.3'
+	pod 'SwiftyJSON', :git => "https://github.com/SwiftyJSON/SwiftyJSON.git"
 end
 
