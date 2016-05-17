@@ -158,7 +158,9 @@ public class Article: CustomStringConvertible, Equatable {
 					if let res = data {
 						return completion(image: UIImage(data: res))
 					}
-					ZeeguuAPI.sharedAPI().debugPrint("Could not get image with url '\(self.imageURL)', error: \(error)")
+					if ZeeguuAPI.sharedAPI().enableDebugOutput {
+						print("Could not get image with url '\(self.imageURL)', error: \(error)")
+					}
 					completion(image: nil)
 				}
 			} else {
@@ -227,7 +229,9 @@ public class Article: CustomStringConvertible, Equatable {
 						completion(contents: content)
 					})
 				} else {
-					ZeeguuAPI.sharedAPI().debugPrint("Failure, no content")
+					if ZeeguuAPI.sharedAPI().enableDebugOutput {
+						print("Failure, no content")
+					}
 				}
 			}
 		}

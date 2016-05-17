@@ -94,7 +94,9 @@ public class Feed: CustomStringConvertible, Equatable {
 				if let res = data {
 					completion(image: UIImage(data: res))
 				} else {
-					ZeeguuAPI.sharedAPI().debugPrint("Could not get image with url '\(self.imageURL)', error: \(error)")
+					if ZeeguuAPI.sharedAPI().enableDebugOutput {
+						print("Could not get image with url '\(self.imageURL)', error: \(error)")
+					}
 					completion(image: nil)
 				}
 			}
