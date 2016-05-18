@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "Zeeguu-API-iOS"
-  s.version      = "1.0.5"
+  s.version      = "1.0.8"
   s.summary      = "An API for Zeeguu for iOS"
   s.description  = <<-DESC
   				   The iOS Framework that acts as a layer in front of the Zeeguu server.
@@ -9,8 +9,8 @@ Pod::Spec.new do |s|
   s.license      = "MIT"
   s.author    = "Jorrit Oosterhof"
   s.platform     = :ios, "9.0"
-  s.source       = { :git => "https://github.com/mircealungu/Zeeguu-API-iOS.git", :tag => "1.0.5" }
+  s.source       = { :git => "https://github.com/mircealungu/Zeeguu-API-iOS.git", :tag => "1.0.8" }
   s.source_files  = "ZeeguuAPI/ZeeguuAPI/*.{swift,h}"
-  s.dependency 'SwiftyJSON', '~> 2.3'
+  s.dependency 'SwiftyJSON', :git => "https://github.com/SwiftyJSON/SwiftyJSON.git"
   s.resources = "ZeeguuAPI/ZeeguuAPI/*.lproj"
 end

@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'A1D6C30114A669D8738797A1'
+               BlueprintIdentifier = '9736AC54DEBF5FDA93BA0D2C'
                BlueprintName = 'Pods-ZeeguuAPITests'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'Pods_ZeeguuAPITests.framework'>
