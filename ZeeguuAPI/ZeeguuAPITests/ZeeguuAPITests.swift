@@ -172,12 +172,14 @@ class ZeeguuAPITests: XCTestCase {
 	
 	func testGetBookmarksByDayWithoutContext() {
 		print("Testing bookmarks by day without context:")
+		ZeeguuAPI.sharedAPI().enableDebugOutput = false
 		ZeeguuAPI.sharedAPI().getBookmarksByDayWithContext(false) { (dict) -> Void in
 			XCTAssertNotNil(dict)
 			print("dict: ", dict)
 			if let firstBookmark = dict?[0]["bookmarks"][0].dictionary {
 				XCTAssertNil(firstBookmark["context"])
 			}
+			ZeeguuAPI.sharedAPI().enableDebugOutput = true
 			self.testLock.signal()
 		}
 		testLock.wait()
@@ -185,12 +187,14 @@ class ZeeguuAPITests: XCTestCase {
 	
 	func testGetBookmarksByDayWithContext() {
 		print("Testing bookmarks by day with context:")
+		ZeeguuAPI.sharedAPI().enableDebugOutput = false
 		ZeeguuAPI.sharedAPI().getBookmarksByDayWithContext(true) { (dict) -> Void in
 			XCTAssertNotNil(dict)
 			print("dict: ", dict)
 			if let firstBookmark = dict?[0]["bookmarks"][0].dictionary {
 				XCTAssertNotNil(firstBookmark["context"])
 			}
+			ZeeguuAPI.sharedAPI().enableDebugOutput = true
 			self.testLock.signal()
 		}
 		testLock.wait()
@@ -198,6 +202,7 @@ class ZeeguuAPITests: XCTestCase {
 	
 	func testGetBookmarksByDayWithoutContext2() {
 		print("Testing bookmarks by day with context:")
+		ZeeguuAPI.sharedAPI().enableDebugOutput = true
 		let dateStr = "2016-04-01 00:00:00"
 		let formatter = NSDateFormatter()
 		formatter.timeZone = NSTimeZone(name: "GMT")
@@ -223,6 +228,7 @@ class ZeeguuAPITests: XCTestCase {
 					XCTAssertTrue(ordering == .OrderedAscending)
 				}
 			}
+			ZeeguuAPI.sharedAPI().enableDebugOutput = true
 			self.testLock.signal()
 		}
 		testLock.wait()
@@ -230,6 +236,7 @@ class ZeeguuAPITests: XCTestCase {
 	
 	func testGetBookmarksByDayWithContext2() {
 		print("Testing bookmarks by day with context:")
+		ZeeguuAPI.sharedAPI().enableDebugOutput = false
 		let dateStr = "2016-04-01 00:00:00"
 		let formatter = NSDateFormatter()
 		formatter.timeZone = NSTimeZone(name: "GMT")
@@ -255,6 +262,7 @@ class ZeeguuAPITests: XCTestCase {
 					XCTAssertTrue(ordering == .OrderedAscending)
 				}
 			}
+			ZeeguuAPI.sharedAPI().enableDebugOutput = true
 			self.testLock.signal()
 		}
 		testLock.wait()
