@@ -493,6 +493,7 @@ public class ZeeguuAPI {
 	/// Retrieves the translation of the given word from the user's learned language to the user's native language.
 	///
 	/// - parameter word: The word to translate.
+	/// - parameter title: The title of the article in which the word was translated.
 	/// - parameter context: The context in which the word appeared.
 	/// - parameter url: The url of the article in which the word was translated.
 	/// - parameter completion: A block that will receive a string containing the translation of `word`.
