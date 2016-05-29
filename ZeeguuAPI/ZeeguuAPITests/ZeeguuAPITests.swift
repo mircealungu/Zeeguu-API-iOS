@@ -282,7 +282,7 @@ class ZeeguuAPITests: XCTestCase {
 	func testTranslateOtherWord() {
 		print("Testing translating another word:")
 		ZeeguuAPI.sharedAPI().translateWord("buchstäblich", title: "Flüchtlinge: Angela Merkel spricht von historischer Bewährungsprobe für Europa", context: "\"Was wir im Fernsehen gesehen haben, kommt nun buchstäblich bis an unsere Haustür\", sagte die CDU-Vorsitzende.", url: "http://www.spiegel.de/politik/deutschland/fluechtlinge-angela-merkel-spricht-von-historischer-bewaehrungsprobe-fuer-europa-a-1067685.html") { (dict) -> Void in
-
+			
 			XCTAssertNotNil(dict)
 			print("translation: ", dict)
 			self.testLock.signal()
@@ -291,8 +291,18 @@ class ZeeguuAPITests: XCTestCase {
 	}
 	
 	func testTranslateUmlautWord() {
-		print("Testing translating word:")
+		print("Testing translating umlaut word:")
 		ZeeguuAPI.sharedAPI().translateWord("über", title: "", context: "über", url: "") { (dict) -> Void in
+			XCTAssertNotNil(dict)
+			print("translation: ", dict)
+			self.testLock.signal()
+		}
+		testLock.wait()
+	}
+	
+	func testTranslateSentence() {
+		print("Testing translating sentence:")
+		ZeeguuAPI.sharedAPI().translateWord("Lassen sich doch nur im Wahlkampf blicken!", title: "Nichtwähler-Studie: Darum ist die Wahlbeteiligung so gering - SPIEGEL ONLINE", context: "Lassen sich doch nur im Wahlkampf blicken!", url: "http://www.spiegel.de/politik/deutschland/nichtwaehler-studie-darum-ist-die-wahlbeteiligung-so-gering-a-1094499.html") { (dict) -> Void in
 			XCTAssertNotNil(dict)
 			print("translation: ", dict)
 			self.testLock.signal()
