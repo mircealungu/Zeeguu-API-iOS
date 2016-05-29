@@ -202,7 +202,7 @@ class ZeeguuAPITests: XCTestCase {
 	
 	func testGetBookmarksByDayWithoutContext2() {
 		print("Testing bookmarks by day with context:")
-		ZeeguuAPI.sharedAPI().enableDebugOutput = true
+		ZeeguuAPI.sharedAPI().enableDebugOutput = false
 		let dateStr = "2016-04-01 00:00:00"
 		let formatter = NSDateFormatter()
 		formatter.timeZone = NSTimeZone(name: "GMT")
