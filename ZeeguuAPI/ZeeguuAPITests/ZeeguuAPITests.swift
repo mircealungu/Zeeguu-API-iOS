@@ -310,6 +310,16 @@ class ZeeguuAPITests: XCTestCase {
 		testLock.wait()
 	}
 	
+	func testTranslateWordPair() {
+		print("Testing translating word pair:")
+		ZeeguuAPI.sharedAPI().translateWord("taucht auf", title: "Nichtwähler-Studie: Darum ist die Wahlbeteiligung so gering - SPIEGEL ONLINE", context: "Kaum ein Politikerbild taucht in der Studie des Instituts für Demokratieforschung so häufig auf wie das des Wahlkämpfers, der mit einem Stand, Luftballons und Bratwürsten auftaucht und anschließend wieder in der Versenkung verschwindet.", url: "http://www.spiegel.de/politik/deutschland/nichtwaehler-studie-darum-ist-die-wahlbeteiligung-so-gering-a-1094499.html") { (dict) -> Void in
+			XCTAssertNotNil(dict)
+			print("translation: ", dict)
+			self.testLock.signal()
+		}
+		testLock.wait()
+	}
+	
 	func testBookmarkWord() {
 		print("Testing bookmarking word:")
 		ZeeguuAPI.sharedAPI().bookmarkWord("Gipfeltreffen", translation: "summit", context: "Unmittelbar vor dem Gipfeltreffen der Europäischen Union mit der Türkei spricht Parlamentspräsident Martin Schulz (SPD) Klartext - eine Vereinbarung von Flüchtlingskontingenten mit der Türkei sei kaum aussichtsreich.", url: "http://www.spiegel.de/politik/ausland/eu-tuerkei-gipfel-streit-um-fluechtlingskontingent-a-1065093.html", title: "EU-Türkei-Gipfel: Streit um Flüchtlingskontingent") { (bookmarkID) -> Void in
