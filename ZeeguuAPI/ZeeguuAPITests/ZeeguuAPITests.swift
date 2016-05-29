@@ -292,7 +292,7 @@ class ZeeguuAPITests: XCTestCase {
 	
 	func testTranslateUmlautWord() {
 		print("Testing translating umlaut word:")
-		ZeeguuAPI.sharedAPI().translateWord("über", title: "", context: "über", url: "") { (dict) -> Void in
+		ZeeguuAPI.sharedAPI().translateWord("über", title: "Nichtwähler-Studie: Darum ist die Wahlbeteiligung so gering - SPIEGEL ONLINE", context: "Trotz der geringen Zahl der Befragten ist die Studie über Göttingen hinaus interessant, da die Viertel typisch sind für Bezirke mit geringer Wahlbeteiligung.", url: "http://www.spiegel.de/politik/deutschland/nichtwaehler-studie-darum-ist-die-wahlbeteiligung-so-gering-a-1094499.html") { (dict) -> Void in
 			XCTAssertNotNil(dict)
 			print("translation: ", dict)
 			self.testLock.signal()
