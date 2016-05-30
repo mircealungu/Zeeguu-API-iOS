@@ -320,11 +320,23 @@ class ZeeguuAPITests: XCTestCase {
 		testLock.wait()
 	}
 	
+	func assertPossibleTranslationsDict(dict: JSON?) {
+		XCTAssertNotNil(dict)
+		XCTAssertNotNil(dict?["translations"]);
+		XCTAssertNotNil(dict?["translations"].array);
+		XCTAssertNotNil(dict?["translations"].array?.count)
+		XCTAssertGreaterThan(dict!["translations"].array!.count, 0)
+		XCTAssertNotNil(dict?["translations"][0].dictionary)
+		XCTAssertNotNil(dict?["translations"][0]["translation_id"].int)
+		XCTAssertNotNil(dict?["translations"][0]["translation"].string)
+	}
+	
 	func testGetTranslationsForWord() {
 		print("Testing getting translations for word:")
 		ZeeguuAPI.sharedAPI().getTranslationsForWord("Gipfeltreffen", context: "Unmittelbar vor dem Gipfeltreffen der Europäischen Union mit der Türkei spricht Parlamentspräsident Martin Schulz (SPD) Klartext - eine Vereinbarung von Flüchtlingskontingenten mit der Türkei sei kaum aussichtsreich.", url: "http://www.spiegel.de/politik/ausland/eu-tuerkei-gipfel-streit-um-fluechtlingskontingent-a-1065093.html") { (dict) -> Void in
 			
-			XCTAssertNotNil(dict)
+			self.assertPossibleTranslationsDict(dict)
+			
 			print("translation: ", dict)
 			self.testLock.signal()
 		}
@@ -335,7 +347,8 @@ class ZeeguuAPITests: XCTestCase {
 		print("Testing getting translations for another word:")
 		ZeeguuAPI.sharedAPI().getTranslationsForWord("buchstäblich", context: "\"Was wir im Fernsehen gesehen haben, kommt nun buchstäblich bis an unsere Haustür\", sagte die CDU-Vorsitzende.", url: "http://www.spiegel.de/politik/deutschland/fluechtlinge-angela-merkel-spricht-von-historischer-bewaehrungsprobe-fuer-europa-a-1067685.html") { (dict) -> Void in
 			
-			XCTAssertNotNil(dict)
+			self.assertPossibleTranslationsDict(dict)
+			
 			print("translation: ", dict)
 			self.testLock.signal()
 		}
@@ -345,7 +358,9 @@ class ZeeguuAPITests: XCTestCase {
 	func testGetTranslationsForUmlautWord() {
 		print("Testing getting translations for umlaut word:")
 		ZeeguuAPI.sharedAPI().getTranslationsForWord("über", context: "Trotz der geringen Zahl der Befragten ist die Studie über Göttingen hinaus interessant, da die Viertel typisch sind für Bezirke mit geringer Wahlbeteiligung.", url: "http://www.spiegel.de/politik/deutschland/nichtwaehler-studie-darum-ist-die-wahlbeteiligung-so-gering-a-1094499.html") { (dict) -> Void in
-			XCTAssertNotNil(dict)
+			
+			self.assertPossibleTranslationsDict(dict)
+			
 			print("translation: ", dict)
 			self.testLock.signal()
 		}
@@ -355,7 +370,9 @@ class ZeeguuAPITests: XCTestCase {
 	func testGetTranslationsForSentence() {
 		print("Testing getting translations for sentence:")
 		ZeeguuAPI.sharedAPI().getTranslationsForWord("Lassen sich doch nur im Wahlkampf blicken!", context: "Lassen sich doch nur im Wahlkampf blicken!", url: "http://www.spiegel.de/politik/deutschland/nichtwaehler-studie-darum-ist-die-wahlbeteiligung-so-gering-a-1094499.html") { (dict) -> Void in
-			XCTAssertNotNil(dict)
+			
+			self.assertPossibleTranslationsDict(dict)
+			
 			print("translation: ", dict)
 			self.testLock.signal()
 		}
@@ -365,7 +382,9 @@ class ZeeguuAPITests: XCTestCase {
 	func testGetTranslationsForWordPair() {
 		print("Testing getting translations for word pair:")
 		ZeeguuAPI.sharedAPI().getTranslationsForWord("taucht auf", context: "Kaum ein Politikerbild taucht in der Studie des Instituts für Demokratieforschung so häufig auf wie das des Wahlkämpfers, der mit einem Stand, Luftballons und Bratwürsten auftaucht und anschließend wieder in der Versenkung verschwindet.", url: "http://www.spiegel.de/politik/deutschland/nichtwaehler-studie-darum-ist-die-wahlbeteiligung-so-gering-a-1094499.html") { (dict) -> Void in
-			XCTAssertNotNil(dict)
+			
+			self.assertPossibleTranslationsDict(dict)
+			
 			print("translation: ", dict)
 			self.testLock.signal()
 		}
@@ -740,5 +759,4 @@ class ZeeguuAPITests: XCTestCase {
 	//            // Put the code you want to measure the time of here.
 	//        }
 	//    }
-	
 }
