@@ -325,7 +325,9 @@ class ZeeguuAPITests: XCTestCase {
 		XCTAssertNotNil(dict?["translations"]);
 		XCTAssertNotNil(dict?["translations"].array);
 		XCTAssertNotNil(dict?["translations"].array?.count)
-		XCTAssertGreaterThan(dict!["translations"].array!.count, 0)
+		if let count = dict?["translations"].array?.count {
+			XCTAssertGreaterThan(count, 0)
+		}
 		XCTAssertNotNil(dict?["translations"][0].dictionary)
 		XCTAssertNotNil(dict?["translations"][0]["translation_id"].int)
 		XCTAssertNotNil(dict?["translations"][0]["translation"].string)
