@@ -760,7 +760,7 @@ class ZeeguuAPITests: XCTestCase {
 		self.testLock.wait()
 	}
 	
-	func testGetInterestingDucthFeeds() {
+	func testGetInterestingDutchFeeds() {
 		print("Test getting interesting dutch feeds:")
 		ZeeguuAPI.sharedAPI().getInterestingFeeds("nl") { (feeds) in
 			XCTAssertNotNil(feeds)
