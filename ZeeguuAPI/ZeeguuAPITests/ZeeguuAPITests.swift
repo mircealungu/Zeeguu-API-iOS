@@ -750,6 +750,26 @@ class ZeeguuAPITests: XCTestCase {
 		self.testLock.wait()
 	}
 	
+	func testGetInterestingGermanFeeds() {
+		print("Test getting interesting german feeds:")
+		ZeeguuAPI.sharedAPI().getInterestingFeeds("de") { (feeds) in
+			XCTAssertNotNil(feeds)
+			print("feeds: ", feeds)
+			self.testLock.signal()
+		}
+		self.testLock.wait()
+	}
+	
+	func testGetInterestingDucthFeeds() {
+		print("Test getting interesting dutch feeds:")
+		ZeeguuAPI.sharedAPI().getInterestingFeeds("nl") { (feeds) in
+			XCTAssertNotNil(feeds)
+			print("feeds: ", feeds)
+			self.testLock.signal()
+		}
+		self.testLock.wait()
+	}
+	
 	func DISABLED_testExample() {
 		// This is an example of a functional test case.
 		// Use XCTAssert and related functions to verify your tests produce the correct results.
