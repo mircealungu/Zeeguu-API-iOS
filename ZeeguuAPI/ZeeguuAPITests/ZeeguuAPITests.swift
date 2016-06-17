@@ -770,6 +770,26 @@ class ZeeguuAPITests: XCTestCase {
 		self.testLock.wait()
 	}
 	
+	func testUploadUserActivityDataWithoutExtraData() {
+		print("Test uploading user activity data without extra data:")
+		ZeeguuAPI.sharedAPI().uploadUserActivityData("testingEndpointWithoutExtraData", value: "1", extraData: nil) { (success) in
+			XCTAssertTrue(success)
+			print("success: ", success)
+			self.testLock.signal()
+		}
+		self.testLock.wait()
+	}
+	
+	func testUploadUserActivityDataWithExtraData() {
+		print("Test uploading user activity data with extra data:")
+		ZeeguuAPI.sharedAPI().uploadUserActivityData("testingEndpointWithExtraData", value: "1", extraData: ["some": "extra", "data": "that", "is": "sent", "to": "the", "server": "..."]) { (success) in
+			XCTAssertTrue(success)
+			print("success: ", success)
+			self.testLock.signal()
+		}
+		self.testLock.wait()
+	}
+	
 	func DISABLED_testExample() {
 		// This is an example of a functional test case.
 		// Use XCTAssert and related functions to verify your tests produce the correct results.
