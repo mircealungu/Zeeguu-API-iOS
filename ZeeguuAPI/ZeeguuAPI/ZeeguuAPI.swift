@@ -498,7 +498,7 @@ public class ZeeguuAPI {
 	/// - parameter url: The url of the article in which the word was translated.
 	/// - parameter language: The language of the article in which the word was translated. If `language` is nil, the learned language of the user is used.
 	/// - parameter completion: A block that will receive a dictionary containing the translation of `word`.
-	public func translateWord(word: String, title: String, context: String, url: String, language: String?, completion: (translation: JSON?) -> Void) {
+	public func translateWord(word: String, title: String, context: String, url: String, language: String? = nil, completion: (translation: JSON?) -> Void) {
 		if (!self.checkIfLoggedIn()) {
 			return completion(translation: nil)
 		}
@@ -530,7 +530,7 @@ public class ZeeguuAPI {
 	/// - parameter url: The url of the article in which the word was translated.
 	/// - parameter language: The language of the article in which the word was translated. If `language` is nil, the learned language of the user is used.
 	/// - parameter completion: A block that will receive a dictionary containing the translation of `word`.
-	public func getTranslationsForWord(word: String, context: String, url: String, language: String?, completion: (translation: JSON?) -> Void) {
+	public func getTranslationsForWord(word: String, context: String, url: String, language: String? = nil, completion: (translation: JSON?) -> Void) {
 		if (!self.checkIfLoggedIn()) {
 			return completion(translation: nil)
 		}
