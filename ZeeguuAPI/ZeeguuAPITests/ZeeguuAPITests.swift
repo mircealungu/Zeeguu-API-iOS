@@ -730,6 +730,56 @@ class ZeeguuAPITests: XCTestCase {
 		self.testLock.wait()
 	}
 	
+//	func testStartFollowingDutchFeeds1() {
+//		print("Test start following dutch feeds:")
+//		ZeeguuAPI.sharedAPI().startFollowingFeeds(["http://www.telegraaf.nl/rss/"]) { (success) -> Void in
+//			XCTAssertTrue(success)
+//			print("success: ", success)
+//			self.testLock.signal()
+//		}
+//		self.testLock.wait()
+//	}
+//	
+//	func testStartFollowingDutchFeeds2() {
+//		print("Test start following dutch feeds:")
+//		ZeeguuAPI.sharedAPI().startFollowingFeeds(["http://www.volkskrant.nl/nieuws/rss.xml"]) { (success) -> Void in
+//			XCTAssertTrue(success)
+//			print("success: ", success)
+//			self.testLock.signal()
+//		}
+//		self.testLock.wait()
+//	}
+//	
+//	func testStartFollowingDutchFeeds3() {
+//		print("Test start following dutch feeds:")
+//		ZeeguuAPI.sharedAPI().startFollowingFeeds(["http://www.nrc.nl/rss/"]) { (success) -> Void in
+//			XCTAssertTrue(success)
+//			print("success: ", success)
+//			self.testLock.signal()
+//		}
+//		self.testLock.wait()
+//	}
+//	
+//	func testStartFollowingDutchFeeds4() {
+//		print("Test start following dutch feeds:")
+//		ZeeguuAPI.sharedAPI().startFollowingFeeds(["http://feeds.nos.nl/nosjournaal"]) { (success) -> Void in
+//			XCTAssertTrue(success)
+//			print("success: ", success)
+//			self.testLock.signal()
+//		}
+//		self.testLock.wait()
+//	}
+//	
+//	func testStartFollowingDutchFeeds5() {
+//		print("Test start following dutch feeds:")
+//		ZeeguuAPI.sharedAPI().startFollowingFeeds(["http://www.nu.nl/rss"]) { (success) -> Void in
+//			XCTAssertTrue(success)
+//			print("success: ", success)
+//			self.testLock.signal()
+//		}
+//		self.testLock.wait()
+//	}
+	
 	func DISABLED_testStopFollowingFeed() {
 		print("Test stop following feeds:")
 		ZeeguuAPI.sharedAPI().stopFollowingFeed("1") { (success) -> Void in
