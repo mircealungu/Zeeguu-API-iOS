@@ -93,7 +93,7 @@ public class Article: CustomStringConvertible, Equatable, ZGSerialization {
 		if articles.count == 0 {
 			return completion(success: false) // No articles to get content for
 		}
-		let urls = articles.map({ $0.url })
+		let urls = articles.flatMap({ $0.isContentLoaded && (!withDifficulty || $0.isDifficultyLoaded) ? nil : $0.url })
 		
 		let langCode: String? = withDifficulty ? articles[0].feed.language : nil
 		ZeeguuAPI.sharedAPI().getContentFromURLs(urls, langCode: langCode, maxTimeout: urls.count * 10) { (contents) in
