@@ -21,6 +21,7 @@
 		94DD1EC21C09FA0F005271E6 /* ZeeguuAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94DD1EC11C09FA0F005271E6 /* ZeeguuAPITests.swift */; };
 		94DD1ECD1C09FA47005271E6 /* ZeeguuAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94DD1ECC1C09FA47005271E6 /* ZeeguuAPI.swift */; };
 		94DD1ED71C0A0E76005271E6 /* ZeeguuAPIDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94DD1ED61C0A0E76005271E6 /* ZeeguuAPIDefaults.swift */; };
+		94EAE5BB1D1AA16E0095C476 /* ZGSerialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94EAE5BA1D1AA16E0095C476 /* ZGSerialization.swift */; };
 		9F4117F306DC7978305919E6 /* Pods_ZeeguuAPITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8789F4CD96C09E93CC88C89 /* Pods_ZeeguuAPITests.framework */; };
 		F671CEE5AEFA07E102ED80C2 /* Pods_ZeeguuAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8742F08AEA5281C777F207A2 /* Pods_ZeeguuAPI.framework */; };
 /* End PBXBuildFile section */
@@ -56,6 +57,7 @@
 		94DD1EC31C09FA0F005271E6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		94DD1ECC1C09FA47005271E6 /* ZeeguuAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZeeguuAPI.swift; sourceTree = "<group>"; };
 		94DD1ED61C0A0E76005271E6 /* ZeeguuAPIDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZeeguuAPIDefaults.swift; sourceTree = "<group>"; };
+		94EAE5BA1D1AA16E0095C476 /* ZGSerialization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZGSerialization.swift; sourceTree = "<group>"; };
 		95BBBAC8C29DBA7F74B1A9A9 /* Pods-ZeeguuAPITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZeeguuAPITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ZeeguuAPITests/Pods-ZeeguuAPITests.release.xcconfig"; sourceTree = "<group>"; };
 		B8789F4CD96C09E93CC88C89 /* Pods_ZeeguuAPITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ZeeguuAPITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F050BF58D621CEB53B5AB4AC /* Pods-ZeeguuAPI.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZeeguuAPI.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZeeguuAPI/Pods-ZeeguuAPI.debug.xcconfig"; sourceTree = "<group>"; };
@@ -129,6 +131,7 @@
 				949B6C391C4CDF5300CF9BB0 /* Bookmark.swift */,
 				949B6C3F1C4CE31200CF9BB0 /* Feed.swift */,
 				9415E5181CCF5B230091954A /* ArticleDifficulty.swift */,
+				94EAE5BA1D1AA16E0095C476 /* ZGSerialization.swift */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -384,6 +387,7 @@
 				94DD1ED71C0A0E76005271E6 /* ZeeguuAPIDefaults.swift in Sources */,
 				949B6C3E1C4CDF6900CF9BB0 /* Article.swift in Sources */,
 				949B6C3A1C4CDF5300CF9BB0 /* Bookmark.swift in Sources */,
+				94EAE5BB1D1AA16E0095C476 /* ZGSerialization.swift in Sources */,
 				949B6C401C4CE31200CF9BB0 /* Feed.swift in Sources */,
 				94DD1ECD1C09FA47005271E6 /* ZeeguuAPI.swift in Sources */,
 			);

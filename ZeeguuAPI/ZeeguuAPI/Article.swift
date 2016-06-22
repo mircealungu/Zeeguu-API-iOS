@@ -36,7 +36,7 @@ public func ==(lhs: Article, rhs: Article) -> Bool {
 }
 
 /// The `Article` class represents an article. It holds the source (`feed`), `title`, `url`, `date`, `summary` and more about the article.
-public class Article: CustomStringConvertible, Equatable {
+public class Article: CustomStringConvertible, Equatable, ZGSerialization {
 	
 	// MARK: Properties -
 	
@@ -126,7 +126,52 @@ public class Article: CustomStringConvertible, Equatable {
 		self.summary = summary
 	}
 	
+	/**
+	Construct a new `Article` object from the data in the dictionary.
+	
+	- parameter dictionary: The dictionary that contains the data from which to construct an `Article` object.
+	*/
+	@objc public required init?(dictionary dict: [String: AnyObject]) {
+		guard let feed = dict["feed"] as? Feed,
+			title = dict["title"] as? String,
+			url = dict["url"] as? String,
+			date = dict["date"] as? String,
+			summary = dict["summary"] as? String else {
+				return nil
+		}
+		self.feed = feed
+		self.title = title
+		self.url = url
+		self.date = date
+		self.summary = summary
+		self.imageURL = dict["imageURL"] as? String
+		self.image = dict["image"] as? UIImage
+		self.contents = dict["contents"] as? String
+		if let difficulty = dict["difficulty"] as? String {
+			self.difficulty = ArticleDifficulty(rawValue: difficulty)
+		}
+	}
+	
 	// MARK: Methods -
+	
+	/**
+	The dictionary representation of this `Article` object.
+	
+	- returns: A dictionary that contains all data of this `Article` object.
+	*/
+	@objc public func dictionaryRepresentation() -> [String: AnyObject] {
+		var dict = [String: AnyObject]()
+		dict["feed"] = self.feed
+		dict["title"] = self.title
+		dict["url"] = self.url
+		dict["date"] = self.date
+		dict["summary"] = self.summary
+		dict["imageURL"] = self.imageURL
+		dict["image"] = self.image
+		dict["contents"] = self.contents
+		dict["difficulty"] = self.difficulty?.rawValue
+		return dict
+	}
 	
 	/**
 	Get the contents of this article. This method will make sure that the contents are cached within this `Article` object, so calling this method again will not retrieve the contents again, but will return the cached version instead.

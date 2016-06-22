@@ -800,6 +800,32 @@ class ZeeguuAPITests: XCTestCase {
 		self.testLock.wait()
 	}
 	
+	func testGetFeedItemsAndEncoding() {
+		print("Test getting and encoding feed items:")
+		ZeeguuAPI.sharedAPI().getFeedItemsForFeed(Feed(id: "8", title: "Spiegel", url: "http://www.spiegel.de/schlagzeilen/index.rss", description: "Spiegel beschrijving", language: "de", imageURL: "niets")) { (articles) -> Void in
+			XCTAssertNotNil(articles)
+			print("articles: ", articles)
+			
+			if let art = articles {
+				print("Encoding articles...")
+				let data = ZGSerialize.encodeArray(art)
+				print("Encoded articles...")
+				print("data: \(data)")
+				print("Decoding articles...")
+				let arts = ZGSerialize.decodeArray(data) as? [Article]
+				print("Decoded articles...")
+				print("arts: \(arts)")
+				XCTAssertNotNil(arts)
+				if let arts = arts {
+					XCTAssertEqual(arts, art)
+				}
+			}
+			
+			self.testLock.signal()
+		}
+		self.testLock.wait()
+	}
+	
 	func testGetInterestingGermanFeeds() {
 		print("Test getting interesting german feeds:")
 		ZeeguuAPI.sharedAPI().getInterestingFeeds("de") { (feeds) in
