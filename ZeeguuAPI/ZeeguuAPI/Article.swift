@@ -90,10 +90,10 @@ public class Article: CustomStringConvertible, Equatable, ZGSerialization {
 	/// - parameter withDifficulty: Whether to calculate difficulty for the retrieved contents. Setting this to `true` will send the language code of the first article's feed as the language of all contents.
 	/// - parameter completion: A block that will indicate success. If `success` is `true`, all `Article` objects have been given their contents. Otherwise nothing has happened to the `Article` objects. If `articles` is empty, `success` is `false`.
 	public static func getContentsForArticles(articles: [Article], withDifficulty: Bool = false, completion: (success: Bool) -> Void) {
-		if articles.count == 0 {
+		let urls = articles.flatMap({ $0.isContentLoaded && (!withDifficulty || $0.isDifficultyLoaded) ? nil : $0.url })
+		if urls.count == 0 {
 			return completion(success: false) // No articles to get content for
 		}
-		let urls = articles.map({ $0.url })
 		
 		let langCode: String? = withDifficulty ? articles[0].feed.language : nil
 		ZeeguuAPI.sharedAPI().getContentFromURLs(urls, langCode: langCode, maxTimeout: urls.count * 10) { (contents) in
