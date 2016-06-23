@@ -38,7 +38,10 @@ extension ZeeguuAPI {
 	static let sessionIDKey: String = "ZeeguuSessionID"
 	
 	private func getSession() -> NSURLSession {
-		return NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration(), delegate: nil, delegateQueue: NSOperationQueue.mainQueue())
+		if runCompletionOnMainThread {
+			return NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration(), delegate: nil, delegateQueue: NSOperationQueue.mainQueue())
+		}
+		return NSURLSession.sharedSession()
 	}
 	
 	func requestWithEndPoint(endPoint: ZeeguuAPIEndpoint, pathComponents: Array<String>? = nil, method: HTTPMethod, parameters: Dictionary<String, String>? = nil, jsonBody: JSON? = nil) -> NSURLRequest {
