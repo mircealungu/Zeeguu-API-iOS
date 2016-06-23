@@ -37,11 +37,13 @@ class ZeeguuAPITests: XCTestCase {
 		super.setUp()
 		// Put setup code here. This method is called before the invocation of each test method in the class.
 		ZeeguuAPI.sharedAPI().enableDebugOutput = true
+		ZeeguuAPI.sharedAPI().runCompletionOnMainThread = false
 		testLock.lock()
 	}
 	
 	override func tearDown() {
 		testLock.unlock()
+		ZeeguuAPI.sharedAPI().runCompletionOnMainThread = true
 		ZeeguuAPI.sharedAPI().enableDebugOutput = false
 		// Put teardown code here. This method is called after the invocation of each test method in the class.
 		super.tearDown()
