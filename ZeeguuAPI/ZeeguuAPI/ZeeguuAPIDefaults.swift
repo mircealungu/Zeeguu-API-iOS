@@ -37,6 +37,10 @@ extension ZeeguuAPI {
 	static let apiHost: String = "https://zeeguu.unibe.ch"
 	static let sessionIDKey: String = "ZeeguuSessionID"
 	
+	private func getSession() -> NSURLSession {
+		return NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration(), delegate: nil, delegateQueue: NSOperationQueue.mainQueue())
+	}
+	
 	func requestWithEndPoint(endPoint: ZeeguuAPIEndpoint, pathComponents: Array<String>? = nil, method: HTTPMethod, parameters: Dictionary<String, String>? = nil, jsonBody: JSON? = nil) -> NSURLRequest {
 		var path: NSString = NSString(string: ZeeguuAPI.apiHost).stringByAppendingPathComponent(endPoint.rawValue)
 		
@@ -112,7 +116,7 @@ extension ZeeguuAPI {
 	}
 	
 	func sendAsynchronousRequest(request: NSURLRequest, completion: (response: String?, error: NSError?) -> Void) {
-		let session = NSURLSession.sharedSession()
+		let session = getSession()
 		
 		if self.enableDebugOutput {
 			print("Sending request for url \"\(request.URL)\": \(request)\n\n");
@@ -178,7 +182,7 @@ extension ZeeguuAPI {
 	}
 	
 	func sendAsynchronousRequestWithDataResponse(request: NSURLRequest, completion: (data: NSData?, error: NSError?) -> Void) {
-		let session = NSURLSession.sharedSession()
+		let session = getSession()
 		
 		if self.enableDebugOutput {
 			print("Sending request for url \"\(request.URL)\": \(request)\n\n");
