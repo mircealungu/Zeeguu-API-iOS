@@ -76,12 +76,12 @@ public class ZeeguuAPI {
 	
 	// MARK: URLs
  
-	public static func getLoginWithSessionURL() -> String {
-		return ZeeguuAPI.sharedAPI().urlWithEndPoint(.LoginWithSession)
+	public static func getLoginWithSessionRequest() -> NSURLRequest {
+		return ZeeguuAPI.sharedAPI().requestWithEndPoint(.LoginWithSession, method: .POST, parameters: ["session_id": String(ZeeguuAPI.sharedAPI().currentSessionID)])
 	}
  
-	public static func getMobileExercisesURL() -> String {
-		return ZeeguuAPI.sharedAPI().urlWithEndPoint(.MRecognize)
+	public static func getMobileExercisesRequest() -> NSURLRequest {
+		return ZeeguuAPI.sharedAPI().requestWithEndPoint(.MRecognize, method: .GET)
 	}
 	
 	// MARK: User operations

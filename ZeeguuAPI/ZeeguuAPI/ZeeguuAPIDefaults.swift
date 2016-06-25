@@ -44,36 +44,6 @@ extension ZeeguuAPI {
 		return NSURLSession.sharedSession()
 	}
 	
-	func urlWithEndPoint(endPoint: ZeeguuAPIEndpoint, pathComponents: Array<String>? = nil, parameters: Dictionary<String, String>? = nil) -> String {
-		var path: NSString = NSString(string: ZeeguuAPI.apiHost).stringByAppendingPathComponent(endPoint.rawValue)
-		
-		// Add pathcomponent to the host if there are any (for example, adding <email> to host/add_user: host/add_user/<email>)
-		if let pathComponents = pathComponents {
-			for pathComponent in pathComponents {
-				path = path.stringByAppendingPathComponent(pathComponent.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLPathAllowedCharacterSet())!);
-			}
-		}
-		
-		// Append session id to url if we have one
-		var delimiter = "?"
-		if self.isLoggedIn {
-			path = path.stringByAppendingString("?session=" + String(self.currentSessionID))
-			delimiter = "&"
-		}
-		
-		// Convert the parameters (if any) to a string of the form "key1=value1&key2=value2"
-		var params = ""
-		if let parameters = parameters {
-			params = self.httpQueryStringForDictionary(parameters)
-		}
-		
-		// Add parameters to url if method is GET or jsonBody is not nil
-		if params.characters.count > 0 {
-			path = path.stringByAppendingString(delimiter + params)
-		}
-		return path as String
-	}
-	
 	func requestWithEndPoint(endPoint: ZeeguuAPIEndpoint, pathComponents: Array<String>? = nil, method: HTTPMethod, parameters: Dictionary<String, String>? = nil, jsonBody: JSON? = nil) -> NSURLRequest {
 		var path: NSString = NSString(string: ZeeguuAPI.apiHost).stringByAppendingPathComponent(endPoint.rawValue)
 		
