@@ -76,10 +76,22 @@ public class ZeeguuAPI {
 	
 	// MARK: URLs
  
+	/// Creates an `NSURLRequest` which can be fed to a web view. This request verifies the session id (stored internally in the ZeeguuAPI shared object) and makes sure that a request to a restricted area of the Zeeguu platform does not require login anymore.
+	///
+	/// Use this if you want to display a web page of the Zeeguu platform that requires login.
+	///
+	/// **Warning**: This request contains POST parameters. The newer `WKWebView` class ignores these. To use this request with `WKWebView`, extract all the necessary data from the request object and use JavaScript injection (to, for example, create an HTML `form` and submit it) to make the request. Otherwise, use `UIWebView`.
+	///
+	/// - returns: An `NSURLRequest` that can be fed to a webview to execute the request as desired.
 	public static func getLoginWithSessionRequest() -> NSURLRequest {
 		return ZeeguuAPI.sharedAPI().requestWithEndPoint(.LoginWithSession, method: .POST, parameters: ["session_id": String(ZeeguuAPI.sharedAPI().currentSessionID)])
 	}
  
+	/// Creates an `NSURLRequest` which can be fed to a web view. This request opens the exercises page, which does not show the top bar of the Zeeguu platform and is suitable for "blending in" into an app.
+	///
+	/// Use this if you want to integrate Zeeguu exercises into your app.
+	///
+	/// - returns: An `NSURLRequest` that can be fed to a webview to execute the request as desired.
 	public static func getMobileExercisesRequest() -> NSURLRequest {
 		return ZeeguuAPI.sharedAPI().requestWithEndPoint(.MRecognize, method: .GET)
 	}
