@@ -49,12 +49,12 @@ This protocol dictates some methods for easy converting between object and dicti
 }
 
 /**
-This class offers some convenience methods for easy converting between arrays of `ZGSerialization` objects and dictionary representations.
+This class offers some convenience methods for easy converting between arrays of `ZGSerializable` objects and dictionary representations.
 */
 public class ZGSerialize {
 	
 	/**
-	The array of dictionary representations of an array with objects conforming to `ZGSerialization`.
+	The array of dictionary representations of an array with objects conforming to `ZGSerializable`.
 	
 	- parameter array: The array of objects to encode.
 	- returns: An array of dictionaries that represent the objects in `array`.
@@ -68,7 +68,7 @@ public class ZGSerialize {
 	}
 	
 	/**
-	The array of objects given by the array ofdictionary representations.
+	The array of objects given by the array of dictionary representations.
 	
 	- parameter array: The array of dictionaries to decode.
 	- returns: An array of objects that were constructed from the dictionaries with the given type `T`.
@@ -86,10 +86,10 @@ public class ZGSerialize {
 	}
 	
 	/**
-	The array of dictionary representations of an array with objects conforming to `ZGSerialization`.
+	The dictionary representation of an object conforming to `ZGSerializable`.
 	
-	- parameter array: The array of objects to encode.
-	- returns: An array of dictionaries that represent the objects in `array`.
+	- parameter object: The object to encode.
+	- returns: A dictionary that represents `object`.
 	*/
 	public static func encodeObject(object: ZGSerializable) -> [String: AnyObject] {
 		var dict = object.dictionaryRepresentation()
@@ -106,10 +106,10 @@ public class ZGSerialize {
 	}
 	
 	/**
-	The array of objects given by the array ofdictionary representations.
+	The object given by the dictionary representation.
 	
-	- parameter array: The array of dictionaries to decode.
-	- returns: An array of objects that were constructed from the dictionaries with the given type `T`.
+	- parameter dict: The dictionary to decode.
+	- returns: An object that was constructed from the dictionary.
 	*/
 	public static func decodeObject(dict: [String: AnyObject]) -> ZGSerializable? {
 		var dict = dict
